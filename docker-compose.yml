@@ -108,11 +108,14 @@ services:
       QDRANT_PORT: 6333
 
       # Cloud LLM (OpenAI/Anthropic/DeepSeek)
+      ENABLE_LLM: ${ENABLE_LLM:-true}
+      LLM_PROVIDER: ${LLM_PROVIDER:-anthropic}
+      LLM_MODEL: ${LLM_MODEL:-claude-3-5-sonnet-20241022}
       OPENAI_API_KEY: ${OPENAI_API_KEY:-}
       ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
       DEEPSEEK_API_KEY: ${DEEPSEEK_API_KEY:-}
-      LLM_PROVIDER: ${LLM_PROVIDER:-openai}
-      LLM_MODEL: ${LLM_MODEL:-gpt-3.5-turbo}
+      GROQ_API_KEY: ${GROQ_API_KEY:-}
+      GOOGLE_GENERATIVE_AI_API_KEY: ${GOOGLE_GENERATIVE_AI_API_KEY:-}
 
       # Security
       API_SECRET_KEY: ${API_SECRET_KEY:-change-me-in-production}

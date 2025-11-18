@@ -69,7 +69,10 @@
       "Bash(rm:*)",
       "Bash(mkdir:*)",
       "Bash(mv:*)",
-      "Bash(tree:*)"
+      "Bash(tree:*)",
+      "Bash(docker:*)",
+      "Bash(timeout 30 docker logs ragdz-backend --tail 50 --follow)",
+      "Bash(timeout 30 docker logs ragdz-backend --tail 30 --follow)"
     ],
     "deny": [],
     "ask": []
