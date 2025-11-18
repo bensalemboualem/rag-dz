@@ -150,7 +150,7 @@ services:
       - "8180:8180"
     volumes:
       - ./backend/rag-compat:/app  # Temporarily enabled for development
-      - ./orchestration/bmad:/bmad  # BMAD method for orchestration
+      - ./bmad:/bmad  # BMAD method for orchestration
       - backend_cache:/root/.cache
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8180/health"]
