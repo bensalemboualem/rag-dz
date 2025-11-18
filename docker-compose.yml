@@ -9,8 +9,8 @@ services:
       POSTGRES_DB: ${POSTGRES_DB:-archon}
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./sql/init.sql:/docker-entrypoint-initdb.d/01-init.sql
-      - ./sql/pgvector_migration.sql:/docker-entrypoint-initdb.d/02-pgvector.sql
+      - ./infrastructure/sql/init.sql:/docker-entrypoint-initdb.d/01-init.sql
+      - ./infrastructure/sql/pgvector_migration.sql:/docker-entrypoint-initdb.d/02-pgvector.sql
     ports:
       - "5432:5432"
     healthcheck:
@@ -85,7 +85,7 @@ services:
   # Backend API
   backend:
     build:
-      context: ./rag-compat
+      context: ./backend/rag-compat
       dockerfile: Dockerfile
     container_name: ragdz-backend
     depends_on:
@@ -149,8 +149,8 @@ services:
     ports:
       - "8180:8180"
     volumes:
-      - ./rag-compat:/app  # Temporarily enabled for development
-      - ./bmad:/bmad  # BMAD method for orchestration
+      - ./backend/rag-compat:/app  # Temporarily enabled for development
+      - ./orchestration/bmad:/bmad  # BMAD method for orchestration
       - backend_cache:/root/.cache
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8180/health"]
@@ -165,7 +165,7 @@ services:
   # Frontend UI (Archon Original)
   frontend:
     build:
-      context: ./Archon/archon-ui-main
+      context: ./frontend/archon-ui
       dockerfile: Dockerfile
       args:
         VITE_API_URL: ${VITE_API_URL:-http://localhost:8180}
@@ -185,7 +185,7 @@ services:
   # RAG-UI Simple (React 19 Interface)
   rag-ui:
     build:
-      context: ./rag-ui
+      context: ./frontend/rag-ui
       dockerfile: Dockerfile
       args:
         VITE_API_URL: ${VITE_API_URL:-http://localhost:8180}
@@ -204,7 +204,7 @@ services:
   # Bolt.diy (AI Code Editor)
   bolt-diy:
     build:
-      context: ./bolt-diy
+      context: ./frontend/bolt-diy
       dockerfile: Dockerfile
     container_name: ragdz-bolt-diy
     depends_on:
@@ -226,8 +226,8 @@ services:
     image: prom/prometheus:latest
     container_name: ragdz-prometheus
     volumes:
-      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
-      - ./monitoring/alerts.yml:/etc/prometheus/alerts.yml
+      - ./infrastructure/monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./infrastructure/monitoring/alerts.yml:/etc/prometheus/alerts.yml
       - prometheus_data:/prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
@@ -254,8 +254,8 @@ services:
       GF_SERVER_ROOT_URL: http://localhost:3001
       GF_INSTALL_PLUGINS: redis-datasource
     volumes:
-      - ./monitoring/grafana/dashboards:/etc/grafana/provisioning/dashboards
-      - ./monitoring/grafana/datasources:/etc/grafana/provisioning/datasources
+      - ./infrastructure/monitoring/grafana/dashboards:/etc/grafana/provisioning/dashboards
+      - ./infrastructure/monitoring/grafana/datasources:/etc/grafana/provisioning/datasources
       - grafana_data:/var/lib/grafana
     ports:
       - "3001:3000"
