@@ -1,0 +1,24 @@
+# rag-compat/requirements.txt
+fastapi==0.111.0
+uvicorn[standard]==0.30.0
+pydantic==2.7.3
+python-multipart==0.0.9
+redis==5.0.7
+rq==1.16.2
+psycopg[binary]==3.2.1
+prometheus_client==0.20.0
+qdrant-client==1.11.1
+meilisearch==0.30.0
+sentence-transformers==2.7.0
+transformers==4.44.2
+torch==2.3.1
+librosa==0.10.1
+soundfile==0.12.1
+python-dateutil==2.9.0
+
+# Document processing
+PyPDF2==3.0.1
+python-docx==1.1.0
+
+# Async support
+aiofiles==23.2.1
