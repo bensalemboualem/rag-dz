@@ -1,0 +1,182 @@
+═══════════════════════════════════════════════════════════════
+  IAFactory RAG-DZ - Déploiement Automatique sur Hetzner
+  Domaine: www.iafactoryalgeria.com
+═══════════════════════════════════════════════════════════════
+
+📦 FICHIERS CRÉÉS POUR LE DÉPLOIEMENT AUTOMATIQUE
+══════════════════════════════════════════════════
+
+1. SCRIPTS DE DÉPLOIEMENT
+   ├── deploy-hetzner.sh              [13 KB] ⭐ Script principal
+   ├── scripts/setup-server.sh        [ 7 KB] Configuration Ubuntu
+   ├── scripts/configure-nginx.sh     [12 KB] Nginx + SSL
+   └── scripts/monitoring.sh          [19 KB] Monitoring + Backup
+
+2. CONFIGURATION
+   ├── .env.prod.example              [ 5 KB] Variables d'environnement
+   └── docker-compose.prod.yml        [existant] Docker Compose production
+
+3. DOCUMENTATION
+   ├── README_DEPLOIEMENT.md          [ 6 KB] ⭐ Guide de démarrage rapide
+   ├── DEPLOIEMENT_AUTOMATIQUE.md     [17 KB] Guide complet pas à pas
+   └── DEPLOIEMENT_HETZNER.md         [existant] Déploiement manuel
+
+═══════════════════════════════════════════════════════════════
+  🚀 DÉPLOYER EN 3 COMMANDES
+═══════════════════════════════════════════════════════════════
+
+# 1. Configurer les credentials
+export HETZNER_API_TOKEN="votre_token_hetzner"
+export DOMAIN="www.iafactoryalgeria.com"
+export EMAIL="admin@iafactoryalgeria.com"
+
+# 2. Rendre exécutable
+chmod +x deploy-hetzner.sh
+
+# 3. LANCER LE DÉPLOIEMENT
+./deploy-hetzner.sh
+
+═══════════════════════════════════════════════════════════════
+  📋 CE QUE FAIT LE SCRIPT AUTOMATIQUEMENT
+═══════════════════════════════════════════════════════════════
+
+✅ Crée un serveur CX41 sur Hetzner (4 vCPU, 16GB RAM)
+✅ Configure Ubuntu 22.04 avec Docker, Nginx, Fail2Ban
+✅ Copie tous les fichiers du projet
+✅ Déploie les 8 services Docker (Backend, Hub, Docs, etc.)
+✅ Configure Nginx comme reverse proxy
+✅ Obtient un certificat SSL Let's Encrypt gratuit
+✅ Configure les backups automatiques quotidiens
+✅ Installe les scripts de monitoring et alertes
+✅ Configure le firewall UFW
+✅ Crée des tâches cron pour maintenance
+
+Durée estimée: 10-15 minutes
+
+═══════════════════════════════════════════════════════════════
+  🌐 URLS APRÈS DÉPLOIEMENT
+═══════════════════════════════════════════════════════════════
+
+Hub (Dashboard):     https://www.iafactoryalgeria.com
+Backend API:         https://www.iafactoryalgeria.com/api
+RAG Docs:            https://www.iafactoryalgeria.com/docs
+Bolt Studio:         https://www.iafactoryalgeria.com/studio
+n8n Automation:      https://www.iafactoryalgeria.com/automation
+
+═══════════════════════════════════════════════════════════════
+  🔑 CONFIGURATION POST-DÉPLOIEMENT
+═══════════════════════════════════════════════════════════════
+
+1. Se connecter au serveur:
+   ssh -i ~/.ssh/iafactory_deploy root@[IP_DU_SERVEUR]
+
+2. Configurer les API Keys:
+   cd /opt/iafactory
+   nano .env
+   
+   # Minimum (gratuit):
+   GROQ_API_KEY=gsk_...    # https://console.groq.com
+
+3. Redémarrer:
+   iafactory restart
+
+4. Vérifier:
+   iafactory status
+
+═══════════════════════════════════════════════════════════════
+  🛠️ COMMANDES UTILES
+═══════════════════════════════════════════════════════════════
+
+iafactory start          # Démarrer les services
+iafactory stop           # Arrêter les services
+iafactory restart        # Redémarrer les services
+iafactory status         # État des services
+iafactory logs           # Logs en temps réel
+iafactory backup         # Créer un backup
+iafactory restore        # Restaurer un backup
+iafactory maintenance    # Maintenance système
+iafactory update         # Mettre à jour l'app
+iafactory help           # Aide complète
+
+═══════════════════════════════════════════════════════════════
+  💰 COÛTS
+═══════════════════════════════════════════════════════════════
+
+Serveur Hetzner CX41:    €14.99/mois
+Groq API (gratuit):      €0
+───────────────────────────────────
+TOTAL:                   €14.99/mois
+
+═══════════════════════════════════════════════════════════════
+  🔒 SÉCURITÉ INCLUSE
+═══════════════════════════════════════════════════════════════
+
+✅ SSL/TLS Let's Encrypt automatique
+✅ Firewall UFW configuré
+✅ Fail2Ban contre brute force
+✅ Headers de sécurité HSTS, CSP, etc.
+✅ Backups quotidiens (rétention 7 jours)
+✅ Monitoring et alertes automatiques
+
+═══════════════════════════════════════════════════════════════
+  📊 SERVICES DÉPLOYÉS
+═══════════════════════════════════════════════════════════════
+
+Backend API:       FastAPI + Python (Port 8180)
+Archon Hub:        React + Vite (Port 8182)
+RAG Docs UI:       React + Vite (Port 8183)
+Bolt Studio:       React + Vite (Port 8184)
+n8n Automation:    Workflow Engine (Port 8185)
+PostgreSQL:        Database + pgvector (Port 6330)
+Redis:             Cache (Port 6331)
+Qdrant:            Vector Database (Port 6332)
+
+═══════════════════════════════════════════════════════════════
+  📚 DOCUMENTATION
+═══════════════════════════════════════════════════════════════
+
+Pour commencer:
+   README_DEPLOIEMENT.md
+
+Guide complet:
+   DEPLOIEMENT_AUTOMATIQUE.md
+
+Déploiement manuel:
+   DEPLOIEMENT_HETZNER.md
+
+═══════════════════════════════════════════════════════════════
+  ✅ CHECKLIST
+═══════════════════════════════════════════════════════════════
+
+Avant déploiement:
+□ Token Hetzner obtenu
+□ CLI hcloud installé
+□ DNS configuré (A record vers Hetzner)
+□ Variables d'environnement exportées
+
+Après déploiement:
+□ Tous les services UP (iafactory status)
+□ HTTPS fonctionnel
+□ API Keys configurées (minimum Groq)
+□ Backup testé (iafactory backup)
+□ Monitoring actif
+
+═══════════════════════════════════════════════════════════════
+  🎉 PRÊT À DÉPLOYER!
+═══════════════════════════════════════════════════════════════
+
+Commande tout-en-un:
+
+export HETZNER_API_TOKEN="votre_token" && \
+export DOMAIN="www.iafactoryalgeria.com" && \
+export EMAIL="admin@iafactoryalgeria.com" && \
+chmod +x deploy-hetzner.sh && \
+./deploy-hetzner.sh
+
+═══════════════════════════════════════════════════════════════
+
+Bon déploiement! 🚀
+
+Pour toute question, consultez DEPLOIEMENT_AUTOMATIQUE.md
+
+═══════════════════════════════════════════════════════════════

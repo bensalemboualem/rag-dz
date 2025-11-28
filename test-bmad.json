@@ -1,0 +1,10 @@
+{
+  "agent_id": "bmm-dev",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Bonjour, peux-tu te présenter en une phrase?"
+    }
+  ],
+  "temperature": 0.7
+}

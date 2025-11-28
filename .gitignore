@@ -70,3 +70,7 @@ docker-compose.override.yml
 *.crt
 credentials.json
 secrets.yaml
+*.tar.gz
+bolt-complete.tar.gz
+.env.local.bak.*
+.env.*.bak*

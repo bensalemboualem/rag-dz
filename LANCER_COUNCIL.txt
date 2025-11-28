@@ -1,0 +1,56 @@
+═══════════════════════════════════════════════════════════
+   🏛️  LLM COUNCIL - ACCÈS RAPIDE
+═══════════════════════════════════════════════════════════
+
+✅ SERVEUR DÉMARRÉ SUR:
+
+   http://localhost:3000
+
+───────────────────────────────────────────────────────────
+
+📍 OUVREZ VOTRE NAVIGATEUR ET ALLEZ SUR:
+
+   http://localhost:3000
+
+───────────────────────────────────────────────────────────
+
+✨ VOUS VERREZ:
+
+   • Header "LLM Council" avec icône
+   • Status des 3 providers (Claude, Gemini, Ollama)
+   • Formulaire pour poser des questions
+   • Bouton "Consulter le Council"
+
+───────────────────────────────────────────────────────────
+
+🧪 QUESTION TEST:
+
+   "Explique le cloud computing en 2 phrases"
+
+───────────────────────────────────────────────────────────
+
+⏱️  TEMPS D'ATTENTE: 15-30 secondes
+
+───────────────────────────────────────────────────────────
+
+📊 RÉSULTAT:
+
+   ✓ Réponse finale synthétisée
+   ✓ 3 opinions individuelles (onglets)
+   ✓ Métadonnées (temps, experts)
+
+───────────────────────────────────────────────────────────
+
+🔧 SI LE SERVEUR S'ARRÊTE:
+
+   Double-cliquer: START_COUNCIL_SERVER.bat
+
+───────────────────────────────────────────────────────────
+
+📚 DOCUMENTATION COMPLÈTE:
+
+   COUNCIL_ACCES_FINAL.md
+
+═══════════════════════════════════════════════════════════
+               PRÊT POUR LA DÉMO ! 🚀
+═══════════════════════════════════════════════════════════

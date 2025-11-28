@@ -31,8 +31,9 @@ class ServerHealthService {
 
   async checkHealth(): Promise<boolean> {
     try {
-      // Use the proxied /api/health endpoint which works in both dev and Docker
-      const response = await fetch('/api/health', {
+      // Use the public /health endpoint (no API key required)
+      // Note: /api/health requires X-API-Key header, but /health is public
+      const response = await fetch('/health', {
         method: 'GET',
         signal: AbortSignal.timeout(10000) // 10 second timeout (increased for heavy operations)
       });
@@ -149,7 +150,8 @@ class ServerHealthService {
 
   getSettings() {
     return {
-      enabled: this.disconnectScreenEnabled
+      enabled: this.disconnectScreenEnabled,
+      delay: 10000
     };
   }
 

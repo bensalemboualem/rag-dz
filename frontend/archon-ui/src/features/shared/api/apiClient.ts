@@ -61,7 +61,10 @@ export async function callAPIWithETag<T = unknown>(endpoint: string, options: Re
     // Currently assumes headers are passed as plain objects (Record<string, string>)
     // which works for all our current usage. The API doesn't require Accept headers
     // since it always returns JSON, and we only set Content-Type when sending data.
+    // API key from environment variable or default for dev
+    const apiKey = import.meta.env.VITE_API_SECRET_KEY || 'change-me-in-production';
     const headers: Record<string, string> = {
+      'X-API-Key': apiKey,
       ...((options.headers as Record<string, string>) || {}),
     };
 
@@ -132,36 +135,3 @@ export async function callAPIWithETag<T = unknown>(endpoint: string, options: Re
     );
   }
 }
-
-/**
- * API client object with methods for HTTP verbs
- */
-export const apiClient = {
-  async get<T = unknown>(endpoint: string, options?: RequestInit): Promise<{ data: T }> {
-    const data = await callAPIWithETag<T>(endpoint, { ...options, method: "GET" });
-    return { data };
-  },
-
-  async post<T = unknown>(endpoint: string, body?: any, options?: RequestInit): Promise<{ data: T }> {
-    const data = await callAPIWithETag<T>(endpoint, {
-      ...options,
-      method: "POST",
-      body: body ? JSON.stringify(body) : undefined,
-    });
-    return { data };
-  },
-
-  async put<T = unknown>(endpoint: string, body?: any, options?: RequestInit): Promise<{ data: T }> {
-    const data = await callAPIWithETag<T>(endpoint, {
-      ...options,
-      method: "PUT",
-      body: body ? JSON.stringify(body) : undefined,
-    });
-    return { data };
-  },
-
-  async delete<T = unknown>(endpoint: string, options?: RequestInit): Promise<{ data: T }> {
-    const data = await callAPIWithETag<T>(endpoint, { ...options, method: "DELETE" });
-    return { data };
-  },
-};

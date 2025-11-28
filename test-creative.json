@@ -1,0 +1,10 @@
+{
+  "agent_id": "cis-brainstorming-coach",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Aide-moi à trouver des idées innovantes pour une startup dans l'éducation"
+    }
+  ],
+  "temperature": 0.9
+}

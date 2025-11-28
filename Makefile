@@ -52,6 +52,21 @@ start-bolt: ## Démarre uniquement Bolt.diy (port 5174)
 	docker-compose --profile bolt up -d bolt-diy
 	@echo "$(GREEN)✓ Bolt.diy: http://localhost:5174$(NC)"
 
+start-monitoring: ## Démarre Prometheus + Grafana
+	@echo "$(BLUE)Démarrage monitoring...$(NC)"
+	docker-compose --profile monitoring up -d iafactory-prometheus iafactory-grafana
+	@echo "$(GREEN)✓ Prometheus: http://localhost:8187$(NC)"
+	@echo "$(GREEN)✓ Grafana   : http://localhost:8188$(NC)"
+
+stop-monitoring: ## Arrête Prometheus + Grafana
+	@echo "$(YELLOW)Arrêt monitoring...$(NC)"
+	docker-compose --profile monitoring stop iafactory-prometheus iafactory-grafana
+	@echo "$(GREEN)✓ Monitoring arrêté$(NC)"
+
+# ========================================
+# Autres commandes
+# ========================================
+
 stop: ## Arrête tous les services
 	@echo "$(YELLOW)Arrêt des services...$(NC)"
 	docker-compose --profile bolt down
@@ -86,6 +101,9 @@ logs-bolt: ## Logs Bolt.diy
 
 logs-db: ## Logs PostgreSQL
 	docker-compose logs -f postgres
+
+load-test: ## Lance le test de charge k6 (ex: make load-test SCENARIO=orchestrator-smoke)
+	@SCENARIO=$${SCENARIO:-orchestrator-smoke} ./scripts/load-test.sh $$SCENARIO
 
 # ========================================
 # Status et Tests

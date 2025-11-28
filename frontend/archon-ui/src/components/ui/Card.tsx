@@ -68,10 +68,10 @@ export const Card: React.FC<CardProps> = ({
   };
   return <div className={`
         relative p-4 rounded-md backdrop-blur-md
-        bg-gradient-to-b from-white/80 to-white/60 dark:from-white/10 dark:to-black/30
+        bg-gradient-to-b from-white to-gray-50 dark:from-white/10 dark:to-black/30
         ${variantClasses[variant]} ${accentColorMap[accentColor].border}
-        shadow-[0_10px_30px_-15px_rgba(0,0,0,0.1)] dark:shadow-[0_10px_30px_-15px_rgba(0,0,0,0.7)]
-        hover:shadow-[0_15px_40px_-15px_rgba(0,0,0,0.2)] dark:hover:shadow-[0_15px_40px_-15px_rgba(0,0,0,0.9)]
+        shadow-[0_10px_30px_-15px_rgba(0,0,0,0.15)] dark:shadow-[0_10px_30px_-15px_rgba(0,0,0,0.7)]
+        hover:shadow-[0_15px_40px_-15px_rgba(0,0,0,0.25)] dark:hover:shadow-[0_15px_40px_-15px_rgba(0,0,0,0.9)]
         transition-all duration-300
         ${accentColor !== 'none' ? `
           before:content-[""] before:absolute before:top-[0px] before:left-[1px] before:right-[1px] before:h-[2px] 

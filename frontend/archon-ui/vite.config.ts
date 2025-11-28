@@ -17,11 +17,13 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
   // For internal Docker communication, use the service name
   // For external access, use the HOST from environment
   const isDocker = process.env.DOCKER_ENV === 'true' || existsSync('/.dockerenv');
-  const internalHost = 'ragdz-backend';  // RAG.dz backend service name
+  // CRITICAL: Use iafactory-backend (our actual backend service name)
+  const internalHost = 'iafactory-backend';  // Docker service name for IAFactory backend
   const externalHost = process.env.HOST || 'localhost';  // Host for external access
   // CRITICAL: For proxy target, always use internal host in Docker
   const proxyHost = isDocker ? internalHost : externalHost;
   const host = isDocker ? internalHost : externalHost;
+  // Use 8180 for ragdz-backend
   const port = process.env.ARCHON_SERVER_PORT || env.ARCHON_SERVER_PORT || '8180';
   
   return {
@@ -377,9 +379,9 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
           }
         };
         
-        // Health check endpoint proxy
+        // Health check endpoint proxy (use proxyHost like /api)
         proxyConfig['/health'] = {
-          target: `http://${host}:${port}`,
+          target: `http://${proxyHost}:${port}`,
           changeOrigin: true,
           secure: false
         };

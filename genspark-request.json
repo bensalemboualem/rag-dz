@@ -1,0 +1,30 @@
+{
+  "messages": [
+    {
+      "role": "user",
+      "content": "Je veux créer un clone de Genspark.ai"
+    },
+    {
+      "role": "assistant",
+      "content": "Genspark.ai est un moteur de recherche IA qui agrège plusieurs sources et génère des réponses synthétiques avec citations. Voici l'architecture proposée:\n\n**Frontend:**\n- Interface de recherche moderne avec barre de recherche intelligente\n- Affichage des résultats avec cartes de citations\n- Chat conversationnel pour follow-up questions\n- Mode streaming pour réponses en temps réel\n- Design responsive moderne\n\n**Backend:**\n- API FastAPI avec endpoints REST\n- Système RAG multi-sources (documents, web, bases de données)\n- Intégration LLM pour synthèse intelligente\n- Citations traçables avec sources\n- Cache Redis pour performances\n\n**Tech Stack:**\n- Frontend: React 18 + TypeScript + Tailwind CSS + Vite\n- Backend: FastAPI + Python 3.11\n- Database: PostgreSQL avec pgvector\n- Vector DB: Qdrant\n- LLM: Anthropic Claude / OpenAI GPT-4\n- Deployment: Docker + Docker Compose",
+      "agent": "architect"
+    },
+    {
+      "role": "assistant",
+      "content": "**Requirements fonctionnels:**\n1. Recherche intelligente avec auto-complétion\n2. Agrégation multi-sources (documents, web scraping, APIs)\n3. Génération de réponses synthétiques avec LLM\n4. Citations et sources traçables\n5. Mode conversationnel avec historique\n6. Streaming des réponses\n7. Export des résultats (PDF, Markdown)\n\n**Requirements techniques:**\n- API REST RESTful\n- Authentification JWT\n- Rate limiting\n- Caching intelligent\n- Monitoring avec Prometheus\n- Tests unitaires + E2E",
+      "agent": "pm"
+    },
+    {
+      "role": "assistant",
+      "content": "**Design UX/UI:**\n- Interface minimaliste type Google Search\n- Barre de recherche centrale avec focus\n- Résultats en cards avec gradient backgrounds\n- Citations en accordion avec sources\n- Dark mode natif\n- Animations fluides avec Framer Motion\n- Responsive mobile-first",
+      "agent": "ux-designer"
+    },
+    {
+      "role": "assistant",
+      "content": "**Tests:**\n- Tests unitaires Backend (pytest)\n- Tests E2E Frontend (Playwright)\n- Tests d'intégration API\n- Tests de performance (locust)\n- Tests de sécurité (OWASP)",
+      "agent": "tea"
+    }
+  ],
+  "agents_used": ["architect", "pm", "ux-designer", "tea"],
+  "auto_produce": true
+}

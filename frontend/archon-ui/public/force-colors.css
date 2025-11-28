@@ -1,0 +1,170 @@
+/* FORCE IAFactory Hub Colors - Vert très sombre unifié */
+
+/* CSS Variables */
+:root {
+  --primary-dark: #021b14;
+  --primary-darker: #010f0a;
+  --accent-emerald: #10B981;
+  --accent-violet: #8B5CF6;
+  --accent-teal: #14B8A6;
+  --bg-unified: #021b14;
+  --bg-card: #03241a;
+  --text-primary: #F8FAFC;
+  --text-secondary: #CBD5E1;
+  --text-tertiary: #94A3B8;
+  --text-muted: #64748B;
+  --border-subtle: rgba(16, 185, 129, 0.1);
+}
+
+/* Reset complet - Flexbox pour éviter les gaps */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow-x: hidden;
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: #021b14 !important;
+}
+
+/* Root app container */
+#root, #app, .app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  flex: 1;
+}
+
+/* Main content area */
+main, .main-content, .content-wrapper {
+  flex: 1;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: #021b14 !important;
+}
+
+/* Header - Vert unifié */
+header {
+  background: #021b14 !important;
+  border-bottom: 1px solid rgba(16, 185, 129, 0.1) !important;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Footer - Vert unifié */
+footer {
+  background: #021b14 !important;
+  border-top: 1px solid rgba(16, 185, 129, 0.05) !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  padding: 80px 2rem 40px !important;
+  flex-shrink: 0;
+}
+
+/* Suppression de tout overlay qui crée un cadre */
+footer::before,
+footer::after {
+  display: none !important;
+}
+
+/* Section containers */
+section, .section {
+  margin: 0 !important;
+}
+
+/* Buttons - Nouvelles couleurs */
+button, .button {
+  transition: all 0.3s ease;
+}
+
+/* Primary buttons - Violet moyen */
+.btn-primary, button.primary, [role="button"]:not(.secondary) {
+  background: linear-gradient(135deg, #8B5CF6 0%, #A78BFA 100%) !important;
+  color: white !important;
+  border: none !important;
+  box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3) !important;
+}
+
+.btn-primary:hover, button.primary:hover {
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4) !important;
+  transform: translateY(-2px);
+}
+
+/* Accent buttons - Vert émeraude */
+.btn-accent, button.accent, .btn-success {
+  background: linear-gradient(135deg, #10B981 0%, #14B8A6 100%) !important;
+  color: white !important;
+  border: none !important;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3) !important;
+}
+
+.btn-accent:hover, button.accent:hover {
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4) !important;
+  transform: translateY(-2px);
+}
+
+/* Links and hover states */
+a {
+  color: var(--accent-emerald);
+  transition: all 0.3s ease;
+}
+
+a:hover {
+  color: var(--accent-teal);
+}
+
+/* Cards and surfaces */
+.card, .panel, .surface {
+  background: rgba(3, 36, 26, 0.6) !important;
+  border: 1px solid rgba(16, 185, 129, 0.1) !important;
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+}
+
+/* Input fields */
+input, textarea, select {
+  background: rgba(2, 27, 20, 0.8) !important;
+  border: 1px solid rgba(16, 185, 129, 0.1) !important;
+  color: var(--text-primary) !important;
+  padding: 10px 16px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: var(--accent-emerald) !important;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1) !important;
+}
+
+input::placeholder, textarea::placeholder {
+  color: var(--text-muted) !important;
+}
+
+/* Text colors */
+body {
+  color: var(--text-secondary);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-primary);
+}
+
+.text-secondary {
+  color: var(--text-secondary) !important;
+}
+
+.text-muted, .text-tertiary {
+  color: var(--text-muted) !important;
+}

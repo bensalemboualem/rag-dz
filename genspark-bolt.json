@@ -1,0 +1,6 @@
+{
+  "prompt": "Créer un clone de Genspark.ai - Interface de recherche IA moderne avec barre de recherche intelligente, agrégation multi-sources, synthèse LLM, citations traçables, chat conversationnel, streaming temps réel, dark mode. Stack: React 18 + TypeScript + Tailwind CSS + Vite",
+  "tech_stack": ["react", "typescript", "tailwindcss"],
+  "save_to_archon": true,
+  "export_format": "zip"
+}

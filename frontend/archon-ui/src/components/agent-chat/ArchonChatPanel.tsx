@@ -252,7 +252,7 @@ export const ArchonChatPanel: React.FC<ArchonChatPanelProps> = props => {
         {/* Edgelit glow effect */}
         <EdgeLitEffect color="blue" />
         {/* Header gradient background */}
-        <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-blue-100 to-white dark:from-blue-500/20 dark:to-blue-500/5 rounded-t-md pointer-events-none"></div>
+        <div className="absolute top-0 left-0 right-0 h-16 site-header rounded-t-md pointer-events-none"></div>
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-zinc-800/80">
           <div className="flex flex-col gap-2">

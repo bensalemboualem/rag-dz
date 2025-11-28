@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Build Your Council - IA Factory</title>
+    <!-- Unified Bolt Theme - MUST BE FIRST -->
+    <link rel="stylesheet" href="unified-bolt-theme.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: var(--gradient-bg);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding: 2rem 1rem;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .presets-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        .preset-card {
+            padding: 1rem;
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+        }
+        .preset-card:hover {
+            transform: translateY(-2px);
+            border-color: #7c3aed;
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.1);
+        }
+        .preset-card.active {
+            border-color: #7c3aed;
+            background: #f5f3ff;
+        }
+        .preset-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        .config-section {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .experts-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .expert-select {
+            margin-bottom: 0;
+        }
+        .expert-select label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+        .expert-select select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            background: white;
+            cursor: pointer;
+        }
+        .expert-select select:focus {
+            outline: none;
+            border-color: #7c3aed;
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+        }
+        .expert-1 label { color: #7c3aed; }
+        .expert-2 label { color: #2563eb; }
+        .expert-3 label { color: #059669; }
+        .chairman label { color: #f59e0b; }
+        .strengths {
+            font-size: 0.85rem;
+            color: #6b7280;
+            margin-top: 0.5rem;
+            padding: 0.5rem;
+            background: #f9fafb;
+            border-radius: 6px;
+        }
+        .estimate-box {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+        .estimate-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .estimate-item {
+            background: rgba(255,255,255,0.2);
+            padding: 1rem;
+            border-radius: 8px;
+        }
+        .estimate-label {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+        .estimate-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-top: 0.25rem;
+        }
+        .query-section {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            resize: vertical;
+        }
+        .textarea:focus {
+            outline: none;
+            border-color: #7c3aed;
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+        }
+        .btn-primary {
+            width: 100%;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #7c3aed, #5b21b6);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+        }
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .spinner {
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 0.6s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .results-section {
+            background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+            border-left: 4px solid #10b981;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        .result-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #065f46;
+        }
+        .result-text {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #064e3b;
+            white-space: pre-wrap;
+        }
+        .opinions-section {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .opinion-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #e5e7eb;
+        }
+        .opinion-tab {
+            padding: 0.75rem 1.5rem;
+            background: transparent;
+            border: none;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            font-weight: 500;
+            color: #6b7280;
+            transition: all 0.2s;
+        }
+        .opinion-tab.active {
+            color: #7c3aed;
+            border-bottom-color: #7c3aed;
+        }
+        .opinion-content {
+            padding: 1rem;
+            background: #f9fafb;
+            border-radius: 8px;
+            line-height: 1.8;
+            white-space: pre-wrap;
+        }
+        .alert {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+        .alert-warning {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            color: #92400e;
+        }
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            cursor: pointer;
+        }
+        .checkbox-label input[type="checkbox"] {
+            width: 1.25rem;
+            height: 1.25rem;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" style="max-width: 1200px; margin: 0 auto;">
+        <!-- Header -->
+        <div class="header">
+            <div style="display:flex; align-items:center; justify-content:center; gap:1rem; margin-bottom:1rem;">
+                <svg width="64" height="64" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: #7c3aed;">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                </svg>
+                <h1>Build Your Council</h1>
+            </div>
+            <p style="font-size: 1.1rem; color: #6b7280;">
+                Composez votre équipe d'experts IA sur mesure
+            </p>
+        </div>
+
+        <!-- Presets -->
+        <div class="config-section">
+            <h2 style="margin-bottom: 1rem;">✨ Configurations recommandées</h2>
+            <div id="presetsGrid" class="presets-grid">
+                <!-- Loaded dynamically -->
+            </div>
+        </div>
+
+        <!-- Configuration -->
+        <div class="config-section">
+            <h2 style="margin-bottom: 1.5rem;">⚙️ Configuration du Council</h2>
+
+            <div class="experts-grid">
+                <div class="expert-select expert-1">
+                    <label>🎯 Expert 1</label>
+                    <select id="expert1"></select>
+                    <div id="strengths1" class="strengths"></div>
+                </div>
+
+                <div class="expert-select expert-2">
+                    <label>🎯 Expert 2</label>
+                    <select id="expert2"></select>
+                    <div id="strengths2" class="strengths"></div>
+                </div>
+
+                <div class="expert-select expert-3">
+                    <label>🎯 Expert 3</label>
+                    <select id="expert3"></select>
+                    <div id="strengths3" class="strengths"></div>
+                </div>
+
+                <div class="expert-select chairman">
+                    <label>👑 Chairman</label>
+                    <select id="chairman"></select>
+                    <div id="strengthsChairman" class="strengths"></div>
+                </div>
+            </div>
+
+            <label class="checkbox-label">
+                <input type="checkbox" id="enableReview">
+                <span>Activer la revue croisée (+50% temps & coût)</span>
+            </label>
+        </div>
+
+        <!-- Estimation -->
+        <div id="estimateBox" class="estimate-box">
+            <h3 style="margin-bottom: 0.5rem;">📊 Estimation</h3>
+            <div class="estimate-grid">
+                <div class="estimate-item">
+                    <div class="estimate-label">💰 Coût</div>
+                    <div class="estimate-value" id="costDZD">-</div>
+                    <div class="estimate-label" id="costUSD">-</div>
+                </div>
+                <div class="estimate-item">
+                    <div class="estimate-label">⏱️ Temps</div>
+                    <div class="estimate-value" id="timeEstimate">-</div>
+                </div>
+            </div>
+            <div id="warningBox" style="display:none; margin-top:1rem; padding:0.75rem; background:rgba(245,158,11,0.2); border-radius:8px; font-size:0.875rem;">
+                ⚠️ Configuration premium : coût élevé. Considérez plus de modèles locaux pour réduire les coûts.
+            </div>
+        </div>
+
+        <!-- Query -->
+        <div class="query-section">
+            <h2 style="margin-bottom: 1rem;">💬 Votre question</h2>
+            <textarea
+                id="query"
+                class="textarea"
+                placeholder="Posez votre question au Council personnalisé...
+
+Exemples:
+• Quelles sont les meilleures pratiques pour sécuriser une API REST ?
+• Comment optimiser PostgreSQL pour des millions de lignes ?
+• Expliquez la différence entre authentification et autorisation"
+            ></textarea>
+
+            <button id="submitBtn" class="btn-primary" style="margin-top: 1rem;">
+                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                </svg>
+                <span>Lancer le Council</span>
+            </button>
+        </div>
+
+        <!-- Loading -->
+        <div id="loadingBox" class="alert alert-warning" style="display:none;">
+            <div style="display:flex; align-items:center; gap:1rem;">
+                <div class="spinner"></div>
+                <span style="font-weight:600;">Council en délibération...</span>
+            </div>
+        </div>
+
+        <!-- Results -->
+        <div id="resultsBox" style="display:none;">
+            <div class="results-section">
+                <div class="result-header">
+                    <span>👑</span>
+                    <span>Réponse finale du Chairman</span>
+                    <span id="chairmanName" style="font-size:1rem; font-weight:normal;"></span>
+                </div>
+                <div id="finalResponse" class="result-text"></div>
+                <div style="margin-top:1rem; padding-top:1rem; border-top:2px solid rgba(16,185,129,0.3); display:flex; gap:1.5rem; font-size:0.875rem;">
+                    <span id="execTime">⏱️ -</span>
+                    <span id="actualCost">💰 -</span>
+                </div>
+            </div>
+
+            <div class="opinions-section">
+                <h2 style="margin-bottom: 1rem;">🎯 Opinions individuelles</h2>
+                <div id="opinionTabs" class="opinion-tabs"></div>
+                <div id="opinionContent" class="opinion-content"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:8180';
+        let modelsData = null;
+        let presetsData = null;
+        let currentOpinions = {};
+        let currentTab = null;
+
+        // Load models and presets
+        async function loadData() {
+            try {
+                const [modelsRes, presetsRes] = await Promise.all([
+                    fetch(`${API_BASE}/api/council/models/all`),
+                    fetch(`${API_BASE}/api/council/presets`)
+                ]);
+
+                modelsData = await modelsRes.json();
+                presetsData = await presetsRes.json();
+
+                populatePresets();
+                populateSelects();
+                updateEstimate();
+            } catch (error) {
+                console.error('Error loading data:', error);
+                alert('Erreur de chargement des données');
+            }
+        }
+
+        function populatePresets() {
+            const grid = document.getElementById('presetsGrid');
+            grid.innerHTML = Object.entries(presetsData.presets).map(([key, preset]) => `
+                <div class="preset-card" onclick="applyPreset('${key}')">
+                    <div class="preset-icon">${preset.icon}</div>
+                    <div style="font-weight:600; margin-bottom:0.25rem;">${preset.name}</div>
+                    <div style="font-size:0.75rem; color:#6b7280;">${preset.description}</div>
+                </div>
+            `).join('');
+        }
+
+        function populateSelects() {
+            const selects = ['expert1', 'expert2', 'expert3', 'chairman'];
+            const options = modelsData.models.map(m =>
+                `<option value="${m.id}" ${m.available ? '' : 'disabled'}>
+                    ${m.icon} ${m.name} ${m.available ? '' : '(indisponible)'} - ${m.tier}
+                </option>`
+            ).join('');
+
+            selects.forEach(id => {
+                document.getElementById(id).innerHTML = options;
+            });
+
+            // Set defaults
+            document.getElementById('expert1').value = 'claude-3-5-sonnet-20241022';
+            document.getElementById('expert2').value = 'gpt-4o';
+            document.getElementById('expert3').value = 'llama3.1-70b';
+            document.getElementById('chairman').value = 'claude-3-5-sonnet-20241022';
+
+            updateStrengths();
+        }
+
+        function applyPreset(presetKey) {
+            const preset = presetsData.presets[presetKey];
+            document.getElementById('expert1').value = preset.members[0];
+            document.getElementById('expert2').value = preset.members[1];
+            document.getElementById('expert3').value = preset.members[2];
+            document.getElementById('chairman').value = preset.chairman;
+
+            updateStrengths();
+            updateEstimate();
+        }
+
+        function updateStrengths() {
+            ['expert1', 'expert2', 'expert3', 'chairman'].forEach((id, idx) => {
+                const select = document.getElementById(id);
+                const modelId = select.value;
+                const model = modelsData.models.find(m => m.id === modelId);
+
+                const strengthsId = id === 'chairman' ? 'strengthsChairman' : `strengths${idx + 1}`;
+                document.getElementById(strengthsId).textContent =
+                    `💪 ${model.strengths.join(', ')}`;
+            });
+        }
+
+        async function updateEstimate() {
+            const expert1 = document.getElementById('expert1').value;
+            const expert2 = document.getElementById('expert2').value;
+            const expert3 = document.getElementById('expert3').value;
+            const chairman = document.getElementById('chairman').value;
+            const enableReview = document.getElementById('enableReview').checked;
+
+            try {
+                const res = await fetch(`${API_BASE}/api/council/estimate`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ expert1, expert2, expert3, chairman, enable_review: enableReview })
+                });
+
+                const estimate = await res.json();
+
+                document.getElementById('costDZD').textContent = `${estimate.estimated_cost_dzd} DZD`;
+                document.getElementById('costUSD').textContent = `$${estimate.estimated_cost_usd} USD`;
+                document.getElementById('timeEstimate').textContent =
+                    `${estimate.estimated_time_seconds.min}-${estimate.estimated_time_seconds.max}s`;
+
+                // Warning si > 1000 DZD
+                document.getElementById('warningBox').style.display =
+                    estimate.estimated_cost_dzd > 1000 ? 'block' : 'none';
+
+            } catch (error) {
+                console.error('Estimation error:', error);
+            }
+        }
+
+        async function executeCouncil() {
+            const query = document.getElementById('query').value.trim();
+            if (!query) {
+                alert('Veuillez entrer une question');
+                return;
+            }
+
+            const expert1 = document.getElementById('expert1').value;
+            const expert2 = document.getElementById('expert2').value;
+            const expert3 = document.getElementById('expert3').value;
+            const chairman = document.getElementById('chairman').value;
+            const enableReview = document.getElementById('enableReview').checked;
+
+            document.getElementById('loadingBox').style.display = 'block';
+            document.getElementById('resultsBox').style.display = 'none';
+            document.getElementById('submitBtn').disabled = true;
+
+            try {
+                const res = await fetch(`${API_BASE}/api/council/custom-query`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        query,
+                        expert1,
+                        expert2,
+                        expert3,
+                        chairman,
+                        enable_review: enableReview
+                    })
+                });
+
+                if (!res.ok) {
+                    const error = await res.json();
+                    throw new Error(error.detail || 'Erreur');
+                }
+
+                const result = await res.json();
+                displayResults(result);
+
+            } catch (error) {
+                alert(`Erreur: ${error.message}`);
+            } finally {
+                document.getElementById('loadingBox').style.display = 'none';
+                document.getElementById('submitBtn').disabled = false;
+            }
+        }
+
+        function displayResults(data) {
+            document.getElementById('resultsBox').style.display = 'block';
+            document.getElementById('finalResponse').textContent = data.final_response;
+            document.getElementById('chairmanName').textContent =
+                `(${data.metadata.chairman.icon} ${data.metadata.chairman.name})`;
+            document.getElementById('execTime').textContent =
+                `⏱️ ${data.metadata.execution_time.toFixed(2)}s`;
+            document.getElementById('actualCost').textContent =
+                `💰 ${(data.metadata.actual_cost * 135).toFixed(2)} DZD`;
+
+            currentOpinions = data.opinions;
+            const experts = data.metadata.experts;
+
+            document.getElementById('opinionTabs').innerHTML = experts.map((exp, idx) => `
+                <button class="opinion-tab ${idx === 0 ? 'active' : ''}"
+                        onclick="switchOpinion('${exp.id}', ${idx})">
+                    ${exp.icon} ${exp.name}
+                </button>
+            `).join('');
+
+            currentTab = experts[0].id;
+            showOpinion(currentTab);
+
+            document.getElementById('resultsBox').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function switchOpinion(expertId, idx) {
+            document.querySelectorAll('.opinion-tab').forEach((tab, i) => {
+                tab.className = i === idx ? 'opinion-tab active' : 'opinion-tab';
+            });
+            currentTab = expertId;
+            showOpinion(expertId);
+        }
+
+        function showOpinion(expertId) {
+            document.getElementById('opinionContent').textContent = currentOpinions[expertId];
+        }
+
+        // Event listeners
+        ['expert1', 'expert2', 'expert3', 'chairman'].forEach(id => {
+            document.getElementById(id).addEventListener('change', () => {
+                updateStrengths();
+                updateEstimate();
+            });
+        });
+
+        document.getElementById('enableReview').addEventListener('change', updateEstimate);
+        document.getElementById('submitBtn').addEventListener('click', executeCouncil);
+
+        // Initialize
+        loadData();
+    </script>
+</body>
+</html>

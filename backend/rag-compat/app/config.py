@@ -11,17 +11,17 @@ class Settings(BaseSettings):
     """Configuration centralisée de l'application"""
 
     # Database
-    postgres_url: str = "postgresql://postgres:ragdz2024secure@postgres:5432/archon"
+    postgres_url: str = "postgresql://postgres:ragdz2024secure@iafactory-postgres:5432/iafactory_dz"
     postgres_user: str = "postgres"
     postgres_password: str = "ragdz2024secure"
-    postgres_db: str = "archon"
+    postgres_db: str = "iafactory_dz"
 
     # Redis
-    redis_url: str = "redis://redis:6379/0"
+    redis_url: str = "redis://iafactory-redis:6379/0"
     redis_password: str = ""
 
     # Qdrant
-    qdrant_host: str = "qdrant"
+    qdrant_host: str = "iafactory-qdrant"
     qdrant_port: int = 6333
     qdrant_api_key: str = ""
 

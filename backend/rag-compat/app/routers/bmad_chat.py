@@ -1,8 +1,8 @@
 """
-BMAD Chat Router - Conversations avec Agents BMAD via DeepSeek API
+BMAD Chat Router - Conversations avec Agents BMAD via LLM API
 
 Charge les personnalités des agents depuis les fichiers YAML BMAD
-et utilise DeepSeek pour générer des réponses authentiques.
+et utilise le provider LLM configuré (Groq par défaut) pour générer des réponses.
 """
 
 import os
@@ -24,22 +24,54 @@ router = APIRouter(prefix="/api/bmad", tags=["bmad-chat"])
 BMAD_PATH = Path(__file__).resolve().parent.parent.parent.parent / "bmad"
 AGENTS_PATH = BMAD_PATH / "src" / "modules" / "bmm" / "agents"
 
-# Client DeepSeek (OpenAI compatible)
-deepseek_client = None
+# LLM Client (supports Groq, OpenAI, DeepSeek)
+llm_client = None
+llm_model = None
 
 
-def get_deepseek_client():
-    """Lazy load DeepSeek client"""
-    global deepseek_client
-    if deepseek_client is None:
-        api_key = os.getenv("DEEPSEEK_API_KEY")
-        if not api_key:
-            raise ValueError("DEEPSEEK_API_KEY not found in environment")
-        deepseek_client = OpenAI(
-            api_key=api_key,
-            base_url="https://api.deepseek.com"
-        )
-    return deepseek_client
+def get_llm_client():
+    """Lazy load LLM client based on LLM_PROVIDER env var"""
+    global llm_client, llm_model
+    if llm_client is None:
+        provider = os.getenv("LLM_PROVIDER", "groq").lower()
+
+        if provider == "groq":
+            api_key = os.getenv("GROQ_API_KEY")
+            if not api_key:
+                raise ValueError("GROQ_API_KEY not found in environment")
+            llm_client = OpenAI(
+                api_key=api_key,
+                base_url="https://api.groq.com/openai/v1"
+            )
+            llm_model = os.getenv("LLM_MODEL", "llama-3.3-70b-versatile")
+        elif provider == "openai":
+            api_key = os.getenv("OPENAI_API_KEY")
+            if not api_key:
+                raise ValueError("OPENAI_API_KEY not found in environment")
+            llm_client = OpenAI(api_key=api_key)
+            llm_model = os.getenv("LLM_MODEL", "gpt-4o-mini")
+        elif provider == "deepseek":
+            api_key = os.getenv("DEEPSEEK_API_KEY")
+            if not api_key:
+                raise ValueError("DEEPSEEK_API_KEY not found in environment")
+            llm_client = OpenAI(
+                api_key=api_key,
+                base_url="https://api.deepseek.com"
+            )
+            llm_model = "deepseek-chat"
+        else:
+            # Default to Groq
+            api_key = os.getenv("GROQ_API_KEY")
+            if not api_key:
+                raise ValueError(f"No API key found for provider: {provider}")
+            llm_client = OpenAI(
+                api_key=api_key,
+                base_url="https://api.groq.com/openai/v1"
+            )
+            llm_model = os.getenv("LLM_MODEL", "llama-3.3-70b-versatile")
+
+        logger.info(f"LLM Client initialized: provider={provider}, model={llm_model}")
+    return llm_client, llm_model
 
 
 # Models
@@ -185,17 +217,17 @@ Réponds TOUJOURS en français. Commence par te présenter brièvement."""
 @router.post("/chat", response_model=ChatResponse)
 async def chat_with_agent(request: ChatRequest):
     """
-    Converse avec un agent BMAD en utilisant DeepSeek API.
+    Converse avec un agent BMAD en utilisant le LLM configuré.
 
     L'agent charge sa personnalité depuis les fichiers YAML BMAD
-    et utilise DeepSeek pour générer des réponses authentiques.
+    et utilise le provider LLM (Groq, OpenAI, DeepSeek) pour générer des réponses.
     """
     try:
         # Charger la personnalité de l'agent
         system_prompt = load_agent_personality(request.agent_id)
 
-        # Obtenir le client DeepSeek
-        client = get_deepseek_client()
+        # Obtenir le client LLM
+        client, model = get_llm_client()
 
         # Convertir les messages au format OpenAI
         openai_messages = [
@@ -209,9 +241,9 @@ async def chat_with_agent(request: ChatRequest):
                 "content": msg.content
             })
 
-        # Appeler DeepSeek API (OpenAI compatible)
+        # Appeler LLM API (OpenAI compatible)
         response = client.chat.completions.create(
-            model="deepseek-chat",
+            model=model,
             messages=openai_messages,
             max_tokens=2048,
             temperature=request.temperature,
@@ -220,7 +252,7 @@ async def chat_with_agent(request: ChatRequest):
         # Extraire la réponse
         assistant_message = response.choices[0].message.content
 
-        logger.info(f"Chat response generated for agent {request.agent_id} via DeepSeek")
+        logger.info(f"Chat response generated for agent {request.agent_id} via {model}")
 
         return ChatResponse(
             message=assistant_message,
@@ -256,21 +288,23 @@ async def get_agent_personality(agent_id: str):
 
 @router.get("/chat/health")
 async def chat_health():
-    """Vérifie que l'API DeepSeek est accessible"""
+    """Vérifie que l'API LLM est accessible"""
     try:
-        client = get_deepseek_client()
+        client, model = get_llm_client()
+        provider = os.getenv("LLM_PROVIDER", "groq")
 
-        # Test simple avec DeepSeek
+        # Test simple avec le LLM configuré
         response = client.chat.completions.create(
-            model="deepseek-chat",
+            model=model,
             messages=[{"role": "user", "content": "test"}],
             max_tokens=10,
         )
 
         return {
             "status": "healthy",
-            "deepseek_api": "connected",
-            "model": "deepseek-chat",
+            "llm_api": "connected",
+            "provider": provider,
+            "model": model,
             "agents_loaded": len(agent_personalities),
             "bmad_path": str(BMAD_PATH),
             "agents_path_exists": AGENTS_PATH.exists(),
@@ -280,5 +314,5 @@ async def chat_health():
         return {
             "status": "degraded",
             "error": str(e),
-            "deepseek_api": "error",
+            "llm_api": "error",
         }

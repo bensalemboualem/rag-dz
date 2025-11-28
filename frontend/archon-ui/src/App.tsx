@@ -4,23 +4,25 @@ import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { queryClient } from './features/shared/config/queryClient';
 import { KnowledgeBasePage } from './pages/KnowledgeBasePage';
+import { CalendarPage } from './pages/CalendarPage';
+import { VoicePage } from './pages/VoicePage';
 import { SettingsPage } from './pages/SettingsPage';
 import { MCPPage } from './pages/MCPPage';
 import { OnboardingPage } from './pages/OnboardingPage';
-import { BMADPage } from './pages/BMADPage';
-import { DocumentsPage } from './pages/DocumentsPage';
-import { KnowledgePage } from './pages/KnowledgePage';
-import { ChatPage } from './pages/ChatPage';
 import { MainLayout } from './components/layout/MainLayout';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { ToastProvider } from './features/ui/components/ToastProvider';
 import { SettingsProvider, useSettings } from './contexts/SettingsContext';
 import { TooltipProvider } from './features/ui/primitives/tooltip';
-import { I18nProvider } from './features/shared/i18n/useTranslation.tsx';
 import { ProjectPage } from './pages/ProjectPage';
 import StyleGuidePage from './pages/StyleGuidePage';
 import { AgentWorkOrdersPage } from './pages/AgentWorkOrdersPage';
 import { AgentWorkOrderDetailPage } from './pages/AgentWorkOrderDetailPage';
+import { AutomationsPage } from './pages/AutomationsPage';
+import { IntegrationsPage } from './pages/IntegrationsPage';
+import { GoogleAuthCallback } from './features/integrations/views/GoogleAuthCallback';
+import { MessagingPage } from './pages/MessagingPage';
+import { DashboardPage } from './pages/DashboardPage';
 import { DisconnectScreenOverlay } from './components/DisconnectScreenOverlay';
 import { ErrorBoundaryWithBugReport } from './components/bug-report/ErrorBoundaryWithBugReport';
 import { MigrationBanner } from './components/ui/MigrationBanner';
@@ -33,14 +35,11 @@ const AppRoutes = () => {
 
   return (
     <Routes>
-      <Route path="/" element={<KnowledgeBasePage />} />
+      <Route path="/" element={<Navigate to="/dashboard" replace />} />
+      <Route path="/dashboard" element={<DashboardPage />} />
       <Route path="/onboarding" element={<OnboardingPage />} />
       <Route path="/settings" element={<SettingsPage />} />
       <Route path="/mcp" element={<MCPPage />} />
-      <Route path="/bmad" element={<BMADPage />} />
-      <Route path="/documents" element={<DocumentsPage />} />
-      <Route path="/knowledge" element={<KnowledgePage />} />
-      <Route path="/chat" element={<ChatPage />} />
       {styleGuideEnabled ? (
         <Route path="/style-guide" element={<StyleGuidePage />} />
       ) : (
@@ -62,6 +61,13 @@ const AppRoutes = () => {
       ) : (
         <Route path="/agent-work-orders" element={<Navigate to="/" replace />} />
       )}
+      <Route path="/automations" element={<AutomationsPage />} />
+      <Route path="/integrations" element={<IntegrationsPage />} />
+      <Route path="/messaging" element={<MessagingPage />} />
+      <Route path="/calendar" element={<CalendarPage />} />
+      <Route path="/voice" element={<VoicePage />} />
+      <Route path="/knowledge" element={<KnowledgeBasePage />} />
+      <Route path="/auth/google/callback" element={<GoogleAuthCallback />} />
     </Routes>
   );
 };
@@ -137,15 +143,13 @@ export function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
-        <I18nProvider>
-          <ToastProvider>
-            <TooltipProvider>
-              <SettingsProvider>
-                <AppContent />
-              </SettingsProvider>
-            </TooltipProvider>
-          </ToastProvider>
-        </I18nProvider>
+        <ToastProvider>
+          <TooltipProvider>
+            <SettingsProvider>
+              <AppContent />
+            </SettingsProvider>
+          </TooltipProvider>
+        </ToastProvider>
       </ThemeProvider>
       {import.meta.env.VITE_SHOW_DEVTOOLS === 'true' && (
         <ReactQueryDevtools initialIsOpen={false} />

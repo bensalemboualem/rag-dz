@@ -1,0 +1,10 @@
+{
+  "agent_id": "bmm-architect",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Propose une architecture pour une application de chat en temps réel"
+    }
+  ],
+  "temperature": 0.7
+}

@@ -31,30 +31,52 @@
   --pink-accent: 330 90% 65%;
   --blue-accent: 217 91% 60%;
 
+  /* UNIFIED COLOR FOR ALL MODES - Vert très sombre unifié */
+  --page-bg-start: #021b14;
+  --page-bg-end: #021b14;
+  --header-bg-start: #021b14;
+  --header-bg-end: #021b14;
+  --footer-bg-start: #021b14;
+  --footer-bg-end: #021b14;
+  --accent-emerald: #10B981;
+  --accent-violet: #8B5CF6;
+  --accent-teal: #14B8A6;
+
   color-scheme: light;
 }
 
 .dark {
-  /* Dark mode variables - bare HSL values */
-  --background: 0 0% 0%;
+  /* Dark mode variables - BOLD THEME (Studio 8184) */
+  --background: 0 0% 4%;  /* #0A0A0F */
   --foreground: 0 0% 100%;
-  --muted: 240 4% 16%;
+  --muted: 240 4% 10%;  /* #18181B */
   --muted-foreground: 240 5% 65%;
-  --popover: 0 0% 0%;
+  --popover: 0 0% 4%;
   --popover-foreground: 0 0% 100%;
-  --border: 240 3.7% 15.9%;
-  --input: 240 3.7% 15.9%;
-  --card: 0 0% 0%;
+  --border: 240 3.7% 10%;
+  --input: 240 3.7% 10%;
+  --card: 0 0% 4%;
   --card-foreground: 0 0% 100%;
-  --primary: 271 91% 65%;
+  --primary: 217 91% 60%;  /* #3B82F6 - Bolt Blue */
   --primary-foreground: 0 0% 100%;
-  --secondary: 240 3.7% 15.9%;
+  --secondary: 240 3.7% 10%;
   --secondary-foreground: 0 0% 98%;
-  --accent: 271 91% 65%;
+  --accent: 217 91% 60%;  /* #3B82F6 - Bolt Blue */
   --accent-foreground: 0 0% 100%;
   --destructive: 0 84.2% 60.2%;
   --destructive-foreground: 0 0% 98%;
-  --ring: 240 3.7% 15.9%;
+  --ring: 240 3.7% 10%;
+
+  /* Dark mode - Vert très sombre unifié (UNIFIED COLOR) */
+  --page-bg-start: #021b14;
+  --page-bg-end: #021b14;
+  --header-bg-start: #021b14;
+  --header-bg-end: #021b14;
+  --footer-bg-start: #021b14;
+  --footer-bg-end: #021b14;
+  --accent-emerald: #10B981;
+  --accent-violet: #8B5CF6;
+  --accent-teal: #14B8A6;
 
   color-scheme: dark;
 }
@@ -113,22 +135,23 @@
   body {
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
+    background: #021b14 !important;
   }
 }
 
 @layer components {
-  /* Grid pattern for background (used in MainLayout) */
+  /* Grid pattern for background (used in MainLayout) - BOLT THEME */
   .neon-grid {
     background-image:
-      linear-gradient(to right, #a855f720 1px, transparent 1px),
-      linear-gradient(to bottom, #a855f720 1px, transparent 1px);
+      linear-gradient(to right, rgba(59, 130, 246, 0.1) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(59, 130, 246, 0.1) 1px, transparent 1px);
     background-size: 40px 40px;
   }
 
   .dark .neon-grid {
     background-image:
-      linear-gradient(to right, #a855f730 1px, transparent 1px),
-      linear-gradient(to bottom, #a855f730 1px, transparent 1px);
+      linear-gradient(to right, rgba(59, 130, 246, 0.15) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(59, 130, 246, 0.15) 1px, transparent 1px);
   }
 }
 
@@ -269,4 +292,19 @@
   box-shadow:
     0 0 8px hsl(var(--blue-accent) / 0.70),
     inset 0 0 3px hsl(var(--blue-accent) / 0.40);
+}
+
+
+
+/* Utility gradient classes using our new variables */
+.site-header {
+  background: linear-gradient(180deg, var(--header-bg-start) 0%, var(--header-bg-end) 100%);
+}
+
+.site-page {
+  background: linear-gradient(180deg, var(--page-bg-start) 0%, var(--page-bg-end) 100%);
+}
+
+.site-footer {
+  background: linear-gradient(180deg, var(--footer-bg-start) 0%, var(--footer-bg-end) 100%);
 }

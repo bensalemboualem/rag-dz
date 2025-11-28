@@ -19,6 +19,7 @@ import { useSettings } from "../contexts/SettingsContext";
 import { useStaggeredEntrance } from "../hooks/useStaggeredEntrance";
 import { FeaturesSection } from "../components/settings/FeaturesSection";
 import { APIKeysSection } from "../components/settings/APIKeysSection";
+import { AIProviderKeysSection } from "../components/settings/AIProviderKeysSection";
 import { RAGSettings } from "../components/settings/RAGSettings";
 import { CodeExtractionSettings } from "../components/settings/CodeExtractionSettings";
 import { IDEGlobalRules } from "../components/settings/IDEGlobalRules";
@@ -190,11 +191,22 @@ export const SettingsPage = () => {
         <div className="space-y-6">
           <motion.div variants={itemVariants}>
             <CollapsibleSettingsCard
+              title="AI Provider Keys"
+              icon={Key}
+              accentColor="blue"
+              storageKey="ai-provider-keys"
+              defaultExpanded={true}
+            >
+              <AIProviderKeysSection />
+            </CollapsibleSettingsCard>
+          </motion.div>
+          <motion.div variants={itemVariants}>
+            <CollapsibleSettingsCard
               title="API Keys"
               icon={Key}
               accentColor="pink"
               storageKey="api-keys"
-              defaultExpanded={true}
+              defaultExpanded={false}
             >
               <APIKeysSection />
             </CollapsibleSettingsCard>

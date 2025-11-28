@@ -1,4 +1,16 @@
-import { BookOpen, Bot, Palette, Settings } from "lucide-react";
+import {
+  LayoutDashboard,
+  Bot,
+  Calendar,
+  Phone,
+  Mail,
+  FileText,
+  Zap,
+  Settings,
+  MessageSquare,
+  Palette,
+  BookOpen
+} from "lucide-react";
 import type React from "react";
 import { Link, useLocation } from "react-router-dom";
 // TEMPORARY: Use old SettingsContext until settings are migrated
@@ -6,7 +18,6 @@ import { useSettings } from "../../contexts/SettingsContext";
 import { glassmorphism } from "../../features/ui/primitives/styles";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../../features/ui/primitives/tooltip";
 import { cn } from "../../lib/utils";
-import { LanguageSelector } from "../LanguageSelector";
 
 interface NavigationItem {
   path: string;
@@ -27,45 +38,61 @@ export function Navigation({ className }: NavigationProps) {
   const location = useLocation();
   const { projectsEnabled, styleGuideEnabled, agentWorkOrdersEnabled } = useSettings();
 
-  // Navigation items configuration
+  // Navigation items configuration - IA Factory PRO
   const navigationItems: NavigationItem[] = [
     {
-      path: "/",
-      icon: <BookOpen className="h-5 w-5" />,
-      label: "Knowledge Base",
+      path: "/dashboard",
+      icon: <LayoutDashboard className="h-5 w-5" />,
+      label: "Dashboard",
       enabled: true,
     },
     {
-      path: "/bmad",
+      path: "/",
       icon: <Bot className="h-5 w-5" />,
-      label: "BMAD Agents",
+      label: "Chat IA (6 agents)",
+      enabled: true,
+    },
+    {
+      path: "/calendar",
+      icon: <Calendar className="h-5 w-5" />,
+      label: "Rendez-vous",
+      enabled: true,
+    },
+    {
+      path: "/voice",
+      icon: <Phone className="h-5 w-5" />,
+      label: "Agent Vocal",
+      enabled: true,
+    },
+    {
+      path: "/integrations",
+      icon: <Mail className="h-5 w-5" />,
+      label: "Emails",
+      enabled: true,
+    },
+    {
+      path: "/knowledge",
+      icon: <FileText className="h-5 w-5" />,
+      label: "Documents",
+      enabled: true,
+    },
+    {
+      path: "/messaging",
+      icon: <MessageSquare className="h-5 w-5" />,
+      label: "Messagerie SMS",
+      enabled: true,
+    },
+    {
+      path: "/automations",
+      icon: <Zap className="h-5 w-5" />,
+      label: "Automatisations",
       enabled: true,
     },
     {
       path: "/agent-work-orders",
-      icon: <Bot className="h-5 w-5" />,
+      icon: <BookOpen className="h-5 w-5" />,
       label: "Agent Work Orders",
       enabled: agentWorkOrdersEnabled,
-    },
-    {
-      path: "/mcp",
-      icon: (
-        <svg
-          fill="currentColor"
-          fillRule="evenodd"
-          height="20"
-          width="20"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-          role="img"
-          aria-label="MCP Server Icon"
-        >
-          <path d="M15.688 2.343a2.588 2.588 0 00-3.61 0l-9.626 9.44a.863.863 0 01-1.203 0 .823.823 0 010-1.18l9.626-9.44a4.313 4.313 0 016.016 0 4.116 4.116 0 011.204 3.54 4.3 4.3 0 013.609 1.18l.05.05a4.115 4.115 0 010 5.9l-8.706 8.537a.274.274 0 000 .393l1.788 1.754a.823.823 0 010 1.18.863.863 0 01-1.203 0l-1.788-1.753a1.92 1.92 0 010-2.754l8.706-8.538a2.47 2.47 0 000-3.54l-.05-.049a2.588 2.588 0 00-3.607-.003l-7.172 7.034-.002.002-.098.097a.863.863 0 01-1.204 0 .823.823 0 010-1.18l7.273-7.133a2.47 2.47 0 00-.003-3.537z" />
-          <path d="M14.485 4.703a.823.823 0 000-1.18.863.863 0 00-1.204 0l-7.119 6.982a4.115 4.115 0 000 5.9 4.314 4.314 0 006.016 0l7.12-6.982a.823.823 0 000-1.18.863.863 0 00-1.204 0l-7.119 6.982a2.588 2.588 0 01-3.61 0 2.47 2.47 0 010-3.54l7.12-6.982z" />
-        </svg>
-      ),
-      label: "MCP Server",
-      enabled: true,
     },
     {
       path: "/style-guide",
@@ -76,7 +103,7 @@ export function Navigation({ className }: NavigationProps) {
     {
       path: "/settings",
       icon: <Settings className="h-5 w-5" />,
-      label: "Settings",
+      label: "Paramètres",
       enabled: true,
     },
   ];
@@ -117,7 +144,7 @@ export function Navigation({ className }: NavigationProps) {
             >
               <img
                 src="/logo-neon.png"
-                alt="Archon"
+                alt="IAFactory Hub"
                 className={cn(
                   "w-8 h-8 transition-all duration-300",
                   isProjectsActive && "filter drop-shadow-[0_0_8px_rgba(59,130,246,0.7)]",
@@ -138,7 +165,7 @@ export function Navigation({ className }: NavigationProps) {
           )}
         </TooltipTrigger>
         <TooltipContent>
-          <p>{projectsEnabled ? "Project Management" : "Projects Disabled"}</p>
+          <p>{projectsEnabled ? "IAFactory Hub" : "Projects Disabled"}</p>
         </TooltipContent>
       </Tooltip>
 
@@ -188,11 +215,6 @@ export function Navigation({ className }: NavigationProps) {
           );
         })}
       </nav>
-
-      {/* Language Selector at bottom */}
-      <div className="mt-auto pt-4">
-        <LanguageSelector />
-      </div>
     </nav>
   );
 }
