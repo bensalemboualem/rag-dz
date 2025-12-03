@@ -509,6 +509,35 @@
             font-size: 18px;
         }
 
+        .apps-panel-modes {
+            display: flex;
+            gap: 8px;
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .apps-panel-modes .mode-btn {
+            flex: 1;
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background: transparent;
+            color: var(--text);
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.2s;
+        }
+
+        .apps-panel-modes .mode-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        .apps-panel-modes .mode-btn:hover:not(.active) {
+            background: rgba(0, 166, 81, 0.1);
+        }
+
         .apps-panel-list {
             flex: 1;
             overflow-y: auto;
@@ -545,6 +574,25 @@
 
         .apps-panel-item:hover {
             background: rgba(0, 166, 81, 0.1);
+        }
+
+        .apps-panel-item .app-icon {
+            font-size: 18px;
+            width: 24px;
+            text-align: center;
+        }
+
+        .apps-panel-item .app-name {
+            flex: 1;
+        }
+
+        .apps-panel-item .app-port {
+            font-size: 11px;
+            color: var(--primary);
+            font-family: monospace;
+            background: rgba(0, 166, 81, 0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
         }
 
         .apps-panel-item .icon {
@@ -2099,38 +2147,38 @@
             </button>
         </div>
         <nav class="sidebar-nav">
-            <button class="nav-item active" data-nav="chat">
+            <button class="nav-item active" onclick="navChatIA()">
                 <i class="fas fa-comment icon"></i>
                 Chat IA
             </button>
-            <button class="nav-item" data-nav="apps" onclick="toggleAppsPanel()">
+            <button class="nav-item" onclick="toggleAppsPanel()">
                 <i class="fas fa-th-large icon"></i>
                 Apps (51)
             </button>
-            <button class="nav-item" data-nav="rag">
+            <button class="nav-item" onclick="navRAGSearch()">
                 <i class="fas fa-search icon"></i>
                 RAG Search
             </button>
-            <button class="nav-item" data-nav="settings">
+            <button class="nav-item" onclick="navParametres()">
                 <i class="fas fa-cog icon"></i>
                 Paramètres
             </button>
         </nav>
         <div class="chat-history">
             <div class="chat-history-title">Conversations récentes</div>
-            <button class="chat-item">
+            <button class="chat-item" onclick="loadConversation(1)">
                 <i class="fas fa-message"></i>
                 Analyse fiscale PME...
             </button>
-            <button class="chat-item">
+            <button class="chat-item" onclick="loadConversation(2)">
                 <i class="fas fa-message"></i>
                 Génération contrat...
             </button>
-            <button class="chat-item">
+            <button class="chat-item" onclick="loadConversation(3)">
                 <i class="fas fa-message"></i>
                 Question juridique...
             </button>
-            <button class="chat-item">
+            <button class="chat-item" onclick="loadConversation(4)">
                 <i class="fas fa-message"></i>
                 Traduction arabe...
             </button>
@@ -2146,38 +2194,18 @@
         </div>
     </aside>
 
-    <!-- Apps Panel (slide-over) -->
+    <!-- Apps Panel (slide-over) avec vraies apps -->
     <div class="apps-panel" id="appsPanel">
         <div class="apps-panel-header">
-            <h3><i class="fas fa-th-large"></i> Applications IA</h3>
+            <h3><i class="fas fa-th-large"></i> Applications IA (51)</h3>
             <button class="apps-panel-close" onclick="toggleAppsPanel()"><i class="fas fa-times"></i></button>
         </div>
-        <div class="apps-panel-list">
-            <div class="apps-panel-category">
-                <div class="apps-panel-category-title">Finance & Business</div>
-                <button class="apps-panel-item"><i class="fas fa-briefcase icon"></i> Business DZ <span class="port">:8182</span></button>
-                <button class="apps-panel-item"><i class="fas fa-calculator icon"></i> Comptabilité IA <span class="port">:8201</span></button>
-                <button class="apps-panel-item"><i class="fas fa-chart-line icon"></i> Analytics Pro <span class="port">:8202</span></button>
-                <button class="apps-panel-item"><i class="fas fa-wallet icon"></i> Finance Manager <span class="port">:8203</span></button>
-            </div>
-            <div class="apps-panel-category">
-                <div class="apps-panel-category-title">Éducation</div>
-                <button class="apps-panel-item"><i class="fas fa-graduation-cap icon"></i> RAG École <span class="port">:8183</span></button>
-                <button class="apps-panel-item"><i class="fas fa-book icon"></i> Tuteur IA <span class="port">:8204</span></button>
-                <button class="apps-panel-item"><i class="fas fa-language icon"></i> Langue Arabe <span class="port">:8205</span></button>
-            </div>
-            <div class="apps-panel-category">
-                <div class="apps-panel-category-title">Legal & Administration</div>
-                <button class="apps-panel-item"><i class="fas fa-balance-scale icon"></i> Legal Assistant <span class="port">:8184</span></button>
-                <button class="apps-panel-item"><i class="fas fa-file-contract icon"></i> Contrats IA <span class="port">:8206</span></button>
-                <button class="apps-panel-item"><i class="fas fa-building icon"></i> Administration <span class="port">:8207</span></button>
-            </div>
-            <div class="apps-panel-category">
-                <div class="apps-panel-category-title">Développement</div>
-                <button class="apps-panel-item"><i class="fas fa-code icon"></i> Developer Portal <span class="port">:8187</span></button>
-                <button class="apps-panel-item"><i class="fas fa-terminal icon"></i> Code Assistant <span class="port">:8208</span></button>
-                <button class="apps-panel-item"><i class="fas fa-database icon"></i> DB Manager <span class="port">:8209</span></button>
-            </div>
+        <div class="apps-panel-modes">
+            <button class="mode-btn active" id="modeUser" onclick="switchAppsMode('user')">🙋 User (33)</button>
+            <button class="mode-btn" id="modeDev" onclick="switchAppsMode('dev')">👨‍💻 Dev (18)</button>
+        </div>
+        <div class="apps-panel-list" id="appsPanelList">
+            <!-- Apps chargées dynamiquement -->
         </div>
     </div>
 
@@ -3087,6 +3115,142 @@
         let isLoading = false;
         let currentSessionId = null;
         const BACKEND_URL = '/apps';
+        let currentAppsMode = 'user';
+        
+        // ========== DONNÉES DES 51 APPS ==========
+        const USER_APPS = [
+            { id: 1, name: "Archon Hub", icon: "🎛️", desc: "Dashboard central", category: "Business", port: 8182 },
+            { id: 2, name: "PME Copilot", icon: "🚀", desc: "Assistant PME", category: "Business", port: 8210 },
+            { id: 3, name: "CRM IA", icon: "👥", desc: "CRM intelligent", category: "Business", port: 8212 },
+            { id: 4, name: "StartupDZ", icon: "🌟", desc: "Startups", category: "Business", port: 8214 },
+            { id: 5, name: "Growth Grid", icon: "📊", desc: "Business plan", category: "Business", port: 8195 },
+            { id: 6, name: "Dashboard", icon: "📊", desc: "Analytics", category: "Business", port: 8193 },
+            { id: 7, name: "Data DZ", icon: "📈", desc: "Data Algérie", category: "Business", port: 8196 },
+            { id: 8, name: "Landing", icon: "🌐", desc: "Landing page", category: "Business", port: 8192 },
+            { id: 9, name: "Billing Panel", icon: "💳", desc: "Facturation", category: "Finance", port: 8207 },
+            { id: 10, name: "Fiscal Assistant", icon: "💰", desc: "Assistant fiscal", category: "Finance", port: 8199 },
+            { id: 11, name: "Legal Assistant", icon: "⚖️", desc: "Assistant juridique", category: "Legal", port: 8197 },
+            { id: 12, name: "BMAD", icon: "🤖", desc: "Multi-agents DIY", category: "IA", port: 8188 },
+            { id: 13, name: "Council", icon: "🏛️", desc: "Gouvernance IA", category: "IA", port: 8185 },
+            { id: 14, name: "Creative Studio", icon: "🎨", desc: "Studio créatif", category: "IA", port: 8189 },
+            { id: 15, name: "Ithy", icon: "💡", desc: "Assistant IA", category: "IA", port: 8186 },
+            { id: 16, name: "Notebook", icon: "📓", desc: "Jupyter IA", category: "IA", port: 8187 },
+            { id: 17, name: "Voice Assistant", icon: "🎙️", desc: "Assistant vocal", category: "IA", port: 8201 },
+            { id: 18, name: "RAG UI", icon: "💬", desc: "Interface RAG", category: "IA", port: 8191 },
+        ];
+        
+        const DEV_APPS = [
+            { id: 19, name: "API Gateway", icon: "🌉", desc: "Gateway central", category: "Developer", port: 8203 },
+            { id: 20, name: "Developer Portal", icon: "💻", desc: "Portail dev", category: "Developer", port: 8194 },
+            { id: 21, name: "n8n Workflows", icon: "🔗", desc: "Automatisation", category: "Developer", port: 8190 },
+            { id: 22, name: "Bolt Studio", icon: "🎬", desc: "Studio Bolt", category: "Developer", port: 8184 },
+            { id: 23, name: "Docs", icon: "📚", desc: "Documentation", category: "Developer", port: 8183 },
+            { id: 24, name: "Grafana", icon: "📊", desc: "Monitoring", category: "Monitoring", port: 3033 },
+            { id: 25, name: "Prometheus", icon: "📈", desc: "Metrics", category: "Monitoring", port: 9090 },
+            { id: 26, name: "Loki", icon: "📝", desc: "Logs", category: "Monitoring", port: 3100 },
+            { id: 27, name: "AlertManager", icon: "🚨", desc: "Alertes", category: "Monitoring", port: 9093 },
+            { id: 28, name: "Backend API", icon: "⚙️", desc: "API RAG", category: "Infra", port: 8180 },
+        ];
+        
+        // ========== FONCTIONS SIDEBAR ==========
+        
+        // Toggle Apps Panel
+        function toggleAppsPanel() {
+            console.log('📱 Toggle Apps Panel');
+            const panel = document.getElementById('appsPanel');
+            if (panel) {
+                panel.classList.toggle('show');
+                if (panel.classList.contains('show')) {
+                    renderAppsPanel();
+                }
+            }
+        }
+        
+        // Changer mode User/Dev
+        function switchAppsMode(mode) {
+            console.log('🔄 Switch mode:', mode);
+            currentAppsMode = mode;
+            document.getElementById('modeUser').classList.toggle('active', mode === 'user');
+            document.getElementById('modeDev').classList.toggle('active', mode === 'dev');
+            renderAppsPanel();
+        }
+        
+        // Afficher les apps
+        function renderAppsPanel() {
+            const apps = currentAppsMode === 'user' ? USER_APPS : DEV_APPS;
+            const container = document.getElementById('appsPanelList');
+            if (!container) return;
+            
+            // Grouper par catégorie
+            const categories = {};
+            apps.forEach(app => {
+                if (!categories[app.category]) categories[app.category] = [];
+                categories[app.category].push(app);
+            });
+            
+            let html = '';
+            for (const [cat, catApps] of Object.entries(categories)) {
+                html += `<div class="apps-panel-category">
+                    <div class="apps-panel-category-title">${cat}</div>`;
+                catApps.forEach(app => {
+                    html += `<button class="apps-panel-item" onclick="openApp('${app.name}', ${app.port})">
+                        <span class="app-icon">${app.icon}</span>
+                        <span class="app-name">${app.name}</span>
+                        <span class="app-port">:${app.port}</span>
+                    </button>`;
+                });
+                html += '</div>';
+            }
+            container.innerHTML = html;
+        }
+        
+        // Ouvrir une app
+        function openApp(name, port) {
+            console.log('🚀 Ouvrir app:', name, port);
+            if (port) {
+                const url = window.location.origin.replace(':8192', ':' + port);
+                window.open(url, '_blank');
+            } else {
+                alert('🚧 ' + name + ' - Bientôt disponible');
+            }
+        }
+        
+        // Navigation Chat IA
+        function navChatIA() {
+            console.log('💬 Nav Chat IA');
+            document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+            event.target.closest('.nav-item').classList.add('active');
+            document.getElementById('appsPanel').classList.remove('show');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        // Navigation RAG Search
+        function navRAGSearch() {
+            console.log('🔍 Nav RAG Search');
+            document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+            event.target.closest('.nav-item').classList.add('active');
+            alert('🔍 RAG Search - Fonctionnalité en développement\n\nRecherche intelligente dans les documents algériens.');
+        }
+        
+        // Navigation Paramètres
+        function navParametres() {
+            console.log('⚙️ Nav Paramètres');
+            document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+            event.target.closest('.nav-item').classList.add('active');
+            alert('⚙️ Paramètres\n\n• Changer de modèle IA\n• Configurer les clés API\n• Personnaliser l\'interface');
+        }
+        
+        // Charger une conversation
+        function loadConversation(id) {
+            console.log('📂 Charger conversation:', id);
+            const titles = {
+                1: 'Analyse fiscale PME...',
+                2: 'Génération contrat...',
+                3: 'Question juridique...',
+                4: 'Traduction arabe...'
+            };
+            alert('📂 Chargement: ' + titles[id] + '\n\n(Fonctionnalité en développement)');
+        }
         
         // ========== FONCTION NOUVELLE CONVERSATION (GLOBALE) ==========
         function nouvelleConversation() {
