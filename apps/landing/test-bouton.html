@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Bouton</title>
+    <style>
+        body { background: #1a1a2e; color: white; font-family: Arial; padding: 50px; }
+        .btn-new-chat {
+            background: #00a651;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 8px;
+        }
+        .btn-new-chat:hover { background: #00c962; }
+    </style>
+</head>
+<body>
+    <h1>Test du bouton Nouvelle Conversation</h1>
+    
+    <button class="btn-new-chat" onclick="nouvelleConversation()">
+        + Nouvelle conversation
+    </button>
+    
+    <div id="result" style="margin-top: 30px; padding: 20px; background: #333; border-radius: 8px;"></div>
+
+    <script>
+        function nouvelleConversation() {
+            alert('CA MARCHE!');
+            document.getElementById('result').innerHTML = '<h2 style="color: #00a651;">✅ Le bouton fonctionne!</h2><p>Clic détecté à ' + new Date().toLocaleTimeString() + '</p>';
+        }
+    </script>
+</body>
+</html>
