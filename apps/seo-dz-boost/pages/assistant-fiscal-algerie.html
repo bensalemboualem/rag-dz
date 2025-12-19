@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>Assistant Fiscal IA pour l'Algérie – IFU, IRG, TVA, CASNOS | iaFactory Algeria</title>
+    <meta name="description" content="Assistant IA spécialisé en fiscalité algérienne. Comprenez IFU, IRG, TAP, TVA, CASNOS, CNAS. Simulations fiscales et conseils pour PME, freelances et cabinets en Algérie.">
+    <meta name="keywords" content="assistant fiscal Algérie, IFU Algérie, IRG Algérie, TAP Algérie, TVA Algérie, CASNOS, CNAS, fiscalité PME Algérie, impôts Algérie IA, calcul impôt Algérie">
+    <meta name="author" content="iaFactory Algeria">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://www.iafactoryalgeria.com/assistant-fiscal-algerie">
+    
+    <!-- Geo Tags -->
+    <meta name="geo.region" content="DZ">
+    <meta name="geo.placename" content="Algeria">
+    <meta http-equiv="content-language" content="fr-DZ">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Assistant Fiscal IA pour l'Algérie – iaFactory Algeria">
+    <meta property="og:description" content="Comprenez IFU, IRG, TAP, TVA, CASNOS avec l'IA. Simulations fiscales pour PME et freelances algériens.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.iafactoryalgeria.com/assistant-fiscal-algerie">
+    <meta property="og:image" content="https://www.iafactoryalgeria.com/og-fiscal.png">
+    <meta property="og:locale" content="fr_DZ">
+    <meta property="og:site_name" content="iaFactory Algeria">
+    
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@iafactorydz">
+    <meta name="twitter:title" content="Assistant Fiscal IA pour l'Algérie">
+    <meta name="twitter:description" content="Comprenez IFU, IRG, TAP, TVA, CASNOS avec l'IA. Simulations fiscales pour PME et freelances algériens.">
+    <meta name="twitter:image" content="https://www.iafactoryalgeria.com/og-fiscal.png">
+    
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "name": "Assistant Fiscal IA Algérie",
+        "description": "Assistant IA spécialisé en fiscalité algérienne : IFU, IRG, TAP, TVA, CASNOS, CNAS",
+        "url": "https://www.iafactoryalgeria.com/assistant-fiscal-algerie",
+        "provider": {
+            "@type": "Organization",
+            "name": "iaFactory Algeria",
+            "url": "https://www.iafactoryalgeria.com"
+        },
+        "serviceType": "Conseil fiscal automatisé",
+        "areaServed": {
+            "@type": "Country",
+            "name": "Algeria"
+        }
+    }
+    </script>
+    
+    <!-- FAQ Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Qu'est-ce que l'IFU en Algérie ?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "L'IFU (Impôt Forfaitaire Unique) est un régime fiscal simplifié pour les petites entreprises en Algérie avec un chiffre d'affaires annuel inférieur à 15 millions DZD (services) ou 30 millions DZD (ventes). Le taux est de 5% du CA."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Quel est le taux de CASNOS pour les indépendants en Algérie ?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Le taux de cotisation CASNOS pour les travailleurs non-salariés est de 15% du revenu annuel déclaré, avec un minimum basé sur le SNMG. La déclaration est annuelle."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Comment calculer l'IRG en Algérie ?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "L'IRG (Impôt sur le Revenu Global) est calculé selon un barème progressif allant de 0% à 35% selon les tranches de revenus. Les revenus jusqu'à 30 000 DZD/mois sont exonérés."
+                }
+            }
+        ]
+    }
+    </script>
+    
+    <!-- Breadcrumb Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://www.iafactoryalgeria.com/"},
+            {"@type": "ListItem", "position": 2, "name": "Assistant Fiscal", "item": "https://www.iafactoryalgeria.com/assistant-fiscal-algerie"}
+        ]
+    }
+    </script>
+    
+    <!-- Fonts & Styles -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0f1e;
+            color: #f9fafb;
+            line-height: 1.7;
+        }
+        
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 15, 30, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding: 1rem 2rem;
+            z-index: 1000;
+        }
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: inherit;
+        }
+        .nav-logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #22c55e, #3b82f6);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+        .nav-logo-text {
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+        .nav-logo-text span { color: #22c55e; }
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+        .nav-links a {
+            color: #9ca3af;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: #22c55e; }
+        .nav-cta {
+            padding: 0.5rem 1.25rem;
+            background: linear-gradient(135deg, #22c55e, #3b82f6);
+            border-radius: 8px;
+            color: white !important;
+            font-weight: 600;
+        }
+        
+        /* Hero */
+        .hero {
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+            background: radial-gradient(ellipse at top, rgba(34, 197, 94, 0.1) 0%, transparent 50%);
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            border-radius: 50px;
+            font-size: 0.875rem;
+            color: #22c55e;
+            margin-bottom: 2rem;
+        }
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+        .hero h1 .gradient {
+            background: linear-gradient(135deg, #22c55e, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: #9ca3af;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .btn-primary {
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #22c55e, #3b82f6);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(34, 197, 94, 0.3);
+        }
+        .btn-secondary {
+            padding: 1rem 2rem;
+            background: transparent;
+            border: 2px solid #374151;
+            border-radius: 12px;
+            color: white;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: border-color 0.2s;
+        }
+        .btn-secondary:hover {
+            border-color: #22c55e;
+        }
+        
+        /* Section */
+        .section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .section-alt {
+            background: rgba(17, 24, 39, 0.5);
+        }
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        .section-subtitle {
+            text-align: center;
+            color: #9ca3af;
+            max-width: 600px;
+            margin: 0 auto 3rem;
+        }
+        
+        /* Tax Types Grid */
+        .tax-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+        .tax-card {
+            background: #111827;
+            border: 1px solid #1f2937;
+            border-radius: 16px;
+            padding: 2rem;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+        .tax-card:hover {
+            transform: translateY(-4px);
+            border-color: #22c55e;
+        }
+        .tax-card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .tax-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #22c55e20, #3b82f620);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        .tax-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+        .tax-fullname {
+            font-size: 0.8rem;
+            color: #6b7280;
+        }
+        .tax-card p {
+            color: #9ca3af;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+        .tax-rate {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: #22c55e;
+        }
+        
+        /* Target Audience */
+        .audience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        .audience-card {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(139, 92, 246, 0.05));
+            border: 1px solid #1f2937;
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+        }
+        .audience-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .audience-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .audience-desc {
+            color: #9ca3af;
+            font-size: 0.9rem;
+        }
+        
+        /* Simulation */
+        .simulation-box {
+            background: #111827;
+            border: 1px solid #1f2937;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+        .simulation-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .simulation-icon {
+            font-size: 2rem;
+        }
+        .simulation-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+        .simulation-disclaimer {
+            background: rgba(234, 179, 8, 0.1);
+            border: 1px solid rgba(234, 179, 8, 0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            gap: 0.75rem;
+            font-size: 0.9rem;
+            color: #fbbf24;
+        }
+        .simulation-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        .sim-feature {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            background: rgba(34, 197, 94, 0.05);
+            border-radius: 8px;
+        }
+        .sim-feature-icon {
+            color: #22c55e;
+        }
+        
+        /* FAQ */
+        .faq-list {
+            max-width: 800px;
+            margin: 3rem auto 0;
+        }
+        .faq-item {
+            background: #111827;
+            border: 1px solid #1f2937;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+        .faq-question {
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .faq-question:hover {
+            background: rgba(34, 197, 94, 0.05);
+        }
+        .faq-toggle {
+            font-size: 1.25rem;
+            color: #22c55e;
+        }
+        .faq-answer {
+            padding: 0 1.5rem 1.25rem;
+            color: #9ca3af;
+            display: none;
+        }
+        .faq-item.open .faq-answer {
+            display: block;
+        }
+        .faq-item.open .faq-toggle {
+            transform: rotate(45deg);
+        }
+        
+        /* CTA */
+        .cta-section {
+            padding: 5rem 2rem;
+            text-align: center;
+            background: linear-gradient(180deg, transparent, rgba(34, 197, 94, 0.1));
+        }
+        .cta-box {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #111827;
+            border: 1px solid #1f2937;
+            border-radius: 24px;
+            padding: 3rem;
+        }
+        .cta-box h2 {
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+        }
+        .cta-box p {
+            color: #9ca3af;
+            margin-bottom: 2rem;
+        }
+        
+        /* Footer */
+        .footer {
+            background: #0d1117;
+            border-top: 1px solid #1f2937;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+        .footer-links a {
+            color: #6b7280;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+        .footer-links a:hover {
+            color: #22c55e;
+        }
+        .footer-copy {
+            color: #4b5563;
+            font-size: 0.85rem;
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero { padding: 6rem 1rem 3rem; }
+            .section { padding: 3rem 1rem; }
+        }
+    </style>
+
+<!-- IAFactory i18n System - TRILINGUE -->
+<link rel="stylesheet" href="/shared/iafactory-theme.css">
+<script src="/shared/i18n.js"></script>
+<script src="/shared/language-switcher.js"></script>
+
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-content">
+
+<!-- Language Switcher -->
+<div data-language-switcher></div>
+
+            <a href="/" class="nav-logo">
+                <div class="nav-logo-icon">🇩🇿</div>
+                <div class="nav-logo-text">iaFactory <span>Algeria</span></div>
+            </a>
+            <div class="nav-links">
+                <a href="/ia-algerie">IA Algérie</a>
+                <a href="/pme">Pack PME DZ</a>
+                <a href="/assistant-juridique-algerie">Juridique</a>
+                <a href="/creation-entreprise-algerie-ia">Création Entreprise</a>
+                <a href="/hub/" class="nav-cta">Tester l'Assistant →</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-badge">
+            <span>💰</span>
+            <span>Fiscalité Algérienne avec l'IA</span>
+        </div>
+        <h1>
+            <span class="gradient">Assistant Fiscal IA</span>
+            <br>pour l'Algérie
+        </h1>
+        <p class="hero-subtitle">
+            Comprenez IFU, IRG, TAP, TVA, CASNOS et CNAS en quelques secondes. 
+            L'IA qui connaît la fiscalité algérienne et vous guide avec des réponses sourcées.
+        </p>
+        <div class="hero-cta">
+            <a href="/hub/" class="btn-primary">
+                <span>✨</span> Poser une question fiscale
+            </a>
+            <a href="/pme" class="btn-secondary">
+                <span>📦</span> Pack PME DZ complet
+            </a>
+        </div>
+    </section>
+
+    <!-- Tax Types Section -->
+    <section class="section section-alt">
+        <h2 class="section-title">Comprendre les impôts en Algérie</h2>
+        <p class="section-subtitle">
+            Notre assistant IA maîtrise tous les types d'impôts et cotisations du système fiscal algérien.
+        </p>
+        
+        <div class="tax-grid">
+            <div class="tax-card">
+                <div class="tax-card-header">
+                    <div class="tax-icon">📊</div>
+                    <div>
+                        <div class="tax-name">IFU</div>
+                        <div class="tax-fullname">Impôt Forfaitaire Unique</div>
+                    </div>
+                </div>
+                <p>
+                    Régime simplifié pour les petites entreprises. Remplace IRG, TVA et TAP pour les CA < 15M DZD (services) ou 30M DZD (ventes).
+                </p>
+                <span class="tax-rate">Taux : 5% du CA</span>
+            </div>
+            
+            <div class="tax-card">
+                <div class="tax-card-header">
+                    <div class="tax-icon">👤</div>
+                    <div>
+                        <div class="tax-name">IRG</div>
+                        <div class="tax-fullname">Impôt sur le Revenu Global</div>
+                    </div>
+                </div>
+                <p>
+                    Impôt sur les revenus des personnes physiques. Barème progressif de 0% à 35% selon les tranches.
+                </p>
+                <span class="tax-rate">Taux : 0% à 35%</span>
+            </div>
+            
+            <div class="tax-card">
+                <div class="tax-card-header">
+                    <div class="tax-icon">🏢</div>
+                    <div>
+                        <div class="tax-name">IBS</div>
+                        <div class="tax-fullname">Impôt sur les Bénéfices des Sociétés</div>
+                    </div>
+                </div>
+                <p>
+                    Impôt sur les bénéfices des sociétés de capitaux (SARL, SPA, EURL). Taux standard avec réductions possibles.
+                </p>
+                <span class="tax-rate">Taux : 19% à 26%</span>
+            </div>
+            
+            <div class="tax-card">
+                <div class="tax-card-header">
+                    <div class="tax-icon">🛒</div>
+                    <div>
+                        <div class="tax-name">TVA</div>
+                        <div class="tax-fullname">Taxe sur la Valeur Ajoutée</div>
+                    </div>
+                </div>
+                <p>
+                    Taxe sur la consommation collectée à chaque étape de la chaîne de valeur. Taux normal et réduit.
+                </p>
+                <span class="tax-rate">Taux : 9% ou 19%</span>
+            </div>
+            
+            <div class="tax-card">
+                <div class="tax-card-header">
+                    <div class="tax-icon">🏪</div>
+                    <div>
+                        <div class="tax-name">TAP</div>
+                        <div class="tax-fullname">Taxe sur l'Activité Professionnelle</div>
+                    </div>
+                </div>
+                <p>
+                    Taxe locale sur le chiffre d'affaires, versée aux collectivités locales. Applicable au régime réel.
+                </p>
+                <span class="tax-rate">Taux : 1% à 2%</span>
+            </div>
+            
+            <div class="tax-card">
+                <div class="tax-card-header">
+                    <div class="tax-icon">🏥</div>
+                    <div>
+                        <div class="tax-name">CASNOS</div>
+                        <div class="tax-fullname">Sécurité Sociale Non-Salariés</div>
+                    </div>
+                </div>
+                <p>
+                    Cotisation obligatoire pour indépendants, commerçants, artisans et professions libérales.
+                </p>
+                <span class="tax-rate">Taux : 15% du revenu</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- For Who Section -->
+    <section class="section">
+        <h2 class="section-title">Pour qui est cet assistant ?</h2>
+        <p class="section-subtitle">
+            Notre assistant fiscal IA s'adresse à tous les professionnels et entreprises en Algérie.
+        </p>
+        
+        <div class="audience-grid">
+            <div class="audience-card">
+                <div class="audience-icon">👨‍💻</div>
+                <div class="audience-title">Freelances</div>
+                <div class="audience-desc">
+                    Développeurs, designers, consultants : comprenez vos obligations IFU, CASNOS, et optimisez votre fiscalité.
+                </div>
+            </div>
+            <div class="audience-card">
+                <div class="audience-icon">🏪</div>
+                <div class="audience-title">PME & Commerçants</div>
+                <div class="audience-desc">
+                    EURL, SARL, commerces : maîtrisez TVA, IRG/IBS, TAP et vos obligations déclaratives.
+                </div>
+            </div>
+            <div class="audience-card">
+                <div class="audience-icon">📚</div>
+                <div class="audience-title">Cabinets Comptables</div>
+                <div class="audience-desc">
+                    Experts-comptables : un assistant pour vérifier rapidement les textes et conseiller vos clients.
+                </div>
+            </div>
+            <div class="audience-card">
+                <div class="audience-icon">🚀</div>
+                <div class="audience-title">Startups</div>
+                <div class="audience-desc">
+                    Jeunes entreprises : découvrez les avantages fiscaux, incubateurs et régimes spéciaux.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Simulation Section -->
+    <section class="section section-alt">
+        <h2 class="section-title">Simulations fiscales (non officielles)</h2>
+        <p class="section-subtitle">
+            Obtenez des estimations pour mieux comprendre vos obligations fiscales.
+        </p>
+        
+        <div class="simulation-box">
+            <div class="simulation-header">
+                <span class="simulation-icon">🧮</span>
+                <span class="simulation-title">Calculateur fiscal IA</span>
+            </div>
+            
+            <div class="simulation-disclaimer">
+                <span>⚠️</span>
+                <span>
+                    Ces simulations sont fournies à titre indicatif uniquement. 
+                    Pour des calculs officiels, consultez un expert-comptable ou la DGI.
+                </span>
+            </div>
+            
+            <div class="simulation-features">
+                <div class="sim-feature">
+                    <span class="sim-feature-icon">✓</span>
+                    <span>Estimation IFU mensuel/annuel</span>
+                </div>
+                <div class="sim-feature">
+                    <span class="sim-feature-icon">✓</span>
+                    <span>Calcul IRG selon barème</span>
+                </div>
+                <div class="sim-feature">
+                    <span class="sim-feature-icon">✓</span>
+                    <span>Projection CASNOS</span>
+                </div>
+                <div class="sim-feature">
+                    <span class="sim-feature-icon">✓</span>
+                    <span>Comparaison régimes fiscaux</span>
+                </div>
+                <div class="sim-feature">
+                    <span class="sim-feature-icon">✓</span>
+                    <span>TVA collectée vs déductible</span>
+                </div>
+                <div class="sim-feature">
+                    <span class="sim-feature-icon">✓</span>
+                    <span>Charges sociales totales</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section">
+        <h2 class="section-title">Questions fréquentes sur la fiscalité</h2>
+        
+        <div class="faq-list">
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Qu'est-ce que l'IFU en Algérie ?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    L'IFU (Impôt Forfaitaire Unique) est un régime fiscal simplifié pour les petites entreprises en Algérie avec un chiffre d'affaires annuel inférieur à 15 millions DZD (services) ou 30 millions DZD (ventes). Le taux est de 5% du CA. Il remplace l'IRG, la TVA et la TAP en un seul impôt.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Quel est le taux de CASNOS pour les indépendants ?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    Le taux de cotisation CASNOS pour les travailleurs non-salariés est de 15% du revenu annuel déclaré, avec un minimum basé sur le SNMG. La déclaration et le paiement sont annuels, avec possibilité de paiement trimestriel.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Comment passer du régime IFU au régime réel ?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    Le passage au régime réel est obligatoire si votre CA dépasse les seuils IFU. Il peut aussi être demandé volontairement auprès de l'inspection des impôts. Le régime réel implique la tenue d'une comptabilité complète et le paiement séparé de l'IRG/IBS, TVA et TAP.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Quelles sont les échéances fiscales principales ?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    Les principales échéances : G50 (TVA, IRG) le 20 de chaque mois, déclaration annuelle IFU avant le 20 janvier, liasse fiscale avant le 30 avril, CASNOS déclaration annuelle. L'assistant vous rappelle vos échéances.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-box">
+            <h2>Simplifiez votre fiscalité avec l'IA</h2>
+            <p>
+                Posez vos questions fiscales et obtenez des réponses claires, sourcées du Code des Impôts et des circulaires DGI.
+            </p>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="/hub/" class="btn-primary">
+                    <span>💬</span> Poser une question
+                </a>
+                <a href="/pme" class="btn-secondary">
+                    <span>📦</span> Voir Pack PME DZ
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="/">Accueil</a>
+            <a href="/ia-algerie">IA Algérie</a>
+            <a href="/pme">Pack PME DZ</a>
+            <a href="/assistant-juridique-algerie">Assistant Juridique</a>
+            <a href="/creation-entreprise-algerie-ia">Création Entreprise</a>
+            <a href="/api-ia-algerie">API IA</a>
+            <a href="/docs">Documentation</a>
+        </div>
+        <p class="footer-copy">
+            © 2025 iaFactory Algeria. Tous droits réservés. 🇩🇿 Made in Algeria
+        </p>
+    </footer>
+    
+    <script>
+        // FAQ Toggle
+        document.querySelectorAll('.faq-question').forEach(q => {
+            q.addEventListener('click', () => {
+                q.parentElement.classList.toggle('open');
+            });
+        });
+    </script>
+</body>
+</html>

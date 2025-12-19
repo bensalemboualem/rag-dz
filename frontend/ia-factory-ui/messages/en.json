@@ -1,0 +1,107 @@
+{
+  "common": {
+    "appName": "IA Factory",
+    "welcome": "Welcome",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close"
+  },
+  "auth": {
+    "login": "Login",
+    "logout": "Logout",
+    "register": "Register",
+    "email": "Email address",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
+    "fullName": "Full name",
+    "forgotPassword": "Forgot password?",
+    "resetPassword": "Reset password",
+    "rememberMe": "Remember me",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "signIn": "Sign in",
+    "signUp": "Sign up",
+    "emailSent": "Email sent! Check your inbox.",
+    "passwordReset": "Your password has been reset successfully.",
+    "invalidCredentials": "Invalid credentials",
+    "weakPassword": "Password too weak (min 8 characters)"
+  },
+  "landing": {
+    "hero": {
+      "title": "Your Multilingual AI Assistant",
+      "subtitle": "Transcribe, analyze, and export your conversations securely",
+      "cta": "Get started for free"
+    },
+    "features": {
+      "title": "Features",
+      "voice": {
+        "title": "Voice Recognition",
+        "description": "Real-time transcription in 100+ languages"
+      },
+      "analysis": {
+        "title": "Intelligent Analysis",
+        "description": "Emotion detection, automatic summaries, insights"
+      },
+      "export": {
+        "title": "Secure Export",
+        "description": "Download your data in PDF, DOCX, or JSON"
+      }
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "overview": "Overview",
+    "recordings": "Recordings",
+    "analytics": "Analytics",
+    "settings": "Settings",
+    "profile": "Profile",
+    "billing": "Billing",
+    "usage": "Usage",
+    "tokens": "Tokens",
+    "tokensRemaining": "{count} tokens remaining"
+  },
+  "recording": {
+    "start": "Start recording",
+    "stop": "Stop",
+    "pause": "Pause",
+    "resume": "Resume",
+    "processing": "Processing...",
+    "transcribing": "Transcribing...",
+    "analyzing": "Analyzing..."
+  },
+  "header": {
+    "home": "Home",
+    "apps": "Apps",
+    "pricing": "Pricing",
+    "docs": "Docs",
+    "login": "Log in",
+    "getStarted": "Get Started"
+  },
+  "footer": {
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "contact": "Contact",
+    "copyright": "© {year} IA Factory. All rights reserved."
+  },
+  "chatbot": {
+    "greeting": "Hello! I'm Dzir IA, your assistant. How can I help you?",
+    "placeholder": "Type your message...",
+    "send": "Send"
+  },
+  "switzerland": {
+    "tagline": "Privacy & Precision",
+    "focus": "Swiss nLPD Compliance",
+    "welcomeTitle": "Your Private Assistant is Ready",
+    "features": {
+      "stress": "Stress detection",
+      "compliance": "nLPD compliance",
+      "clinical": "Clinical summaries"
+    }
+  }
+}

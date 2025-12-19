@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>IA & RAG pour l'Algérie – Intelligence Artificielle Spécialisée | iaFactory Algeria</title>
+    <meta name="description" content="Découvrez RAG-DZ, la technologie d'IA spécialisée pour l'Algérie. Posez vos questions fiscales, juridiques et administratives avec des réponses sourcées du Journal Officiel, DGI, CNAS, CNRC.">
+    <meta name="keywords" content="IA Algérie, RAG Algérie, intelligence artificielle Algérie, assistant IA DZ, RAG-DZ, Journal Officiel Algérie, DGI, CNAS, CNRC, fiscalité Algérie IA">
+    <meta name="author" content="iaFactory Algeria">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://www.iafactoryalgeria.com/ia-algerie">
+    
+    <!-- Geo Tags -->
+    <meta name="geo.region" content="DZ">
+    <meta name="geo.placename" content="Algeria">
+    <meta http-equiv="content-language" content="fr-DZ">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="IA & RAG pour l'Algérie – iaFactory Algeria">
+    <meta property="og:description" content="RAG-DZ : l'IA qui comprend le contexte algérien. Fiscalité, juridique, administratif avec sources officielles.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.iafactoryalgeria.com/ia-algerie">
+    <meta property="og:image" content="https://www.iafactoryalgeria.com/og-ia-algerie.png">
+    <meta property="og:locale" content="fr_DZ">
+    <meta property="og:site_name" content="iaFactory Algeria">
+    
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@iafactorydz">
+    <meta name="twitter:title" content="IA & RAG pour l'Algérie – iaFactory Algeria">
+    <meta name="twitter:description" content="RAG-DZ : l'IA qui comprend le contexte algérien. Fiscalité, juridique, administratif avec sources officielles.">
+    <meta name="twitter:image" content="https://www.iafactoryalgeria.com/og-ia-algerie.png">
+    
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "IA & RAG pour l'Algérie",
+        "description": "Découvrez RAG-DZ, la technologie d'IA spécialisée pour l'Algérie",
+        "url": "https://www.iafactoryalgeria.com/ia-algerie",
+        "inLanguage": "fr-DZ",
+        "isPartOf": {
+            "@type": "WebSite",
+            "name": "iaFactory Algeria",
+            "url": "https://www.iafactoryalgeria.com"
+        },
+        "about": {
+            "@type": "Thing",
+            "name": "Intelligence Artificielle en Algérie"
+        },
+        "mainEntity": {
+            "@type": "SoftwareApplication",
+            "name": "RAG-DZ",
+            "applicationCategory": "BusinessApplication",
+            "operatingSystem": "Web",
+            "description": "Système RAG (Retrieval-Augmented Generation) spécialisé pour le contexte algérien"
+        }
+    }
+    </script>
+    
+    <!-- Breadcrumb Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://www.iafactoryalgeria.com/"},
+            {"@type": "ListItem", "position": 2, "name": "IA Algérie", "item": "https://www.iafactoryalgeria.com/ia-algerie"}
+        ]
+    }
+    </script>
+    
+    <!-- Fonts & Styles -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0f1e;
+            color: #f9fafb;
+            line-height: 1.7;
+        }
+        
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 15, 30, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding: 1rem 2rem;
+            z-index: 1000;
+        }
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: inherit;
+        }
+        .nav-logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #22c55e, #3b82f6, #8b5cf6);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+        .nav-logo-text {
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+        .nav-logo-text span { color: #22c55e; }
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+        .nav-links a {
+            color: #9ca3af;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: #22c55e; }
+        .nav-cta {
+            padding: 0.5rem 1.25rem;
+            background: linear-gradient(135deg, #22c55e, #3b82f6);
+            border-radius: 8px;
+            color: white !important;
+            font-weight: 600;
+        }
+        
+        /* Hero */
+        .hero {
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+            background: radial-gradient(ellipse at top, rgba(34, 197, 94, 0.1) 0%, transparent 50%);
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            border-radius: 50px;
+            font-size: 0.875rem;
+            color: #22c55e;
+            margin-bottom: 2rem;
+        }
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+        .hero h1 .gradient {
+            background: linear-gradient(135deg, #22c55e, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: #9ca3af;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .btn-primary {
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #22c55e, #3b82f6);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(34, 197, 94, 0.3);
+        }
+        .btn-secondary {
+            padding: 1rem 2rem;
+            background: transparent;
+            border: 2px solid #374151;
+            border-radius: 12px;
+            color: white;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: border-color 0.2s;
+        }
+        .btn-secondary:hover {
+            border-color: #22c55e;
+        }
+        
+        /* Section */
+        .section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .section-alt {
+            background: rgba(17, 24, 39, 0.5);
+        }
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        .section-subtitle {
+            text-align: center;
+            color: #9ca3af;
+            max-width: 600px;
+            margin: 0 auto 3rem;
+        }
+        
+        /* What is RAG */
+        .rag-explanation {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        .rag-card {
+            background: #111827;
+            border: 1px solid #1f2937;
+            border-radius: 16px;
+            padding: 2rem;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+        .rag-card:hover {
+            transform: translateY(-4px);
+            border-color: #22c55e;
+        }
+        .rag-card-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #22c55e20, #3b82f620);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+        }
+        .rag-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+        .rag-card p {
+            color: #9ca3af;
+            font-size: 0.95rem;
+        }
+        
+        /* Sources */
+        .sources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+        .source-item {
+            background: #111827;
+            border: 1px solid #1f2937;
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: border-color 0.2s;
+        }
+        .source-item:hover {
+            border-color: #3b82f6;
+        }
+        .source-icon {
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
+        }
+        .source-name {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        .source-desc {
+            font-size: 0.8rem;
+            color: #6b7280;
+        }
+        
+        /* Examples */
+        .examples-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-width: 800px;
+            margin: 3rem auto 0;
+        }
+        .example-item {
+            background: #111827;
+            border: 1px solid #1f2937;
+            border-radius: 12px;
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: border-color 0.2s;
+        }
+        .example-item:hover {
+            border-color: #8b5cf6;
+        }
+        .example-icon {
+            font-size: 1.5rem;
+        }
+        .example-text {
+            color: #d1d5db;
+        }
+        
+        /* Why Algeria */
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        .why-card {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.05), rgba(59, 130, 246, 0.05));
+            border: 1px solid #1f2937;
+            border-radius: 16px;
+            padding: 2rem;
+        }
+        .why-card h3 {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+        .why-card p {
+            color: #9ca3af;
+            font-size: 0.95rem;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            padding: 5rem 2rem;
+            text-align: center;
+            background: linear-gradient(180deg, transparent, rgba(34, 197, 94, 0.1));
+        }
+        .cta-box {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #111827;
+            border: 1px solid #1f2937;
+            border-radius: 24px;
+            padding: 3rem;
+        }
+        .cta-box h2 {
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+        }
+        .cta-box p {
+            color: #9ca3af;
+            margin-bottom: 2rem;
+        }
+        
+        /* Footer */
+        .footer {
+            background: #0d1117;
+            border-top: 1px solid #1f2937;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+        .footer-links a {
+            color: #6b7280;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+        .footer-links a:hover {
+            color: #22c55e;
+        }
+        .footer-copy {
+            color: #4b5563;
+            font-size: 0.85rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero { padding: 6rem 1rem 3rem; }
+            .section { padding: 3rem 1rem; }
+        }
+    </style>
+
+<!-- IAFactory i18n System - TRILINGUE -->
+<link rel="stylesheet" href="/shared/iafactory-theme.css">
+<script src="/shared/i18n.js"></script>
+<script src="/shared/language-switcher.js"></script>
+
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-content">
+
+<!-- Language Switcher -->
+<div data-language-switcher></div>
+
+            <a href="/" class="nav-logo">
+                <div class="nav-logo-icon">🇩🇿</div>
+                <div class="nav-logo-text">iaFactory <span>Algeria</span></div>
+            </a>
+            <div class="nav-links">
+                <a href="/pme">Pack PME DZ</a>
+                <a href="/startup">StartupDZ</a>
+                <a href="/assistant-fiscal-algerie">Fiscal</a>
+                <a href="/assistant-juridique-algerie">Juridique</a>
+                <a href="/docs">API Docs</a>
+                <a href="/hub/" class="nav-cta">Tester RAG-DZ →</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-badge">
+            <span>🤖</span>
+            <span>Intelligence Artificielle Made in Algeria</span>
+        </div>
+        <h1>
+            <span class="gradient">RAG & IA</span> pour l'Algérie
+            <br>Posez vos questions, obtenez des réponses sourcées
+        </h1>
+        <p class="hero-subtitle">
+            RAG-DZ est un système d'intelligence artificielle spécialement conçu pour le contexte algérien. 
+            Fiscalité, juridique, administratif : des réponses précises basées sur les textes officiels.
+        </p>
+        <div class="hero-cta">
+            <a href="/hub/" class="btn-primary">
+                <span>✨</span> Essayer RAG-DZ gratuitement
+            </a>
+            <a href="/pme" class="btn-secondary">
+                <span>📦</span> Voir le Pack PME DZ
+            </a>
+        </div>
+    </section>
+
+    <!-- What is RAG Section -->
+    <section class="section section-alt">
+        <h2 class="section-title">C'est quoi un RAG, expliqué simplement ?</h2>
+        <p class="section-subtitle">
+            RAG (Retrieval-Augmented Generation) est une technologie d'IA qui combine recherche documentaire et génération de texte.
+        </p>
+        
+        <div class="rag-explanation">
+            <div class="rag-card">
+                <div class="rag-card-icon">📚</div>
+                <h3>1. Recherche dans les documents</h3>
+                <p>
+                    Quand vous posez une question, RAG-DZ recherche d'abord dans une base de documents officiels algériens : 
+                    Journal Officiel, textes de la DGI, CNAS, CNRC, codes juridiques...
+                </p>
+            </div>
+            <div class="rag-card">
+                <div class="rag-card-icon">🧠</div>
+                <h3>2. Compréhension par l'IA</h3>
+                <p>
+                    L'IA analyse les passages pertinents trouvés et les comprend dans leur contexte. 
+                    Elle identifie les informations clés qui répondent à votre question.
+                </p>
+            </div>
+            <div class="rag-card">
+                <div class="rag-card-icon">💬</div>
+                <h3>3. Réponse sourcée et claire</h3>
+                <p>
+                    Vous recevez une réponse en français clair, avec les sources citées. 
+                    Pas d'hallucination : chaque affirmation est traçable vers un document officiel.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Algeria Section -->
+    <section class="section">
+        <h2 class="section-title">Pourquoi un RAG spécial Algérie ?</h2>
+        <p class="section-subtitle">
+            Les IA génériques (ChatGPT, Claude) ne connaissent pas les spécificités algériennes. RAG-DZ comble ce vide.
+        </p>
+        
+        <div class="why-grid">
+            <div class="why-card">
+                <h3>🇩🇿 Contexte local</h3>
+                <p>
+                    IFU, IRG, TAP, CASNOS, CNAS... des acronymes et concepts que seule une IA entraînée sur des données algériennes peut comprendre correctement.
+                </p>
+            </div>
+            <div class="why-card">
+                <h3>📜 Sources officielles</h3>
+                <p>
+                    Nous indexons le Journal Officiel, les textes de loi, les circulaires des administrations algériennes. Pas d'informations obsolètes ou génériques.
+                </p>
+            </div>
+            <div class="why-card">
+                <h3>🔄 Mises à jour régulières</h3>
+                <p>
+                    La loi de finances 2025, les nouvelles procédures CNRC, les taux CASNOS actualisés... notre base est mise à jour continuellement.
+                </p>
+            </div>
+            <div class="why-card">
+                <h3>🇫🇷 Réponses en français</h3>
+                <p>
+                    Des réponses claires en français, avec possibilité de basculer en arabe. Adaptées au vocabulaire administratif algérien.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sources Section -->
+    <section class="section section-alt">
+        <h2 class="section-title">Nos sources officielles</h2>
+        <p class="section-subtitle">
+            RAG-DZ s'appuie sur des documents authentiques et vérifiés des institutions algériennes.
+        </p>
+        
+        <div class="sources-grid">
+            <div class="source-item">
+                <div class="source-icon">📰</div>
+                <div class="source-name">Journal Officiel</div>
+                <div class="source-desc">JORADP - Textes de loi</div>
+            </div>
+            <div class="source-item">
+                <div class="source-icon">💰</div>
+                <div class="source-name">DGI</div>
+                <div class="source-desc">Direction Générale des Impôts</div>
+            </div>
+            <div class="source-item">
+                <div class="source-icon">🏥</div>
+                <div class="source-name">CNAS</div>
+                <div class="source-desc">Sécurité Sociale Salariés</div>
+            </div>
+            <div class="source-item">
+                <div class="source-icon">👷</div>
+                <div class="source-name">CASNOS</div>
+                <div class="source-desc">Sécurité Sociale Non-Salariés</div>
+            </div>
+            <div class="source-item">
+                <div class="source-icon">🏢</div>
+                <div class="source-name">CNRC</div>
+                <div class="source-desc">Registre du Commerce</div>
+            </div>
+            <div class="source-item">
+                <div class="source-icon">📊</div>
+                <div class="source-name">ONS</div>
+                <div class="source-desc">Office National des Statistiques</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Examples Section -->
+    <section class="section">
+        <h2 class="section-title">Exemples de questions que vous pouvez poser</h2>
+        <p class="section-subtitle">
+            RAG-DZ répond à vos questions sur la fiscalité, le juridique et l'administratif en Algérie.
+        </p>
+        
+        <div class="examples-list">
+            <div class="example-item">
+                <span class="example-icon">💼</span>
+                <span class="example-text">"Quels impôts doit payer une EURL en régime simplifié IFU ?"</span>
+            </div>
+            <div class="example-item">
+                <span class="example-icon">📋</span>
+                <span class="example-text">"Quelles sont les étapes pour créer une entreprise au CNRC en 2025 ?"</span>
+            </div>
+            <div class="example-item">
+                <span class="example-icon">🏥</span>
+                <span class="example-text">"Quel est le taux de cotisation CASNOS pour un freelance ?"</span>
+            </div>
+            <div class="example-item">
+                <span class="example-icon">📄</span>
+                <span class="example-text">"Comment rédiger un contrat CDD conforme au droit algérien ?"</span>
+            </div>
+            <div class="example-item">
+                <span class="example-icon">🌍</span>
+                <span class="example-text">"Quelles sont les démarches pour l'import/export en Algérie ?"</span>
+            </div>
+            <div class="example-item">
+                <span class="example-icon">💵</span>
+                <span class="example-text">"Quel est le taux de TVA applicable pour les services numériques ?"</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-box">
+            <h2>Prêt à découvrir l'IA algérienne ?</h2>
+            <p>
+                Testez RAG-DZ gratuitement avec 100 crédits offerts. 
+                Posez vos premières questions en quelques secondes.
+            </p>
+            <a href="/hub/" class="btn-primary">
+                <span>🚀</span> Commencer gratuitement
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="/">Accueil</a>
+            <a href="/pme">Pack PME DZ</a>
+            <a href="/startup">StartupDZ</a>
+            <a href="/assistant-fiscal-algerie">Assistant Fiscal</a>
+            <a href="/assistant-juridique-algerie">Assistant Juridique</a>
+            <a href="/api-ia-algerie">API IA</a>
+            <a href="/docs">Documentation</a>
+            <a href="/cgu">CGU</a>
+            <a href="/confidentialite">Confidentialité</a>
+        </div>
+        <p class="footer-copy">
+            © 2025 iaFactory Algeria. Tous droits réservés. 🇩🇿 Made in Algeria
+        </p>
+    </footer>
+</body>
+</html>

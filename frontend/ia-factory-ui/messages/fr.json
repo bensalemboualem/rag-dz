@@ -1,0 +1,117 @@
+{
+  "common": {
+    "appName": "IA Factory",
+    "welcome": "Bienvenue",
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "success": "Succès",
+    "cancel": "Annuler",
+    "confirm": "Confirmer",
+    "save": "Enregistrer",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "close": "Fermer"
+  },
+  "auth": {
+    "login": "Connexion",
+    "logout": "Déconnexion",
+    "register": "Inscription",
+    "email": "Adresse e-mail",
+    "password": "Mot de passe",
+    "confirmPassword": "Confirmer le mot de passe",
+    "fullName": "Nom complet",
+    "forgotPassword": "Mot de passe oublié ?",
+    "resetPassword": "Réinitialiser le mot de passe",
+    "rememberMe": "Se souvenir de moi",
+    "noAccount": "Pas encore de compte ?",
+    "hasAccount": "Déjà un compte ?",
+    "signIn": "Se connecter",
+    "signUp": "S'inscrire",
+    "emailSent": "E-mail envoyé ! Vérifiez votre boîte de réception.",
+    "passwordReset": "Votre mot de passe a été réinitialisé avec succès.",
+    "invalidCredentials": "Identifiants invalides",
+    "weakPassword": "Mot de passe trop faible (min 8 caractères)"
+  },
+  "landing": {
+    "hero": {
+      "title": "Votre Assistant IA Multilingue",
+      "subtitle": "Transcrivez, analysez et exportez vos conversations en toute sécurité",
+      "cta": "Commencer gratuitement"
+    },
+    "features": {
+      "title": "Fonctionnalités",
+      "voice": {
+        "title": "Reconnaissance Vocale",
+        "description": "Transcription en temps réel dans plus de 100 langues"
+      },
+      "analysis": {
+        "title": "Analyse Intelligente",
+        "description": "Détection d'émotions, résumés automatiques, insights"
+      },
+      "export": {
+        "title": "Export Sécurisé",
+        "description": "Téléchargez vos données en PDF, DOCX ou JSON"
+      }
+    }
+  },
+  "dashboard": {
+    "title": "Tableau de bord",
+    "overview": "Vue d'ensemble",
+    "recordings": "Enregistrements",
+    "analytics": "Analyses",
+    "settings": "Paramètres",
+    "profile": "Profil",
+    "billing": "Facturation",
+    "usage": "Utilisation",
+    "tokens": "Jetons",
+    "tokensRemaining": "{count} jetons restants"
+  },
+  "recording": {
+    "start": "Démarrer l'enregistrement",
+    "stop": "Arrêter",
+    "pause": "Pause",
+    "resume": "Reprendre",
+    "processing": "Traitement en cours...",
+    "transcribing": "Transcription...",
+    "analyzing": "Analyse..."
+  },
+  "header": {
+    "home": "Accueil",
+    "apps": "Apps",
+    "pricing": "Tarifs",
+    "docs": "Docs",
+    "login": "Connexion",
+    "getStarted": "Commencer"
+  },
+  "footer": {
+    "privacy": "Politique de confidentialite",
+    "terms": "Conditions d'utilisation",
+    "contact": "Contact",
+    "copyright": "© {year} IA Factory. Tous droits reserves."
+  },
+  "chatbot": {
+    "greeting": "Bonjour ! Je suis Dzir IA, votre assistant. Comment puis-je vous aider ?",
+    "placeholder": "Tapez votre message...",
+    "send": "Envoyer"
+  },
+  "switzerland": {
+    "tagline": "Confidentialité & Précision",
+    "focus": "Conformité nLPD Suisse",
+    "welcomeTitle": "Votre Assistant Privé est Prêt",
+    "features": {
+      "stress": "Détection du stress",
+      "compliance": "Conformité nLPD",
+      "clinical": "Résumés cliniques"
+    }
+  },
+  "algeria": {
+    "tagline": "Façonner l'Avenir",
+    "focus": "Innovation & Éducation",
+    "welcomeTitle": "Bienvenue dans le Futur de l'Éducation",
+    "features": {
+      "lexicon": "Lexique personnel",
+      "bilingual": "Résumés bilingues FR/AR",
+      "knowledge": "Extraction de connaissances"
+    }
+  }
+}

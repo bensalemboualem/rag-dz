@@ -1,0 +1,34 @@
+# robots.txt - iaFactory Algeria
+# https://www.iafactoryalgeria.com/robots.txt
+
+# Autoriser tous les robots à crawler le site
+User-agent: *
+Allow: /
+
+# Pages à ne pas indexer
+Disallow: /admin/
+Disallow: /api/internal/
+Disallow: /debug/
+Disallow: /_next/
+Disallow: /private/
+
+# Googlebot spécifique
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+# Bingbot
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 2
+
+# Yandex (pour couverture internationale)
+User-agent: Yandex
+Allow: /
+Crawl-delay: 2
+
+# Sitemap
+Sitemap: https://www.iafactoryalgeria.com/sitemap.xml
+
+# Host principal
+Host: https://www.iafactoryalgeria.com

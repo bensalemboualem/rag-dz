@@ -1,0 +1,34 @@
+# ═══════════════════════════════════════════════════════════════════
+# IA FACTORY - DEPENDENCIES
+# ═══════════════════════════════════════════════════════════════════
+
+# Core
+fastapi==0.109.0
+uvicorn[standard]==0.27.0
+pydantic==2.5.3
+pydantic-settings==2.1.0
+python-dotenv==1.0.0
+
+# AI
+anthropic==0.18.1
+openai==1.12.0
+
+# Vector DB
+qdrant-client==1.7.0
+
+# Documents
+python-docx==1.1.0
+python-pptx==0.6.23
+openpyxl==3.1.2
+
+# Database
+psycopg2-binary==2.9.9
+redis==5.0.1
+
+# HTTP
+requests==2.31.0
+httpx==0.26.0
+
+# Utils
+python-multipart==0.0.6
+Pillow==10.2.0

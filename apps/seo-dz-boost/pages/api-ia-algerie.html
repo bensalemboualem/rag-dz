@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>API IA Algérie – Intégrez l'IA spécialisée DZ dans vos applications | iaFactory</title>
+    <meta name="description" content="API RESTful pour intégrer l'IA spécialisée Algérie dans vos applications. RAG, fiscalité, juridique, documents. Documentation complète pour développeurs algériens.">
+    <meta name="keywords" content="API IA Algérie, API RAG Algérie, API développeur Algérie, intégration IA DZ, API fiscalité Algérie, API juridique Algérie, développeurs DZ">
+    <meta name="author" content="iaFactory Algeria">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://www.iafactoryalgeria.com/api-ia-algerie">
+    
+    <!-- Geo Tags -->
+    <meta name="geo.region" content="DZ">
+    <meta name="geo.placename" content="Algeria">
+    <meta http-equiv="content-language" content="fr-DZ">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="API IA Algérie – Pour Développeurs | iaFactory">
+    <meta property="og:description" content="Intégrez l'IA spécialisée Algérie dans vos applications. API RESTful, documentation complète, exemples de code.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.iafactoryalgeria.com/api-ia-algerie">
+    <meta property="og:image" content="https://www.iafactoryalgeria.com/og-api.png">
+    <meta property="og:locale" content="fr_DZ">
+    <meta property="og:site_name" content="iaFactory Algeria">
+    
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@iafactorydz">
+    <meta name="twitter:title" content="API IA Algérie – Pour Développeurs">
+    <meta name="twitter:description" content="Intégrez l'IA spécialisée Algérie dans vos applications. API RESTful documentée.">
+    <meta name="twitter:image" content="https://www.iafactoryalgeria.com/og-api.png">
+    
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebAPI",
+        "name": "API IA Algérie",
+        "description": "API RESTful pour intégrer l'IA spécialisée Algérie dans vos applications",
+        "url": "https://www.iafactoryalgeria.com/api-ia-algerie",
+        "provider": {
+            "@type": "Organization",
+            "name": "iaFactory Algeria",
+            "url": "https://www.iafactoryalgeria.com"
+        },
+        "documentation": "https://www.iafactoryalgeria.com/docs",
+        "termsOfService": "https://www.iafactoryalgeria.com/cgu"
+    }
+    </script>
+    
+    <!-- Breadcrumb Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://www.iafactoryalgeria.com/"},
+            {"@type": "ListItem", "position": 2, "name": "API IA Algérie", "item": "https://www.iafactoryalgeria.com/api-ia-algerie"}
+        ]
+    }
+    </script>
+    
+    <!-- Fonts & Styles -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0f1e;
+            color: #f9fafb;
+            line-height: 1.7;
+        }
+        
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 15, 30, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding: 1rem 2rem;
+            z-index: 1000;
+        }
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: inherit;
+        }
+        .nav-logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #06b6d4, #3b82f6);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+        .nav-logo-text {
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+        .nav-logo-text span { color: #06b6d4; }
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+        .nav-links a {
+            color: #9ca3af;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: #06b6d4; }
+        .nav-cta {
+            padding: 0.5rem 1.25rem;
+            background: linear-gradient(135deg, #06b6d4, #3b82f6);
+            border-radius: 8px;
+            color: white !important;
+            font-weight: 600;
+        }
+        
+        .hero {
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+            background: radial-gradient(ellipse at top, rgba(6, 182, 212, 0.1) 0%, transparent 50%);
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(6, 182, 212, 0.1);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            border-radius: 50px;
+            font-size: 0.875rem;
+            color: #06b6d4;
+            margin-bottom: 2rem;
+        }
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+        .hero h1 .gradient {
+            background: linear-gradient(135deg, #06b6d4, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: #9ca3af;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .btn-primary {
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #06b6d4, #3b82f6);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(6, 182, 212, 0.3);
+        }
+        .btn-secondary {
+            padding: 1rem 2rem;
+            background: transparent;
+            border: 2px solid #374151;
+            border-radius: 12px;
+            color: white;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: border-color 0.2s;
+        }
+        .btn-secondary:hover {
+            border-color: #06b6d4;
+        }
+        
+        .section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .section-alt {
+            background: rgba(17, 24, 39, 0.5);
+        }
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        .section-subtitle {
+            text-align: center;
+            color: #9ca3af;
+            max-width: 600px;
+            margin: 0 auto 3rem;
+        }
+        
+        /* Endpoints */
+        .endpoints-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+        .endpoint-card {
+            background: #111827;
+            border: 1px solid #1f2937;
+            border-radius: 16px;
+            padding: 1.5rem;
+            transition: border-color 0.2s;
+        }
+        .endpoint-card:hover {
+            border-color: #06b6d4;
+        }
+        .endpoint-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        .endpoint-method {
+            padding: 0.25rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            font-family: 'Fira Code', monospace;
+        }
+        .endpoint-method.get { background: #22c55e20; color: #22c55e; }
+        .endpoint-method.post { background: #3b82f620; color: #3b82f6; }
+        .endpoint-path {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            color: #d1d5db;
+        }
+        .endpoint-desc {
+            color: #9ca3af;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        .endpoint-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .endpoint-tag {
+            padding: 0.2rem 0.5rem;
+            background: rgba(6, 182, 212, 0.1);
+            border-radius: 4px;
+            font-size: 0.75rem;
+            color: #22d3ee;
+        }
+        
+        /* Code Example */
+        .code-section {
+            margin-top: 3rem;
+        }
+        .code-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .code-tab {
+            padding: 0.5rem 1rem;
+            background: #1f2937;
+            border: none;
+            border-radius: 8px 8px 0 0;
+            color: #9ca3af;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+        .code-tab.active {
+            background: #111827;
+            color: #06b6d4;
+        }
+        .code-block {
+            background: #111827;
+            border: 1px solid #1f2937;
+            border-radius: 0 12px 12px 12px;
+            padding: 1.5rem;
+            overflow-x: auto;
+        }
+        .code-block pre {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: #d1d5db;
+            margin: 0;
+        }
+        .code-block .keyword { color: #c792ea; }
+        .code-block .string { color: #c3e88d; }
+        .code-block .comment { color: #6b7280; }
+        .code-block .function { color: #82aaff; }
+        .code-block .variable { color: #f78c6c; }
+        
+        /* Pricing */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+        .pricing-card {
+            background: #111827;
+            border: 1px solid #1f2937;
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+        }
+        .pricing-card.featured {
+            border-color: #06b6d4;
+            position: relative;
+        }
+        .pricing-card.featured::before {
+            content: '🔥 Populaire';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #06b6d4, #3b82f6);
+            color: white;
+            padding: 0.25rem 1rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .pricing-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .pricing-price {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 0.25rem;
+        }
+        .pricing-price span {
+            font-size: 1rem;
+            color: #6b7280;
+            font-weight: 400;
+        }
+        .pricing-credits {
+            color: #9ca3af;
+            margin-bottom: 1.5rem;
+        }
+        .pricing-features {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 2rem;
+        }
+        .pricing-features li {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: #9ca3af;
+            margin-bottom: 0.75rem;
+        }
+        .pricing-features li::before {
+            content: '✓';
+            color: #22c55e;
+        }
+        
+        /* Features */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+        .feature-card {
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.05), rgba(59, 130, 246, 0.05));
+            border: 1px solid #1f2937;
+            border-radius: 16px;
+            padding: 1.5rem;
+        }
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        .feature-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .feature-desc {
+            color: #9ca3af;
+            font-size: 0.9rem;
+        }
+        
+        /* CTA */
+        .cta-section {
+            padding: 5rem 2rem;
+            text-align: center;
+            background: linear-gradient(180deg, transparent, rgba(6, 182, 212, 0.1));
+        }
+        .cta-box {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #111827;
+            border: 1px solid #1f2937;
+            border-radius: 24px;
+            padding: 3rem;
+        }
+        .cta-box h2 {
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+        }
+        .cta-box p {
+            color: #9ca3af;
+            margin-bottom: 2rem;
+        }
+        
+        /* Footer */
+        .footer {
+            background: #0d1117;
+            border-top: 1px solid #1f2937;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+        .footer-links a {
+            color: #6b7280;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+        .footer-links a:hover {
+            color: #06b6d4;
+        }
+        .footer-copy {
+            color: #4b5563;
+            font-size: 0.85rem;
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero { padding: 6rem 1rem 3rem; }
+            .section { padding: 3rem 1rem; }
+        }
+    </style>
+
+<!-- IAFactory i18n System - TRILINGUE -->
+<link rel="stylesheet" href="/shared/iafactory-theme.css">
+<script src="/shared/i18n.js"></script>
+<script src="/shared/language-switcher.js"></script>
+
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-content">
+
+<!-- Language Switcher -->
+<div data-language-switcher></div>
+
+            <a href="/" class="nav-logo">
+                <div class="nav-logo-icon">🇩🇿</div>
+                <div class="nav-logo-text">iaFactory <span>Algeria</span></div>
+            </a>
+            <div class="nav-links">
+                <a href="/ia-algerie">IA Algérie</a>
+                <a href="/assistant-fiscal-algerie">Fiscal</a>
+                <a href="/assistant-juridique-algerie">Juridique</a>
+                <a href="/pme">Pack PME</a>
+                <a href="/docs" class="nav-cta">Documentation →</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-badge">
+            <span>⚡</span>
+            <span>API RESTful pour développeurs DZ</span>
+        </div>
+        <h1>
+            <span class="gradient">API IA Algérie</span>
+            <br>pour vos applications
+        </h1>
+        <p class="hero-subtitle">
+            Intégrez l'IA spécialisée Algérie dans vos applications. RAG, fiscalité, juridique, documents. 
+            API RESTful simple, documentée et prête pour la production.
+        </p>
+        <div class="hero-cta">
+            <a href="/docs" class="btn-primary">
+                <span>📚</span> Voir la documentation
+            </a>
+            <a href="/hub/" class="btn-secondary">
+                <span>🔑</span> Obtenir une clé API
+            </a>
+        </div>
+    </section>
+
+    <!-- Endpoints Section -->
+    <section class="section section-alt">
+        <h2 class="section-title">Endpoints disponibles</h2>
+        <p class="section-subtitle">
+            Une API RESTful complète pour accéder à toutes les fonctionnalités d'iaFactory Algeria.
+        </p>
+        
+        <div class="endpoints-grid">
+            <div class="endpoint-card">
+                <div class="endpoint-header">
+                    <span class="endpoint-method post">POST</span>
+                    <span class="endpoint-path">/api/v1/chat</span>
+                </div>
+                <p class="endpoint-desc">Envoyez une question et recevez une réponse IA contextualisée Algérie avec sources.</p>
+                <div class="endpoint-tags">
+                    <span class="endpoint-tag">RAG</span>
+                    <span class="endpoint-tag">Chat</span>
+                    <span class="endpoint-tag">Sources</span>
+                </div>
+            </div>
+            
+            <div class="endpoint-card">
+                <div class="endpoint-header">
+                    <span class="endpoint-method post">POST</span>
+                    <span class="endpoint-path">/api/v1/fiscal/simulate</span>
+                </div>
+                <p class="endpoint-desc">Simulation fiscale : IFU, IRG, charges sociales selon les paramètres fournis.</p>
+                <div class="endpoint-tags">
+                    <span class="endpoint-tag">Fiscal</span>
+                    <span class="endpoint-tag">Simulation</span>
+                </div>
+            </div>
+            
+            <div class="endpoint-card">
+                <div class="endpoint-header">
+                    <span class="endpoint-method post">POST</span>
+                    <span class="endpoint-path">/api/v1/documents/generate</span>
+                </div>
+                <p class="endpoint-desc">Génération de documents : factures, contrats, devis au format PDF.</p>
+                <div class="endpoint-tags">
+                    <span class="endpoint-tag">Documents</span>
+                    <span class="endpoint-tag">PDF</span>
+                </div>
+            </div>
+            
+            <div class="endpoint-card">
+                <div class="endpoint-header">
+                    <span class="endpoint-method get">GET</span>
+                    <span class="endpoint-path">/api/v1/sources/search</span>
+                </div>
+                <p class="endpoint-desc">Recherche dans les sources officielles : Journal Officiel, DGI, CNAS...</p>
+                <div class="endpoint-tags">
+                    <span class="endpoint-tag">Recherche</span>
+                    <span class="endpoint-tag">Sources</span>
+                </div>
+            </div>
+            
+            <div class="endpoint-card">
+                <div class="endpoint-header">
+                    <span class="endpoint-method post">POST</span>
+                    <span class="endpoint-path">/api/v1/legal/analyze</span>
+                </div>
+                <p class="endpoint-desc">Analyse juridique : vérification de conformité, extraction de clauses.</p>
+                <div class="endpoint-tags">
+                    <span class="endpoint-tag">Juridique</span>
+                    <span class="endpoint-tag">Analyse</span>
+                </div>
+            </div>
+            
+            <div class="endpoint-card">
+                <div class="endpoint-header">
+                    <span class="endpoint-method get">GET</span>
+                    <span class="endpoint-path">/api/v1/usage</span>
+                </div>
+                <p class="endpoint-desc">Consultez votre consommation de crédits API et historique d'utilisation.</p>
+                <div class="endpoint-tags">
+                    <span class="endpoint-tag">Usage</span>
+                    <span class="endpoint-tag">Billing</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Code Example Section -->
+    <section class="section">
+        <h2 class="section-title">Exemple de code</h2>
+        <p class="section-subtitle">
+            Intégration simple en quelques lignes de code.
+        </p>
+        
+        <div class="code-section">
+            <div class="code-tabs">
+                <button class="code-tab active">Python</button>
+                <button class="code-tab">JavaScript</button>
+                <button class="code-tab">cURL</button>
+            </div>
+            <div class="code-block">
+<pre><span class="keyword">import</span> requests
+
+<span class="comment"># Configuration</span>
+API_KEY = <span class="string">"votre_cle_api"</span>
+BASE_URL = <span class="string">"https://api.iafactoryalgeria.com/v1"</span>
+
+<span class="comment"># Poser une question à l'IA</span>
+response = requests.<span class="function">post</span>(
+    <span class="string">f"{BASE_URL}/chat"</span>,
+    headers={<span class="string">"Authorization"</span>: <span class="string">f"Bearer {API_KEY}"</span>},
+    json={
+        <span class="string">"message"</span>: <span class="string">"Quel est le taux IFU pour une EURL en 2025 ?"</span>,
+        <span class="string">"context"</span>: <span class="string">"fiscal"</span>,
+        <span class="string">"include_sources"</span>: <span class="variable">True</span>
+    }
+)
+
+result = response.<span class="function">json</span>()
+<span class="keyword">print</span>(result[<span class="string">"answer"</span>])
+<span class="keyword">print</span>(result[<span class="string">"sources"</span>])</pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="section section-alt">
+        <h2 class="section-title">Tarification API</h2>
+        <p class="section-subtitle">
+            Des forfaits adaptés à tous les projets, du prototype à la production.
+        </p>
+        
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <div class="pricing-name">Développeur</div>
+                <div class="pricing-price">0 <span>DZD/mois</span></div>
+                <div class="pricing-credits">100 requêtes/mois</div>
+                <ul class="pricing-features">
+                    <li>Accès à tous les endpoints</li>
+                    <li>Documentation complète</li>
+                    <li>Support communauté</li>
+                    <li>Idéal pour prototyper</li>
+                </ul>
+                <a href="/hub/" class="btn-secondary" style="width: 100%; justify-content: center;">Commencer</a>
+            </div>
+            
+            <div class="pricing-card featured">
+                <div class="pricing-name">Startup</div>
+                <div class="pricing-price">9 900 <span>DZD/mois</span></div>
+                <div class="pricing-credits">10 000 requêtes/mois</div>
+                <ul class="pricing-features">
+                    <li>Tous les endpoints</li>
+                    <li>Rate limit élevé</li>
+                    <li>Support email prioritaire</li>
+                    <li>Webhooks</li>
+                    <li>Dashboard analytics</li>
+                </ul>
+                <a href="/hub/" class="btn-primary" style="width: 100%; justify-content: center;">Souscrire</a>
+            </div>
+            
+            <div class="pricing-card">
+                <div class="pricing-name">Entreprise</div>
+                <div class="pricing-price">Sur devis</div>
+                <div class="pricing-credits">Requêtes illimitées</div>
+                <ul class="pricing-features">
+                    <li>Volume illimité</li>
+                    <li>SLA garanti 99.9%</li>
+                    <li>Support dédié</li>
+                    <li>Déploiement on-premise</li>
+                    <li>Personnalisation</li>
+                </ul>
+                <a href="mailto:contact@iafactoryalgeria.com" class="btn-secondary" style="width: 100%; justify-content: center;">Contacter</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section">
+        <h2 class="section-title">Pourquoi notre API ?</h2>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🇩🇿</div>
+                <div class="feature-title">Spécialisée Algérie</div>
+                <div class="feature-desc">IA entraînée sur les données algériennes : fiscalité, juridique, administratif.</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📚</div>
+                <div class="feature-title">Sources citées</div>
+                <div class="feature-desc">Chaque réponse inclut les références aux textes officiels utilisés.</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <div class="feature-title">Rapide</div>
+                <div class="feature-desc">Temps de réponse < 2 secondes en moyenne, même pour les requêtes complexes.</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <div class="feature-title">Sécurisée</div>
+                <div class="feature-desc">HTTPS, authentification JWT, données chiffrées au repos.</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📖</div>
+                <div class="feature-title">Bien documentée</div>
+                <div class="feature-desc">Documentation OpenAPI, exemples de code, guides d'intégration.</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔄</div>
+                <div class="feature-title">Mise à jour continue</div>
+                <div class="feature-desc">Base de connaissances actualisée avec les derniers textes de loi.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-box">
+            <h2>Prêt à intégrer l'IA algérienne ?</h2>
+            <p>
+                Créez votre compte développeur et obtenez votre clé API gratuite en quelques secondes.
+            </p>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="/docs" class="btn-primary">
+                    <span>📚</span> Documentation
+                </a>
+                <a href="/hub/" class="btn-secondary">
+                    <span>🔑</span> Obtenir une clé API
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="/">Accueil</a>
+            <a href="/ia-algerie">IA Algérie</a>
+            <a href="/assistant-fiscal-algerie">Assistant Fiscal</a>
+            <a href="/assistant-juridique-algerie">Assistant Juridique</a>
+            <a href="/pme">Pack PME DZ</a>
+            <a href="/creation-entreprise-algerie-ia">Création Entreprise</a>
+            <a href="/docs">Documentation API</a>
+        </div>
+        <p class="footer-copy">
+            © 2025 iaFactory Algeria. Tous droits réservés. 🇩🇿 Made in Algeria
+        </p>
+    </footer>
+</body>
+</html>

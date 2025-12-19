@@ -1,0 +1,1520 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Build Your Council - IA Factory Algeria</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            /* Dark Mode (default) - IAFactory Theme */
+            --bg-primary: #020617;
+            --bg-secondary: #0a0f1a;
+            --bg-card: #0f1629;
+            --bg-card-hover: #151d30;
+            --border-color: rgba(255, 255, 255, 0.12);
+            --text-primary: #f8fafc;
+            --text-secondary: rgba(248, 250, 252, 0.75);
+            --text-muted: rgba(248, 250, 252, 0.5);
+            --accent-primary: #00a651;
+            --accent-secondary: #00c95d;
+            --accent-gradient: linear-gradient(135deg, #00a651, #008c45);
+            --success: #10b981;
+            --success-bg: rgba(16, 185, 129, 0.1);
+            --warning: #f59e0b;
+            --warning-bg: rgba(245, 158, 11, 0.1);
+            --error: #ef4444;
+            --input-bg: #0a0f1a;
+            --input-border: rgba(255, 255, 255, 0.12);
+            --input-text: #f8fafc;
+            --input-placeholder: rgba(248, 250, 252, 0.5);
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f7f5f0;
+            --bg-secondary: #efe9df;
+            --bg-card: #ffffff;
+            --bg-card-hover: #f7f5f0;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --text-primary: #0f172a;
+            --text-secondary: rgba(15, 23, 42, 0.7);
+            --text-muted: rgba(15, 23, 42, 0.5);
+            --accent-primary: #00a651;
+            --accent-secondary: #008c45;
+            --accent-gradient: linear-gradient(135deg, #00a651, #008c45);
+            --success-bg: rgba(16, 185, 129, 0.1);
+            --warning-bg: rgba(245, 158, 11, 0.1);
+            --input-bg: #ffffff;
+            --input-border: rgba(0, 0, 0, 0.12);
+            --input-text: #0f172a;
+            --input-placeholder: rgba(15, 23, 42, 0.5);
+        }
+
+        * {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        /* Header */
+        .main-header {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--accent-gradient);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.25rem;
+        }
+
+        .logo h1 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .theme-toggle {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 0.5rem 0.75rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+
+        .theme-toggle:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--accent-primary);
+        }
+
+        .home-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--accent-gradient);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .home-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Page Header */
+        .page-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+        }
+
+        /* Presets */
+        .presets-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .preset-card {
+            padding: 1.25rem;
+            background: var(--bg-card);
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+        }
+
+        .preset-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent-primary);
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.15);
+        }
+
+        .preset-card.active {
+            border-color: var(--accent-primary);
+            background: rgba(124, 58, 237, 0.1);
+        }
+
+        .preset-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .preset-name {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: var(--text-primary);
+        }
+
+        .preset-desc {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        /* Config Sections */
+        .config-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        /* Experts Grid */
+        .experts-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 1200px) {
+            .experts-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .experts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .expert-card {
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.25rem;
+            transition: all 0.2s;
+        }
+
+        .expert-card:hover {
+            border-color: var(--accent-secondary);
+        }
+
+        .expert-card.expert-1 { border-top: 3px solid var(--accent-primary); }
+        .expert-card.expert-2 { border-top: 3px solid var(--accent-primary); }
+        .expert-card.expert-3 { border-top: 3px solid var(--accent-primary); }
+        .expert-card.chairman { border-top: 3px solid var(--accent-secondary); }
+
+        .expert-label {
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .expert-1 .expert-label { color: var(--accent-primary); }
+        .expert-2 .expert-label { color: var(--accent-primary); }
+        .expert-3 .expert-label { color: var(--accent-primary); }
+        .chairman .expert-label { color: var(--accent-secondary); }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 0.4rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: var(--input-bg);
+            border: 1px solid var(--input-border);
+            border-radius: 8px;
+            font-size: 0.875rem;
+            color: var(--input-text);
+            cursor: pointer;
+            transition: all 0.2s;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2394a3b8'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 1rem;
+            padding-right: 2.5rem;
+        }
+
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15);
+        }
+
+        .form-group select option {
+            background: var(--bg-card);
+            color: var(--text-primary);
+            padding: 0.5rem;
+        }
+
+        .strengths-box {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            padding: 0.5rem 0.75rem;
+            background: rgba(0, 166, 81, 0.1);
+            border-radius: 6px;
+            margin-top: 0.75rem;
+        }
+
+        /* Estimate Box */
+        .estimate-box {
+            background: var(--accent-gradient);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+        }
+
+        .estimate-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .estimate-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        @media (max-width: 600px) {
+            .estimate-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .estimate-item {
+            background: rgba(255,255,255,0.15);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .estimate-label {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        .estimate-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-top: 0.25rem;
+        }
+
+        .warning-box {
+            display: none;
+            margin-top: 1rem;
+            padding: 0.75rem;
+            background: rgba(245, 158, 11, 0.2);
+            border-radius: 8px;
+            font-size: 0.875rem;
+        }
+
+        /* Query Section */
+        .query-section textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 1rem;
+            background: var(--input-bg);
+            border: 2px solid var(--input-border);
+            border-radius: 12px;
+            font-size: 0.95rem;
+            color: var(--input-text);
+            resize: vertical;
+            transition: all 0.2s;
+            line-height: 1.6;
+        }
+
+        .query-section textarea::placeholder {
+            color: var(--input-placeholder);
+        }
+
+        .query-section textarea:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15);
+        }
+
+        /* Options Row */
+        .options-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .checkbox-label input[type="checkbox"] {
+            width: 1.25rem;
+            height: 1.25rem;
+            cursor: pointer;
+            accent-color: var(--accent-primary);
+        }
+
+        /* Submit Button */
+        .btn-submit {
+            padding: 1rem 2rem;
+            background: var(--accent-gradient);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-submit:hover:not(:disabled) {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(124, 58, 237, 0.35);
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Loading */
+        .loading-box {
+            display: none;
+            padding: 1.5rem;
+            background: var(--warning-bg);
+            border-left: 4px solid var(--warning);
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+        }
+
+        .loading-content {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .spinner {
+            border: 3px solid rgba(245, 158, 11, 0.3);
+            border-top-color: var(--warning);
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Results Section */
+        .results-section {
+            display: none;
+        }
+
+        .final-response-box {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(5, 150, 105, 0.1));
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-left: 4px solid var(--success);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .result-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--success);
+        }
+
+        .result-text {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--text-primary);
+            white-space: pre-wrap;
+        }
+
+        .result-meta {
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(16, 185, 129, 0.2);
+            display: flex;
+            gap: 2rem;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        /* Opinions Section */
+        .opinions-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.5rem;
+        }
+
+        .opinion-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 0.5rem;
+            overflow-x: auto;
+        }
+
+        .opinion-tab {
+            padding: 0.75rem 1.25rem;
+            background: transparent;
+            border: none;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--text-secondary);
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .opinion-tab:hover {
+            color: var(--text-primary);
+        }
+
+        .opinion-tab.active {
+            color: var(--accent-primary);
+            border-bottom-color: var(--accent-primary);
+        }
+
+        .opinion-content {
+            padding: 1.5rem;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            line-height: 1.8;
+            white-space: pre-wrap;
+            color: var(--text-primary);
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        /* Error Toast */
+        .error-toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            padding: 1rem 1.5rem;
+            background: var(--error);
+            color: white;
+            border-radius: 10px;
+            font-size: 0.875rem;
+            display: none;
+            z-index: 1000;
+            animation: slideIn 0.3s ease;
+            max-width: 400px;
+        }
+
+        .error-toast.visible {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-muted);
+        }
+    </style>
+
+<!-- IAFactory i18n System - TRILINGUE -->
+<link rel="stylesheet" href="/shared/iafactory-theme.css">
+<script src="/shared/i18n.js"></script>
+<script src="/shared/language-switcher.js"></script>
+
+</head>
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="logo">
+            <div class="logo-icon">
+                <i class="fas fa-users"></i>
+            </div>
+            <h1>Council IA</h1>
+        </div>
+        <div class="header-actions">
+
+<!-- Language Switcher -->
+<div data-language-switcher></div>
+
+            <button class="theme-toggle" onclick="toggleTheme()" title="Changer le thème">
+                <i class="fas fa-moon" id="theme-icon"></i>
+            </button>
+            <a href="/" class="home-btn">
+                <i class="fas fa-home"></i>
+                Accueil
+            </a>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1>🎯 Build Your Council</h1>
+            <p>Composez votre équipe d'experts IA sur mesure avec une infinité de combinaisons</p>
+        </div>
+
+        <!-- Presets -->
+        <div class="config-section">
+            <h2 class="section-title">✨ Configurations recommandées (Groq ⚡ + OpenRouter 🌐)</h2>
+            <div class="presets-grid" id="presetsGrid">
+                <div class="preset-card" onclick="applyPreset('fast')" style="border: 2px solid var(--accent-primary);">
+                    <div class="preset-icon">⚡</div>
+                    <div class="preset-name">Groq Diversifié ⭐</div>
+                    <div class="preset-desc">Llama 70B + Qwen + Kimi</div>
+                </div>
+                <div class="preset-card" onclick="applyPreset('deepseek')" style="border: 2px solid var(--accent-primary);">
+                    <div class="preset-icon">🇨🇳</div>
+                    <div class="preset-name">DeepSeek Power ⭐</div>
+                    <div class="preset-desc">Chat + R1 Reasoner</div>
+                </div>
+                <div class="preset-card" onclick="applyPreset('diversified')">
+                    <div class="preset-icon">🎯</div>
+                    <div class="preset-name">Mix Groq+DeepSeek</div>
+                    <div class="preset-desc">Llama + Kimi + DeepSeek</div>
+                </div>
+                <div class="preset-card" onclick="applyPreset('llama4')">
+                    <div class="preset-icon">🦙</div>
+                    <div class="preset-name">Llama 4 Meta</div>
+                    <div class="preset-desc">Maverick + Scout + 70B</div>
+                </div>
+                <div class="preset-card" onclick="applyPreset('openrouter')">
+                    <div class="preset-icon">🌐</div>
+                    <div class="preset-name">OpenRouter FREE</div>
+                    <div class="preset-desc">Gemini + Llama + Mistral</div>
+                </div>
+                <div class="preset-card" onclick="applyPreset('hybrid')">
+                    <div class="preset-icon">🔀</div>
+                    <div class="preset-name">Hybride</div>
+                    <div class="preset-desc">Groq + Gemini + Qwen</div>
+                </div>
+                <div class="preset-card" onclick="applyPreset('local')">
+                    <div class="preset-icon">🏠</div>
+                    <div class="preset-name">100% Local</div>
+                    <div class="preset-desc">Ollama (lent sur VPS)</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Configuration -->
+        <div class="config-section">
+            <h2 class="section-title">⚙️ Configuration du Council</h2>
+            
+            <div class="experts-grid">
+                <!-- Expert 1 -->
+                <div class="expert-card expert-1">
+                    <div class="expert-label">
+                        <i class="fas fa-user-tie"></i> Expert 1
+                    </div>
+                    <div class="form-group">
+                        <label>Provider</label>
+                        <select id="provider1" onchange="onProviderChange(1)">
+                            <option value="deepseek">🇨🇳 DeepSeek (Économique)</option>
+                            <option value="groq" selected>⚡ Groq (Ultra-rapide)</option>
+                            <option value="openrouter">🌐 OpenRouter</option>
+                            <option value="ollama">🏠 Ollama (Local - lent)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Modèle</label>
+                        <select id="model1"></select>
+                    </div>
+                    <div class="strengths-box" id="strengths1">💪 Sélectionnez un modèle</div>
+                </div>
+
+                <!-- Expert 2 -->
+                <div class="expert-card expert-2">
+                    <div class="expert-label">
+                        <i class="fas fa-user-tie"></i> Expert 2
+                    </div>
+                    <div class="form-group">
+                        <label>Provider</label>
+                        <select id="provider2" onchange="onProviderChange(2)">
+                            <option value="deepseek">🇨🇳 DeepSeek (Économique)</option>
+                            <option value="groq" selected>⚡ Groq (Ultra-rapide)</option>
+                            <option value="openrouter">🌐 OpenRouter</option>
+                            <option value="ollama">🏠 Ollama (Local - lent)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Modèle</label>
+                        <select id="model2"></select>
+                    </div>
+                    <div class="strengths-box" id="strengths2">💪 Sélectionnez un modèle</div>
+                </div>
+
+                <!-- Expert 3 -->
+                <div class="expert-card expert-3">
+                    <div class="expert-label">
+                        <i class="fas fa-user-tie"></i> Expert 3
+                    </div>
+                    <div class="form-group">
+                        <label>Provider</label>
+                        <select id="provider3" onchange="onProviderChange(3)">
+                            <option value="deepseek">🇨🇳 DeepSeek (Économique)</option>
+                            <option value="groq" selected>⚡ Groq (Ultra-rapide)</option>
+                            <option value="openrouter">🌐 OpenRouter</option>
+                            <option value="ollama">🏠 Ollama (Local - lent)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Modèle</label>
+                        <select id="model3"></select>
+                    </div>
+                    <div class="strengths-box" id="strengths3">💪 Sélectionnez un modèle</div>
+                </div>
+
+                <!-- Chairman -->
+                <div class="expert-card chairman">
+                    <div class="expert-label">
+                        <i class="fas fa-crown"></i> Chairman (Synthèse)
+                    </div>
+                    <div class="form-group">
+                        <label>Provider</label>
+                        <select id="providerChairman" onchange="onProviderChange('Chairman')">
+                            <option value="deepseek">🇨🇳 DeepSeek (Économique)</option>
+                            <option value="groq" selected>⚡ Groq (Ultra-rapide)</option>
+                            <option value="openrouter">🌐 OpenRouter</option>
+                            <option value="ollama">🏠 Ollama (Local - lent)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Modèle</label>
+                        <select id="modelChairman"></select>
+                    </div>
+                    <div class="strengths-box" id="strengthsChairman">💪 Sélectionnez un modèle</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Estimation -->
+        <div class="estimate-box">
+            <div class="estimate-title">📊 Estimation</div>
+            <div class="estimate-grid">
+                <div class="estimate-item">
+                    <div class="estimate-label">💰 Coût estimé</div>
+                    <div class="estimate-value" id="costEstimate">~50 DZD</div>
+                </div>
+                <div class="estimate-item">
+                    <div class="estimate-label">⏱️ Temps estimé</div>
+                    <div class="estimate-value" id="timeEstimate">~15s</div>
+                </div>
+                <div class="estimate-item">
+                    <div class="estimate-label">🎯 Combinaisons</div>
+                    <div class="estimate-value">∞</div>
+                </div>
+            </div>
+            <div class="warning-box" id="warningBox">
+                ⚠️ Configuration premium : coût élevé. Utilisez Groq pour réduire les coûts.
+            </div>
+        </div>
+
+        <!-- Query Section -->
+        <div class="config-section query-section">
+            <h2 class="section-title">💬 Votre question</h2>
+            <textarea 
+                id="queryInput" 
+                placeholder="Posez votre question au Council personnalisé...
+
+Exemples:
+• Quelles sont les meilleures pratiques pour sécuriser une API REST ?
+• Comment optimiser PostgreSQL pour des millions de lignes ?
+• Expliquez la différence entre authentification et autorisation
+• Compare les architectures microservices vs monolithique"
+            ></textarea>
+            
+            <div class="options-row">
+                <label class="checkbox-label">
+                    <input type="checkbox" id="enableReview">
+                    <span>Activer la revue croisée (+50% temps, meilleure qualité)</span>
+                </label>
+                <button class="btn-submit" id="submitBtn" onclick="executeCouncil()">
+                    <i class="fas fa-bolt"></i>
+                    Lancer le Council
+                </button>
+            </div>
+        </div>
+
+        <!-- Loading -->
+        <div class="loading-box" id="loadingBox">
+            <div class="loading-content">
+                <div class="spinner"></div>
+                <div>
+                    <div style="font-weight: 600; margin-bottom: 0.25rem;">Council en délibération...</div>
+                    <div style="font-size: 0.875rem; color: var(--text-secondary);" id="loadingStatus">Les experts analysent votre question</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results -->
+        <div class="results-section" id="resultsSection">
+            <div class="final-response-box">
+                <div class="result-header">
+                    <i class="fas fa-crown"></i>
+                    <span>Réponse finale du Chairman</span>
+                    <span id="chairmanName" style="font-size: 0.9rem; font-weight: normal; color: var(--text-secondary);"></span>
+                </div>
+                <div class="result-text" id="finalResponse"></div>
+                <div class="result-meta">
+                    <span id="execTime"><i class="fas fa-clock"></i> -</span>
+                    <span id="actualCost"><i class="fas fa-coins"></i> -</span>
+                    <span id="expertsCount"><i class="fas fa-users"></i> -</span>
+                </div>
+            </div>
+
+            <div class="opinions-box">
+                <h3 class="section-title">🎯 Opinions individuelles des experts</h3>
+                <div class="opinion-tabs" id="opinionTabs"></div>
+                <div class="opinion-content" id="opinionContent">Sélectionnez un expert pour voir son opinion</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error Toast -->
+    <div class="error-toast" id="errorToast">
+        <i class="fas fa-exclamation-circle"></i>
+        <span id="errorMessage"></span>
+    </div>
+
+    <script>
+        // ============================================
+        // Provider and Model Configuration
+        // ============================================
+        // API Keys pour appels directs
+        const OPENROUTER_API_KEY = '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';
+        const GROQ_API_KEY = 'YOUR_GROQ_API_KEY';
+        const DEEPSEEK_API_KEY = 'sk-e2d7d214600946479856ffafbe1ce392';
+
+        const PROVIDERS = {
+            deepseek: {
+                name: 'DeepSeek 🇨🇳',
+                models: [
+                    { id: 'deepseek.deepseek-chat', name: 'DeepSeek Chat V3', strengths: ['Économique', 'Raisonnement', 'Code'], cost: 1 },
+                    { id: 'deepseek.deepseek-reasoner', name: 'DeepSeek R1 🧠', strengths: ['Raisonnement avancé', 'Math', 'Logique'], cost: 3 }
+                ]
+            },
+            groq: {
+                name: 'Groq ⚡',
+                models: [
+                    { id: 'groq.llama-3.3-70b-versatile', name: 'Llama 3.3 70B', strengths: ['Puissant', 'Versatile', '131K ctx'], cost: 0 },
+                    { id: 'groq.llama-3.1-8b-instant', name: 'Llama 3.1 8B', strengths: ['Ultra-rapide', 'Gratuit'], cost: 0 },
+                    { id: 'groq.moonshotai/kimi-k2-instruct', name: 'Kimi K2 🌙', strengths: ['Moonshot AI', 'Raisonnement'], cost: 0 },
+                    { id: 'groq.qwen/qwen3-32b', name: 'Qwen3 32B', strengths: ['Alibaba', 'Multilingue', 'Code'], cost: 0 },
+                    { id: 'groq.meta-llama/llama-4-maverick-17b-128e-instruct', name: 'Llama 4 Maverick 🦙', strengths: ['Meta', 'Nouveau', '131K ctx'], cost: 0 },
+                    { id: 'groq.meta-llama/llama-4-scout-17b-16e-instruct', name: 'Llama 4 Scout 🦙', strengths: ['Meta', 'Exploration'], cost: 0 },
+                    { id: 'groq.openai/gpt-oss-120b', name: 'GPT-OSS 120B', strengths: ['OpenAI OSS', 'Très puissant'], cost: 0 },
+                    { id: 'groq.openai/gpt-oss-20b', name: 'GPT-OSS 20B', strengths: ['OpenAI OSS', 'Rapide'], cost: 0 },
+                    { id: 'groq.allam-2-7b', name: 'Allam 2 7B 🇸🇦', strengths: ['Arabe natif', 'SDAIA'], cost: 0 }
+                ]
+            },
+            openrouter: {
+                name: 'OpenRouter 🌐',
+                models: [
+                    { id: 'openrouter.google/gemini-2.0-flash-exp:free', name: 'Gemini 2.0 Flash (Free)', strengths: ['Gratuit', 'Google', 'Rapide'], cost: 0 },
+                    { id: 'openrouter.meta-llama/llama-3.2-3b-instruct:free', name: 'Llama 3.2 3B (Free)', strengths: ['Gratuit', 'Meta', 'Compact'], cost: 0 },
+                    { id: 'openrouter.mistralai/mistral-7b-instruct:free', name: 'Mistral 7B (Free)', strengths: ['Gratuit', 'FR natif'], cost: 0 },
+                    { id: 'openrouter.deepseek/deepseek-chat', name: 'DeepSeek Chat 🇨🇳', strengths: ['Économique', 'Code', 'Raisonnement'], cost: 2 },
+                    { id: 'openrouter.deepseek/deepseek-r1', name: 'DeepSeek R1 🧠', strengths: ['Raisonnement avancé', 'Math'], cost: 5 },
+                    { id: 'openrouter.qwen/qwen-2.5-72b-instruct', name: 'Qwen 2.5 72B', strengths: ['Alibaba', 'Puissant'], cost: 10 },
+                    { id: 'openrouter.anthropic/claude-3.5-sonnet', name: 'Claude 3.5 Sonnet', strengths: ['Anthropic', 'Écriture'], cost: 15 },
+                    { id: 'openrouter.openai/gpt-4o-mini', name: 'GPT-4o Mini', strengths: ['OpenAI', 'Rapide'], cost: 5 },
+                    { id: 'openrouter.openai/gpt-4o', name: 'GPT-4o', strengths: ['OpenAI', 'Meilleur'], cost: 25 }
+                ]
+            },
+            ollama: {
+                name: 'Ollama 🏠 (lent)',
+                models: [
+                    { id: 'ollama.llama3.2:3b', name: 'Llama 3.2 3B', strengths: ['Local', 'Privé', 'Rapide'], cost: 0 },
+                    { id: 'ollama.mistral:7b', name: 'Mistral 7B', strengths: ['Local', 'FR natif', 'Équilibré'], cost: 0 },
+                    { id: 'ollama.qwen2.5:3b', name: 'Qwen 2.5 3B', strengths: ['Local', 'Multilingue', 'Compact'], cost: 0 }
+                ]
+            }
+        };
+
+        // NOTE: ⚡ = Groq ultra-rapide, 🌐 = OpenRouter (gratuit/payant), 🏠 = Local (lent sur VPS)
+
+        const PRESETS = {
+            openrouter: {
+                name: 'OpenRouter Free',
+                experts: [
+                    { provider: 'openrouter', model: 'openrouter.google/gemini-2.0-flash-exp:free' },
+                    { provider: 'openrouter', model: 'openrouter.meta-llama/llama-3.2-3b-instruct:free' },
+                    { provider: 'openrouter', model: 'openrouter.mistralai/mistral-7b-instruct:free' }
+                ],
+                chairman: { provider: 'openrouter', model: 'openrouter.google/gemini-2.0-flash-exp:free' }
+            },
+            fast: {
+                name: 'Groq Ultra Rapide',
+                experts: [
+                    { provider: 'groq', model: 'groq.llama-3.3-70b-versatile' },
+                    { provider: 'groq', model: 'groq.qwen/qwen3-32b' },
+                    { provider: 'groq', model: 'groq.moonshotai/kimi-k2-instruct' }
+                ],
+                chairman: { provider: 'groq', model: 'groq.llama-3.3-70b-versatile' }
+            },
+            diversified: {
+                name: 'Diversifié',
+                experts: [
+                    { provider: 'groq', model: 'groq.llama-3.3-70b-versatile' },
+                    { provider: 'groq', model: 'groq.moonshotai/kimi-k2-instruct' },
+                    { provider: 'deepseek', model: 'deepseek.deepseek-chat' }
+                ],
+                chairman: { provider: 'deepseek', model: 'deepseek.deepseek-reasoner' }
+            },
+            deepseek: {
+                name: 'DeepSeek Power 🇨🇳',
+                experts: [
+                    { provider: 'deepseek', model: 'deepseek.deepseek-chat' },
+                    { provider: 'deepseek', model: 'deepseek.deepseek-reasoner' },
+                    { provider: 'groq', model: 'groq.llama-3.3-70b-versatile' }
+                ],
+                chairman: { provider: 'deepseek', model: 'deepseek.deepseek-reasoner' }
+            },
+            llama4: {
+                name: 'Llama 4 🦙',
+                experts: [
+                    { provider: 'groq', model: 'groq.meta-llama/llama-4-maverick-17b-128e-instruct' },
+                    { provider: 'groq', model: 'groq.meta-llama/llama-4-scout-17b-16e-instruct' },
+                    { provider: 'groq', model: 'groq.llama-3.3-70b-versatile' }
+                ],
+                chairman: { provider: 'groq', model: 'groq.meta-llama/llama-4-maverick-17b-128e-instruct' }
+            },
+            hybrid: {
+                name: 'Hybride',
+                experts: [
+                    { provider: 'groq', model: 'groq.llama-3.3-70b-versatile' },
+                    { provider: 'openrouter', model: 'openrouter.google/gemini-2.0-flash-exp:free' },
+                    { provider: 'groq', model: 'groq.qwen/qwen3-32b' }
+                ],
+                chairman: { provider: 'groq', model: 'groq.moonshotai/kimi-k2-instruct' }
+            },
+            local: {
+                name: '100% Local',
+                experts: [
+                    { provider: 'ollama', model: 'ollama.llama3.2:3b' },
+                    { provider: 'ollama', model: 'ollama.mistral:7b' },
+                    { provider: 'ollama', model: 'ollama.qwen2.5:3b' }
+                ],
+                chairman: { provider: 'ollama', model: 'ollama.mistral:7b' }
+            }
+        };
+
+        let currentOpinions = {};
+
+        // ============================================
+        // Initialization
+        // ============================================
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load theme
+            const savedTheme = localStorage.getItem('council-theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            updateThemeIcon(savedTheme);
+
+            // Initialize all expert selects
+            [1, 2, 3, 'Chairman'].forEach(num => {
+                onProviderChange(num);
+            });
+
+            updateEstimate();
+        });
+
+        // ============================================
+        // Theme Toggle
+        // ============================================
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('council-theme', newTheme);
+            updateThemeIcon(newTheme);
+        }
+
+        function updateThemeIcon(theme) {
+            const icon = document.getElementById('theme-icon');
+            icon.className = theme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+        }
+
+        // ============================================
+        // Provider/Model Management
+        // ============================================
+        function onProviderChange(expertNum) {
+            const providerSelect = document.getElementById(`provider${expertNum}`);
+            const modelSelect = document.getElementById(`model${expertNum}`);
+            const strengthsBox = document.getElementById(`strengths${expertNum}`);
+            
+            const provider = providerSelect.value;
+            const models = PROVIDERS[provider].models;
+
+            // Populate models
+            modelSelect.innerHTML = models.map(m => 
+                `<option value="${m.id}">${m.name}</option>`
+            ).join('');
+
+            // Update strengths
+            updateStrengths(expertNum);
+            
+            // Add change listener to model
+            modelSelect.onchange = () => updateStrengths(expertNum);
+
+            updateEstimate();
+        }
+
+        function updateStrengths(expertNum) {
+            const providerSelect = document.getElementById(`provider${expertNum}`);
+            const modelSelect = document.getElementById(`model${expertNum}`);
+            const strengthsBox = document.getElementById(`strengths${expertNum}`);
+
+            const provider = providerSelect.value;
+            const modelId = modelSelect.value;
+            const model = PROVIDERS[provider].models.find(m => m.id === modelId);
+
+            if (model) {
+                strengthsBox.textContent = `💪 ${model.strengths.join(', ')}`;
+            }
+
+            updateEstimate();
+        }
+
+        // ============================================
+        // Presets
+        // ============================================
+        function applyPreset(presetName) {
+            const preset = PRESETS[presetName];
+            
+            // Update presets UI
+            document.querySelectorAll('.preset-card').forEach(card => {
+                card.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+
+            // Apply expert configs
+            preset.experts.forEach((exp, idx) => {
+                const num = idx + 1;
+                document.getElementById(`provider${num}`).value = exp.provider;
+                onProviderChange(num);
+                document.getElementById(`model${num}`).value = exp.model;
+                updateStrengths(num);
+            });
+
+            // Apply chairman config
+            document.getElementById('providerChairman').value = preset.chairman.provider;
+            onProviderChange('Chairman');
+            document.getElementById('modelChairman').value = preset.chairman.model;
+            updateStrengths('Chairman');
+
+            updateEstimate();
+        }
+
+        // ============================================
+        // Estimation
+        // ============================================
+        function updateEstimate() {
+            let totalCost = 0;
+            let fastestTime = true;
+
+            [1, 2, 3, 'Chairman'].forEach(num => {
+                const provider = document.getElementById(`provider${num}`).value;
+                const modelId = document.getElementById(`model${num}`).value;
+                const model = PROVIDERS[provider]?.models.find(m => m.id === modelId);
+                
+                if (model) {
+                    totalCost += model.cost;
+                    if (provider !== 'groq') fastestTime = false;
+                }
+            });
+
+            const enableReview = document.getElementById('enableReview').checked;
+            if (enableReview) {
+                totalCost *= 1.5;
+            }
+
+            // Update UI
+            document.getElementById('costEstimate').textContent = totalCost === 0 ? 'Gratuit!' : `~${Math.round(totalCost)} DZD`;
+            document.getElementById('timeEstimate').textContent = fastestTime ? '~5s' : (enableReview ? '~30s' : '~15s');
+            
+            // Show warning for expensive configs
+            document.getElementById('warningBox').style.display = totalCost > 100 ? 'block' : 'none';
+        }
+
+        // ============================================
+        // Execute Council
+        // ============================================
+        async function executeCouncil() {
+            const query = document.getElementById('queryInput').value.trim();
+            if (!query) {
+                showError('Veuillez entrer une question');
+                return;
+            }
+
+            // Get configuration
+            const experts = [1, 2, 3].map(num => ({
+                provider: document.getElementById(`provider${num}`).value,
+                model: document.getElementById(`model${num}`).value
+            }));
+            
+            const chairman = {
+                provider: document.getElementById('providerChairman').value,
+                model: document.getElementById('modelChairman').value
+            };
+
+            const enableReview = document.getElementById('enableReview').checked;
+
+            // Show loading
+            document.getElementById('loadingBox').style.display = 'block';
+            document.getElementById('resultsSection').style.display = 'none';
+            document.getElementById('submitBtn').disabled = true;
+
+            const startTime = Date.now();
+
+            try {
+                // Call each expert in parallel
+                document.getElementById('loadingStatus').textContent = 'Les experts analysent votre question...';
+                
+                const expertPromises = experts.map((exp, idx) => 
+                    callLLM(exp.model, query, `Expert ${idx + 1}`)
+                );
+
+                const expertResponses = await Promise.all(expertPromises);
+
+                // Store opinions
+                currentOpinions = {};
+                expertResponses.forEach((response, idx) => {
+                    currentOpinions[`expert${idx + 1}`] = response;
+                });
+
+                // Chairman synthesis
+                document.getElementById('loadingStatus').textContent = 'Le Chairman synthétise les réponses...';
+                
+                const synthesisPrompt = `Tu es le Chairman d'un conseil d'experts IA. 
+Voici la question posée: "${query}"
+
+Voici les opinions des experts:
+
+Expert 1 (${getModelName(experts[0].model)}):
+${expertResponses[0]}
+
+Expert 2 (${getModelName(experts[1].model)}):
+${expertResponses[1]}
+
+Expert 3 (${getModelName(experts[2].model)}):
+${expertResponses[2]}
+
+En tant que Chairman, fais une synthèse complète qui:
+1. Identifie les points de consensus
+2. Note les perspectives uniques de chaque expert
+3. Propose une réponse finale équilibrée et complète
+
+Réponds en français de manière structurée.`;
+
+                const finalResponse = await callLLM(chairman.model, synthesisPrompt, 'Chairman');
+
+                // Calculate stats
+                const execTime = ((Date.now() - startTime) / 1000).toFixed(1);
+
+                // Display results
+                displayResults({
+                    finalResponse,
+                    chairman,
+                    experts,
+                    execTime,
+                    opinions: currentOpinions
+                });
+
+            } catch (error) {
+                showError(`Erreur: ${error.message}`);
+            } finally {
+                document.getElementById('loadingBox').style.display = 'none';
+                document.getElementById('submitBtn').disabled = false;
+            }
+        }
+
+        async function callLLM(model, prompt, role) {
+            try {
+                // Check if it's an Ollama model
+                if (model.startsWith('ollama.')) {
+                    return await callOllama(model, prompt, role);
+                }
+
+                // Check if it's an OpenRouter model
+                if (model.startsWith('openrouter.')) {
+                    return await callOpenRouter(model, prompt, role);
+                }
+
+                // Check if it's a Groq model - call directly
+                if (model.startsWith('groq.')) {
+                    return await callGroq(model, prompt, role);
+                }
+
+                // Check if it's a DeepSeek model - call directly
+                if (model.startsWith('deepseek.')) {
+                    return await callDeepSeek(model, prompt, role);
+                }
+
+                // Standard API call for other providers (fallback)
+                const response = await fetch('/api/llm/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        model: model,
+                        messages: [{ role: 'user', content: prompt }],
+                        temperature: 0.7,
+                        max_tokens: 2000
+                    })
+                });
+
+                const data = await response.json();
+                
+                if (!response.ok || !data.success) {
+                    let errorMsg = 'Erreur inconnue';
+                    if (typeof data.detail === 'string') {
+                        errorMsg = data.detail;
+                    } else if (typeof data.error === 'string') {
+                        errorMsg = data.error;
+                    } else if (data.detail && typeof data.detail === 'object') {
+                        errorMsg = JSON.stringify(data.detail);
+                    } else if (data.error && typeof data.error === 'object') {
+                        errorMsg = JSON.stringify(data.error);
+                    }
+                    throw new Error(`${role}: ${errorMsg}`);
+                }
+
+                return data.answer || data.response || 'Réponse vide';
+            } catch (fetchError) {
+                if (fetchError.message.includes(role)) {
+                    throw fetchError;
+                }
+                throw new Error(`${role}: ${fetchError.message}`);
+            }
+        }
+
+        async function callOllama(model, prompt, role) {
+            // Extract actual model name (e.g., "ollama.mistral:7b" -> "mistral:7b")
+            const ollamaModel = model.replace('ollama.', '');
+            const systemPrompt = 'You MUST respond in the same language as the user input. Match the language exactly.';
+            
+            try {
+                const response = await fetch('/ollama/api/generate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        model: ollamaModel,
+                        prompt: prompt,
+                        system: systemPrompt,
+                        stream: false
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+
+                const data = await response.json();
+                return data.response || 'Réponse vide';
+            } catch (error) {
+                throw new Error(`${role} (Ollama): ${error.message}`);
+            }
+        }
+
+        async function callOpenRouter(model, prompt, role) {
+            // Extract actual model name (e.g., "openrouter.deepseek/deepseek-chat" -> "deepseek/deepseek-chat")
+            const openrouterModel = model.replace('openrouter.', '');
+            
+            try {
+                const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
+                        'HTTP-Referer': window.location.href,
+                        'X-Title': 'IAFactory Council'
+                    },
+                    body: JSON.stringify({
+                        model: openrouterModel,
+                        messages: [
+                            { role: 'system', content: 'You MUST respond in the same language as the user input. Match the language exactly.' },
+                            { role: 'user', content: prompt }
+                        ],
+                        max_tokens: 2000,
+                        temperature: 0.7
+                    })
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json().catch(() => ({}));
+                    const errorMsg = errorData.error?.message || `HTTP ${response.status}`;
+                    throw new Error(errorMsg);
+                }
+
+                const data = await response.json();
+                return data.choices?.[0]?.message?.content || 'Réponse vide';
+            } catch (error) {
+                throw new Error(`${role} (OpenRouter): ${error.message}`);
+            }
+        }
+
+        async function callGroq(model, prompt, role) {
+            // Extract actual model name (e.g., "groq.llama-3.3-70b-versatile" -> "llama-3.3-70b-versatile")
+            const groqModel = model.replace('groq.', '');
+            
+            try {
+                const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${GROQ_API_KEY}`
+                    },
+                    body: JSON.stringify({
+                        model: groqModel,
+                        messages: [
+                            { role: 'system', content: 'You MUST respond in the same language as the user input. Match the language exactly.' },
+                            { role: 'user', content: prompt }
+                        ],
+                        max_tokens: 2000,
+                        temperature: 0.7
+                    })
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json().catch(() => ({}));
+                    const errorMsg = errorData.error?.message || `HTTP ${response.status}`;
+                    throw new Error(errorMsg);
+                }
+
+                const data = await response.json();
+                return data.choices?.[0]?.message?.content || 'Réponse vide';
+            } catch (error) {
+                throw new Error(`${role} (Groq): ${error.message}`);
+            }
+        }
+
+        async function callDeepSeek(model, prompt, role) {
+            // Extract actual model name (e.g., "deepseek.deepseek-chat" -> "deepseek-chat")
+            const deepseekModel = model.replace('deepseek.', '');
+            
+            try {
+                const response = await fetch('https://api.deepseek.com/v1/chat/completions', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${DEEPSEEK_API_KEY}`
+                    },
+                    body: JSON.stringify({
+                        model: deepseekModel,
+                        messages: [
+                            { role: 'system', content: 'You MUST respond in the same language as the user input. If the user writes in French, respond in French. If in English, respond in English. Never respond in Chinese unless the user writes in Chinese.' },
+                            { role: 'user', content: prompt }
+                        ],
+                        max_tokens: 2000,
+                        temperature: 0.7
+                    })
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json().catch(() => ({}));
+                    const errorMsg = errorData.error?.message || `HTTP ${response.status}`;
+                    throw new Error(errorMsg);
+                }
+
+                const data = await response.json();
+                return data.choices?.[0]?.message?.content || 'Réponse vide';
+            } catch (error) {
+                throw new Error(`${role} (DeepSeek): ${error.message}`);
+            }
+        }
+
+        function getModelName(modelId) {
+            for (const provider of Object.values(PROVIDERS)) {
+                const model = provider.models.find(m => m.id === modelId);
+                if (model) return model.name;
+            }
+            return modelId;
+        }
+
+        // ============================================
+        // Display Results
+        // ============================================
+        function displayResults(data) {
+            document.getElementById('resultsSection').style.display = 'block';
+            document.getElementById('finalResponse').textContent = data.finalResponse;
+            document.getElementById('chairmanName').textContent = `(${getModelName(data.chairman.model)})`;
+            document.getElementById('execTime').innerHTML = `<i class="fas fa-clock"></i> ${data.execTime}s`;
+            document.getElementById('actualCost').innerHTML = `<i class="fas fa-coins"></i> Estimé`;
+            document.getElementById('expertsCount').innerHTML = `<i class="fas fa-users"></i> 3 experts + Chairman`;
+
+            // Build opinion tabs
+            const tabsHTML = data.experts.map((exp, idx) => `
+                <button class="opinion-tab ${idx === 0 ? 'active' : ''}" 
+                        onclick="showOpinion('expert${idx + 1}', this)">
+                    Expert ${idx + 1} (${getModelName(exp.model)})
+                </button>
+            `).join('');
+
+            document.getElementById('opinionTabs').innerHTML = tabsHTML;
+            showOpinion('expert1', document.querySelector('.opinion-tab'));
+
+            // Scroll to results
+            document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function showOpinion(expertKey, tabElement) {
+            // Update tabs
+            document.querySelectorAll('.opinion-tab').forEach(tab => tab.classList.remove('active'));
+            tabElement.classList.add('active');
+
+            // Show content
+            document.getElementById('opinionContent').textContent = currentOpinions[expertKey] || 'Opinion non disponible';
+        }
+
+        // ============================================
+        // Error Handling
+        // ============================================
+        function showError(message) {
+            const toast = document.getElementById('errorToast');
+            document.getElementById('errorMessage').textContent = message;
+            toast.classList.add('visible');
+
+            setTimeout(() => {
+                toast.classList.remove('visible');
+            }, 5000);
+        }
+
+        // Listen for review checkbox
+        document.getElementById('enableReview').addEventListener('change', updateEstimate);
+    </script>
+</body>
+</html>

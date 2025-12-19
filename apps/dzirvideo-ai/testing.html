@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Tester la video-operator</title>
+    <meta name="description" content="Page de test rapide pour valider les endpoints du video-operator IAFactory">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        :root {
+            --bg: #050505;
+            --panel: #0f0f0f;
+            --border: rgba(255,255,255,0.12);
+            --text: #f5fafb;
+            --accent: #00c95d;
+            font-family: 'Inter', system-ui, sans-serif;
+        }
+        body {
+            background: radial-gradient(circle at top, rgba(0,201,93,0.12), transparent 45%), var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            margin: 0;
+        }
+        main {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 32px 24px 60px;
+        }
+        header {
+            margin-bottom: 32px;
+        }
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+        p {
+            color: rgba(245,250,251,0.8);
+        }
+        .panel {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.35);
+            margin-bottom: 24px;
+        }
+        .panel h2 {
+            margin-top: 0;
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+        }
+        button, input {
+            font: inherit;
+        }
+        button {
+            background: linear-gradient(135deg, #00a651, #00c95d);
+            border: none;
+            color: white;
+            padding: 0.8rem 1.2rem;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        pre {
+            background: rgba(255,255,255,0.02);
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            overflow-x: auto;
+        }
+        .log {
+            margin-top: 8px;
+            padding: 12px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.05);
+            min-height: 60px;
+            font-size: 0.9rem;
+            white-space: pre-wrap;
+        }
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 0.6rem 0.8rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--text);
+        }
+    </style>
+</head>
+<body>
+<main>
+    <header>
+        <p style="font-size:0.8rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent);">video-operator QA</p>
+        <h1>Page de test rapide</h1>
+        <p>Vérifiez la connectivité du backend IAFactory sur <strong>port 8085</strong> et copiez les commandes Curl décrites ci-dessous dans un terminal pour reproduire les mêmes résultats.</p>
+    </header>
+
+    <section class="panel">
+        <h2>Health check</h2>
+        <p>Endpoint :</p>
+        <pre>GET https://www.iafactoryalgeria.com:8085/health</pre>
+        <button id="healthBtn">Interroger /health</button>
+        <div id="healthLog" class="log">Aucun résultat.</div>
+    </section>
+
+    <section class="panel">
+        <h2>Statut d'un job</h2>
+        <label for="statusId">Job ID</label>
+        <input type="text" id="statusId" placeholder="Ex: 123abc-deadbeef" autocomplete="off">
+        <button id="statusBtn">GET /api/v1/status/{jobId}</button>
+        <div id="statusLog" class="log">Saisissez un Job ID puis cliquez.</div>
+    </section>
+
+    <section class="panel">
+        <h2>Endpoints disponibles</h2>
+        <p>Vous pouvez rouler les commandes suivantes depuis PowerShell ou tout client HTTP :</p>
+        <pre>
+POST  /api/v1/edit              (multipart/form-data + video)
+GET   /api/v1/status/{id}       (poller la progression)
+GET   /api/v1/download/{id}/{platform}
+GET   /health                   (statut du service)
+        </pre>
+        <p>Base URL : <strong>https://www.iafactoryalgeria.com:8085</strong></p>
+    </section>
+</main>
+<script>
+    const baseUrl = 'https://www.iafactoryalgeria.com:8085';
+    const healthBtn = document.getElementById('healthBtn');
+    const statusBtn = document.getElementById('statusBtn');
+    const healthLog = document.getElementById('healthLog');
+    const statusLog = document.getElementById('statusLog');
+    const statusInput = document.getElementById('statusId');
+
+    healthBtn.addEventListener('click', async () => {
+        healthBtn.disabled = true;
+        healthLog.textContent = 'Interrogation en cours...';
+        try {
+            const res = await fetch(`${baseUrl}/health`);
+            const text = await res.text();
+            healthLog.textContent = `Status ${res.status} — ${text}`;
+        } catch (err) {
+            healthLog.textContent = `Erreur: ${err.message}`;
+        } finally {
+            healthBtn.disabled = false;
+        }
+    });
+
+    statusBtn.addEventListener('click', async () => {
+        const jobId = statusInput.value.trim();
+        if (!jobId) {
+            statusLog.textContent = 'Précisez un Job ID valide.';
+            return;
+        }
+        statusBtn.disabled = true;
+        statusLog.textContent = 'Chargement...';
+        try {
+            const res = await fetch(`${baseUrl}/api/v1/status/${encodeURIComponent(jobId)}`);
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            const payload = await res.json();
+            statusLog.textContent = JSON.stringify(payload, null, 2);
+        } catch (err) {
+            statusLog.textContent = `Erreur: ${err.message}`;
+        } finally {
+            statusBtn.disabled = false;
+        }
+    });
+</script>
+</body>
+</html>

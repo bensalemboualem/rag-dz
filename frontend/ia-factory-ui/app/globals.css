@@ -1,0 +1,177 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* ===== IAFactory Design System - Light Mode (Landing Page Source) ===== */
+    --background: 38 33% 96%;           /* #f7f5f0 - Warm cream from landing */
+    --foreground: 222 47% 11%;          /* #0f172a - Dark navy */
+    --card: 0 0% 100%;                  /* White cards */
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;               /* White popover */
+    --popover-foreground: 222 47% 11%;
+    --primary: 153 100% 32%;            /* #00a651 - IAFactory Green */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 222 47% 11%;
+    --muted: 220 13% 91%;
+    --muted-foreground: 215 16% 47%;
+    --accent: 153 100% 32%;             /* Same green for accent */
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;           /* #ef4444 - IAFactory Red */
+    --destructive-foreground: 0 0% 100%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 153 100% 32%;
+    --radius: 0.5rem;
+    /* IAFactory brand accents */
+    --iaf-green: 153 100% 32%;
+    --iaf-green-light: 153 100% 39%;
+    --iaf-red: 0 84% 60%;
+    --green-accent: 153 100% 32%;
+    --blue-accent: 217 91% 60%;
+  }
+
+  .dark,
+  [data-theme="dark"],
+  body[data-theme="dark"] {
+    /* ===== IAFactory Design System - Dark Mode (Landing Page Source) ===== */
+    --background: 222 84% 2%;           /* #020617 - Very dark navy from landing */
+    --foreground: 210 40% 98%;          /* #f8fafc - Off-white */
+    --card: 222 84% 2%;                 /* Same as background for cards */
+    --card-foreground: 210 40% 98%;
+    --popover: 222 84% 2%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 153 100% 32%;            /* #00a651 - IAFactory Green (same) */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 217 33% 17%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 153 100% 32%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;           /* #ef4444 - IAFactory Red */
+    --destructive-foreground: 0 0% 100%;
+    --border: 217 33% 17%;
+    --input: 217 33% 17%;
+    --ring: 153 100% 32%;
+  }
+
+  [data-theme="light"],
+  body[data-theme="light"] {
+    /* ===== IAFactory Design System - Light Mode ===== */
+    --background: 38 33% 96%;           /* #f7f5f0 - Warm cream from landing */
+    --foreground: 222 47% 11%;          /* #0f172a - Dark navy */
+    --card: 0 0% 100%;                  /* White cards */
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+    --primary: 153 100% 32%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 222 47% 11%;
+    --muted: 220 13% 91%;
+    --muted-foreground: 215 16% 47%;
+    --accent: 153 100% 32%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 153 100% 32%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  /* Force light mode background */
+  body[data-theme="light"],
+  html[data-theme="light"] body {
+    background-color: #f7f5f0 !important;
+    color: #0f172a !important;
+  }
+
+  body[data-theme="light"] main {
+    background-color: #f7f5f0 !important;
+  }
+
+  /* Force dark mode background */
+  body[data-theme="dark"],
+  html[data-theme="dark"] body {
+    background-color: #020617 !important;
+    color: #f8fafc !important;
+  }
+
+  body[data-theme="dark"] main {
+    background-color: #020617 !important;
+  }
+}
+
+/* Custom scrollbar */
+@layer utilities {
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--muted)) transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: hsl(var(--muted));
+    border-radius: 4px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground));
+  }
+}
+
+/* Waveform animation */
+@layer components {
+  .waveform-bar {
+    @apply bg-primary rounded-full transition-all duration-150 ease-in-out;
+  }
+
+  .waveform-bar.active {
+    @apply animate-pulse-wave;
+  }
+}
+
+/* Geneva Butler branding */
+.geneva-gradient {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.algeria-gradient {
+  background: linear-gradient(135deg, #00a651 0%, #00c761 100%);
+}
+
+.switzerland-gradient {
+  background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
+}
+
+/* Mobile First responsive classes */
+@media (max-width: 768px) {
+  .mobile-full {
+    @apply w-full h-full fixed inset-0;
+  }
+
+  .mobile-padding {
+    @apply px-4 py-6;
+  }
+}

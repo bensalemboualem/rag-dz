@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAG-DZ V2 - Plateforme IA Algérie</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 700;
+            background: linear-gradient(135deg, #00d4ff 0%, #7c3aed 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        p {
+            font-size: clamp(1.1rem, 3vw, 1.5rem);
+            color: #94a3b8;
+            text-align: center;
+            margin-bottom: 3rem;
+            line-height: 1.6;
+        }
+
+        .nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-bottom: 3rem;
+        }
+
+        .nav a {
+            color: #00d4ff;
+            text-decoration: none;
+            font-size: 1.1rem;
+            padding: 0.75rem 1.5rem;
+            border: 2px solid #00d4ff;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav a:hover {
+            background: #00d4ff;
+            color: #0f172a;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 212, 255, 0.3);
+        }
+
+        .status {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .status h2 {
+            color: #00d4ff;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            margin: 0.5rem 0;
+            background: rgba(0, 212, 255, 0.05);
+            border-radius: 0.5rem;
+        }
+
+        .status-icon {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #10b981;
+            box-shadow: 0 0 10px #10b981;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            border-radius: 2rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>RAG-DZ V2</h1>
+        <p>Plateforme IA Multi-Agents pour le Marché Algérien</p>
+
+        <nav class="nav">
+            <a href="/hub/">→ Hub</a>
+            <a href="/archon/">→ Archon UI</a>
+            <a href="/rag-ui/">→ RAG UI</a>
+            <a href="/api/health">→ API Health</a>
+        </nav>
+
+        <div class="status">
+            <h2>✓ Déploiement Marketing SSG Réussi</h2>
+            <div class="status-item">
+                <div class="status-icon"></div>
+                <span>Nginx V2 configuré et actif</span>
+            </div>
+            <div class="status-item">
+                <div class="status-icon"></div>
+                <span>Routes proxy préservées (/hub, /archon, /rag-ui, /api)</span>
+            </div>
+            <div class="status-item">
+                <div class="status-icon"></div>
+                <span>Cache optimisé (assets 1 an, HTML no-cache)</span>
+            </div>
+            <div class="status-item">
+                <div class="status-icon"></div>
+                <span>Structure valide (pas de locations imbriquées)</span>
+            </div>
+
+            <div class="badge">🚀 Jour 1 Complete - Production Ready</div>
+        </div>
+    </div>
+</body>
+</html>
