@@ -2,10 +2,11 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Sparkles, Upload, Play, Loader2, Download, RefreshCw } from "lucide-react";
+import { Sparkles, Upload, Play, Loader2, Download, RefreshCw, AlertTriangle } from "lucide-react";
 import { useDropzone } from "react-dropzone";
 import toast from "react-hot-toast";
-import { generateTextToVideo, generateImageToVideo, uploadImage } from "@/lib/fal";
+import ModelSelector from "@/components/studio/model-selector";
+import { DEFAULT_VIDEO_MODEL, getModelById } from "@/lib/providers";
 
 type GenerationMode = "text-to-video" | "image-to-video";
 
@@ -19,6 +20,7 @@ interface GenerationState {
 export default function StudioPage() {
   const [mode, setMode] = useState<GenerationMode>("text-to-video");
   const [prompt, setPrompt] = useState("");
+  const [selectedModel, setSelectedModel] = useState(DEFAULT_VIDEO_MODEL);
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
   const [generation, setGeneration] = useState<GenerationState>({
     status: "idle",
@@ -55,33 +57,40 @@ export default function StudioPage() {
     setGeneration({ status: "generating", progress: 0 });
 
     try {
-      let result;
+      const model = getModelById(selectedModel);
       
-      if (mode === "text-to-video") {
-        result = await generateTextToVideo(
-          { prompt, duration: "5", aspect_ratio: "16:9" },
-          "kling-1.6",
-          (progress) => setGeneration((prev) => ({ ...prev, progress }))
-        );
-      } else {
-        // Upload image first
-        if (!uploadedFile) {
-          throw new Error("No image file");
-        }
-        toast.loading("Upload de l'image...");
-        const imageUrl = await uploadImage(uploadedFile);
-        toast.dismiss();
-        
-        result = await generateImageToVideo(
-          { prompt, image_url: imageUrl, duration: "5" },
-          (progress) => setGeneration((prev) => ({ ...prev, progress }))
-        );
+      // Use Replicate API
+      const response = await fetch('/api/replicate/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model_id: selectedModel,
+          prompt,
+          type: mode,
+          image_url: mode === 'image-to-video' ? uploadedImage : undefined,
+          negative_prompt: 'blurry, low quality, distorted, ugly, watermark',
+        }),
+      });
+
+      // Simulate progress while waiting
+      const progressInterval = setInterval(() => {
+        setGeneration(prev => ({
+          ...prev,
+          progress: Math.min(prev.progress + Math.random() * 10, 90)
+        }));
+      }, 1000);
+
+      const result = await response.json();
+      clearInterval(progressInterval);
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Generation failed');
       }
       
       setGeneration({
         status: "completed",
         progress: 100,
-        videoUrl: result.video.url,
+        videoUrl: result.url,
       });
       toast.success("Vidéo générée avec succès!");
     } catch (error) {
@@ -125,6 +134,18 @@ export default function StudioPage() {
               {m.label}
             </button>
           ))}
+        </div>
+
+        {/* Model Selector */}
+        <div className="mb-8">
+          <label className="block text-sm font-medium mb-2">
+            Modèle IA
+          </label>
+          <ModelSelector
+            type={mode}
+            selectedModel={selectedModel}
+            onModelChange={setSelectedModel}
+          />
         </div>
 
         <div className="grid lg:grid-cols-2 gap-8">
