@@ -1,94 +1,243 @@
 # ============================================================================
-# 📝 MIGRATION P2 - Documentation & README Generator
+# MIGRATION P2 - Documentation & README Generator
 # ============================================================================
-# Exécuter depuis la racine du projet: .\scripts\migration\p2-documentation.ps1
+# Executer depuis la racine du projet: .\scripts\migration\p2-documentation.ps1
 # ============================================================================
 
-$ErrorActionPreference = "Stop"
-$ROOT = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
+$ErrorActionPreference = "Continue"
+$ROOT = "D:\IAFactory\rag-dz"
 Set-Location $ROOT
 
-Write-Host "`n========================================" -ForegroundColor Cyan
-Write-Host "🟡 MIGRATION P2 - DOCUMENTATION" -ForegroundColor Cyan
-Write-Host "========================================`n" -ForegroundColor Cyan
+Write-Host ""
+Write-Host "========================================" -ForegroundColor Cyan
+Write-Host "[P2] MIGRATION P2 - DOCUMENTATION" -ForegroundColor Cyan
+Write-Host "========================================" -ForegroundColor Cyan
+Write-Host ""
 
 # ============================================================================
-# TEMPLATE README
+# FONCTION: Detecter le stack d'une app
 # ============================================================================
-$ReadmeTemplate = @'
-# {APP_NAME}
+function Get-AppStack {
+    param([string]$appPath)
+    
+    $stack = @{
+        Type = "static"
+        Framework = "HTML/CSS/JS"
+        InstallCmd = "# No dependencies"
+        DevCmd = "# Open index.html in browser"
+        BuildCmd = "# No build required"
+        HasBackend = $false
+        HasFrontend = $false
+    }
+    
+    # Next.js
+    if (Test-Path "$appPath\next.config.*" -ErrorAction SilentlyContinue) {
+        $stack.Type = "nextjs"
+        $stack.Framework = "Next.js 14"
+        $stack.InstallCmd = "npm install"
+        $stack.DevCmd = "npm run dev"
+        $stack.BuildCmd = "npm run build"
+        $stack.HasFrontend = $true
+    }
+    # Vite/React
+    elseif (Test-Path "$appPath\vite.config.*" -ErrorAction SilentlyContinue) {
+        $stack.Type = "vite"
+        $stack.Framework = "React + Vite"
+        $stack.InstallCmd = "npm install"
+        $stack.DevCmd = "npm run dev"
+        $stack.BuildCmd = "npm run build"
+        $stack.HasFrontend = $true
+    }
+    # Node.js
+    elseif (Test-Path "$appPath\package.json" -ErrorAction SilentlyContinue) {
+        $stack.Type = "nodejs"
+        $stack.Framework = "Node.js"
+        $stack.InstallCmd = "npm install"
+        $stack.DevCmd = "npm start"
+        $stack.BuildCmd = "npm run build"
+        $stack.HasFrontend = $true
+    }
+    
+    # Check for backend
+    if (Test-Path "$appPath\backend" -ErrorAction SilentlyContinue) {
+        $stack.HasBackend = $true
+        if (Test-Path "$appPath\backend\requirements.txt" -ErrorAction SilentlyContinue) {
+            $stack.Framework += " + FastAPI"
+        }
+    }
+    elseif (Test-Path "$appPath\requirements.txt" -ErrorAction SilentlyContinue) {
+        $stack.Type = "python"
+        $stack.Framework = "Python/FastAPI"
+        $stack.InstallCmd = "pip install -r requirements.txt"
+        $stack.DevCmd = "uvicorn app.main:app --reload"
+        $stack.BuildCmd = "# No build (Python)"
+        $stack.HasBackend = $true
+    }
+    
+    return $stack
+}
 
-> {DESCRIPTION}
+# ============================================================================
+# FONCTION: Generer README pour une app
+# ============================================================================
+function Generate-AppReadme {
+    param(
+        [string]$appName,
+        [string]$appPath,
+        [hashtable]$stack
+    )
+    
+    # Determiner le status
+    $status = "En developpement"
+    $statusIcon = "[DEV]"
+    if ($appName -in @("video-studio", "marketing", "can2025", "news", "sport")) {
+        $status = "Production"
+        $statusIcon = "[PROD]"
+    }
+    
+    # Lister les fichiers principaux
+    $mainFiles = Get-ChildItem -Path $appPath -File -ErrorAction SilentlyContinue | 
+                 Where-Object { $_.Extension -in @(".ts", ".tsx", ".py", ".js", ".jsx") } |
+                 Select-Object -First 5 -ExpandProperty Name
+    
+    # Lister les dossiers
+    $folders = Get-ChildItem -Path $appPath -Directory -ErrorAction SilentlyContinue |
+               Where-Object { $_.Name -notin @("node_modules", "__pycache__", ".next", "dist", ".git") } |
+               Select-Object -First 6 -ExpandProperty Name
+    
+    $structureText = ""
+    foreach ($folder in $folders) {
+        $structureText += "    $folder/`n"
+    }
+    if ($mainFiles) {
+        $structureText += "    $($mainFiles -join ', ')"
+    }
 
-## 📋 Status
+    $readme = @"
+# $appName
 
-| Aspect | Status |
+> Application $appName - IAFactory SaaS Platform
+
+## Status
+
+| Aspect | Valeur |
 |--------|--------|
-| **Production** | {STATUS} |
-| **Tests** | {TESTS} |
-| **Documentation** | ✅ |
+| **Production** | $statusIcon $status |
+| **Stack** | $($stack.Framework) |
+| **Tests** | A implementer |
+| **Documentation** | Ce fichier |
 
-## 🚀 Quick Start
+## Description
 
-```bash
-# Installation
-{INSTALL_CMD}
+Application $appName faisant partie de la plateforme IAFactory.
+$( if ($stack.HasBackend -and $stack.HasFrontend) { "Architecture full-stack avec frontend et backend separes." } 
+   elseif ($stack.HasBackend) { "Service backend/API." }
+   else { "Application frontend." } )
 
-# Développement
-{DEV_CMD}
+## Quick Start
 
-# Build
-{BUILD_CMD}
-```
+### Installation
 
-## 📁 Structure
+``````bash
+$($stack.InstallCmd)
+$( if ($stack.HasBackend) { "
+# Backend (si applicable)
+cd backend
+pip install -r requirements.txt" } )
+``````
 
-```
-{APP_NAME}/
-├── {STRUCTURE}
-```
+### Developpement
 
-## ⚙️ Configuration
+``````bash
+$($stack.DevCmd)
+$( if ($stack.HasBackend) { "
+# Backend
+cd backend
+uvicorn app.main:app --reload --port 8000" } )
+``````
 
-Copier `.env.example` vers `.env` et configurer:
+### Build
 
-```env
-# Variables requises
-{ENV_VARS}
-```
+``````bash
+$($stack.BuildCmd)
+``````
 
-## 🔗 Liens
+## Structure
+
+``````
+$appName/
+$structureText
+``````
+
+## Configuration
+
+Copier ``.env.example`` vers ``.env`` et configurer les variables:
+
+``````env
+# API
+API_URL=http://localhost:8000
+
+# Voir .env.example pour la liste complete
+``````
+
+## API Endpoints
+
+$( if ($stack.HasBackend) { "
+| Methode | Endpoint | Description |
+|---------|----------|-------------|
+| GET | /api/v1/health | Health check |
+| ... | ... | A documenter |
+" } else { "Non applicable (frontend only)" } )
+
+## TODO
+
+- [ ] Completer la documentation
+- [ ] Ajouter tests unitaires
+- [ ] Ajouter tests integration
+- [ ] Configurer CI/CD
+
+## Liens
 
 - [Documentation principale](../../docs/README.md)
 - [Architecture](../../docs/ARCHITECTURE.md)
-- [API](../../services/api/README.md)
+- [Audit](../../docs/AUDIT.md)
 
 ---
 
-*Généré automatiquement - IAFactory SaaS Platform*
-'@
+*IAFactory SaaS Platform - Generated $(Get-Date -Format "yyyy-MM-dd")*
+"@
+
+    return $readme
+}
 
 # ============================================================================
 # 1. SCAN APPS SANS README
 # ============================================================================
-Write-Host "[1/4] Scan des apps sans README..." -ForegroundColor Yellow
+Write-Host "[1/3] Scan des apps sans README..." -ForegroundColor Yellow
 
 $appsPath = "apps"
-$appsWithoutReadme = @()
+$apps = Get-ChildItem -Path $appsPath -Directory | Where-Object { $_.Name -ne "_archived" }
 
-Get-ChildItem -Path $appsPath -Directory | Where-Object { $_.Name -ne "_archived" } | ForEach-Object {
-    $readmePath = Join-Path $_.FullName "README.md"
+$appsWithoutReadme = @()
+$appsWithReadme = @()
+
+foreach ($app in $apps) {
+    $readmePath = Join-Path $app.FullName "README.md"
     if (-not (Test-Path $readmePath)) {
-        $appsWithoutReadme += $_
+        $appsWithoutReadme += $app
+    } else {
+        $appsWithReadme += $app
     }
 }
 
-Write-Host "   📊 $($appsWithoutReadme.Count) apps sans README" -ForegroundColor Gray
+Write-Host "   [INFO] $($appsWithReadme.Count) apps avec README" -ForegroundColor Gray
+Write-Host "   [INFO] $($appsWithoutReadme.Count) apps sans README" -ForegroundColor Yellow
 
 # ============================================================================
-# 2. GÉNÉRATION README POUR CHAQUE APP
+# 2. GENERATION README POUR CHAQUE APP SANS README
 # ============================================================================
-Write-Host "`n[2/4] Génération des README..." -ForegroundColor Yellow
+Write-Host ""
+Write-Host "[2/3] Generation des README..." -ForegroundColor Yellow
 
 $generatedCount = 0
 
@@ -96,168 +245,92 @@ foreach ($app in $appsWithoutReadme) {
     $appName = $app.Name
     $appPath = $app.FullName
     
-    # Détecter le type d'app
-    $hasPackageJson = Test-Path (Join-Path $appPath "package.json")
-    $hasPyProject = Test-Path (Join-Path $appPath "pyproject.toml")
-    $hasRequirements = Test-Path (Join-Path $appPath "requirements.txt")
-    $hasNextConfig = Test-Path (Join-Path $appPath "next.config.*")
-    $hasViteConfig = Test-Path (Join-Path $appPath "vite.config.*")
+    # Detecter le stack
+    $stack = Get-AppStack -appPath $appPath
     
-    # Déterminer stack
-    $stack = "HTML/CSS/JS"
-    $installCmd = "# Pas de dépendances"
-    $devCmd = "# Ouvrir index.html dans un navigateur"
-    $buildCmd = "# Pas de build requis"
+    # Generer README
+    $readme = Generate-AppReadme -appName $appName -appPath $appPath -stack $stack
     
-    if ($hasNextConfig) {
-        $stack = "Next.js"
-        $installCmd = "npm install"
-        $devCmd = "npm run dev"
-        $buildCmd = "npm run build"
-    } elseif ($hasViteConfig) {
-        $stack = "React/Vite"
-        $installCmd = "npm install"
-        $devCmd = "npm run dev"
-        $buildCmd = "npm run build"
-    } elseif ($hasPackageJson) {
-        $stack = "Node.js"
-        $installCmd = "npm install"
-        $devCmd = "npm start"
-        $buildCmd = "npm run build"
-    } elseif ($hasPyProject -or $hasRequirements) {
-        $stack = "Python/FastAPI"
-        $installCmd = "pip install -r requirements.txt"
-        $devCmd = "uvicorn app.main:app --reload"
-        $buildCmd = "# Pas de build (Python)"
-    }
-    
-    # Générer structure
-    $structure = Get-ChildItem -Path $appPath -Directory | 
-                 Select-Object -First 5 | 
-                 ForEach-Object { "├── $($_.Name)/" }
-    $structure = ($structure -join "`n") + "`n└── ..."
-    
-    # Générer README
-    $readme = $ReadmeTemplate
-    $readme = $readme -replace "{APP_NAME}", $appName
-    $readme = $readme -replace "{DESCRIPTION}", "Application $appName - IAFactory SaaS Platform ($stack)"
-    $readme = $readme -replace "{STATUS}", "🟡 En développement"
-    $readme = $readme -replace "{TESTS}", "❌ À implémenter"
-    $readme = $readme -replace "{INSTALL_CMD}", $installCmd
-    $readme = $readme -replace "{DEV_CMD}", $devCmd
-    $readme = $readme -replace "{BUILD_CMD}", $buildCmd
-    $readme = $readme -replace "{STRUCTURE}", $structure
-    $readme = $readme -replace "{ENV_VARS}", "# Voir .env.example"
-    
+    # Ecrire le fichier
     $readmePath = Join-Path $appPath "README.md"
     $readme | Out-File -FilePath $readmePath -Encoding utf8
     
-    Write-Host "   📝 $appName/README.md" -ForegroundColor Gray
+    Write-Host "   [NEW] $appName/README.md ($($stack.Framework))" -ForegroundColor Gray
     $generatedCount++
 }
 
-Write-Host "   ✅ $generatedCount README générés" -ForegroundColor Green
+Write-Host "   [OK] $generatedCount README generes" -ForegroundColor Green
 
 # ============================================================================
-# 3. GÉNÉRATION .env.example
+# 3. GENERATION .env.example POUR APPS CONFIGURABLES
 # ============================================================================
-Write-Host "`n[3/4] Génération des .env.example..." -ForegroundColor Yellow
+Write-Host ""
+Write-Host "[3/3] Generation des .env.example..." -ForegroundColor Yellow
 
-$envExampleTemplate = @'
+$envTemplate = @"
 # ============================================================================
 # Configuration {APP_NAME}
 # ============================================================================
 # Copier ce fichier vers .env et remplir les valeurs
 
-# API
+# === API ===
 API_URL=http://localhost:8000
 API_KEY=your_api_key_here
 
-# Base de données (si applicable)
+# === Database (si applicable) ===
 DATABASE_URL=postgresql://user:password@localhost:5432/dbname
 
-# LLM (si applicable)
-OPENAI_API_KEY=your_openai_key
-ANTHROPIC_API_KEY=your_anthropic_key
+# === LLM Providers (si applicable) ===
+OPENAI_API_KEY=sk-your_openai_key
+ANTHROPIC_API_KEY=sk-ant-your_anthropic_key
+GROQ_API_KEY=gsk_your_groq_key
 
-# Environnement
+# === Environment ===
 NODE_ENV=development
 DEBUG=true
-'@
+"@
 
 $envCreatedCount = 0
 
-Get-ChildItem -Path $appsPath -Directory | Where-Object { $_.Name -ne "_archived" } | ForEach-Object {
-    $envExamplePath = Join-Path $_.FullName ".env.example"
-    $envPath = Join-Path $_.FullName ".env"
-    $envLocalPath = Join-Path $_.FullName ".env.local"
+foreach ($app in $apps) {
+    $appPath = $app.FullName
+    $envExamplePath = Join-Path $appPath ".env.example"
     
-    # Ne créer que si pas d'exemple existant et si config probable
-    $hasPackageJson = Test-Path (Join-Path $_.FullName "package.json")
-    $hasPython = Test-Path (Join-Path $_.FullName "requirements.txt")
+    # Ne creer que si pas d'exemple existant ET si app configurable
+    $hasPackageJson = Test-Path (Join-Path $appPath "package.json")
+    $hasRequirements = Test-Path (Join-Path $appPath "requirements.txt")
+    $hasBackend = Test-Path (Join-Path $appPath "backend")
     
-    if ((-not (Test-Path $envExamplePath)) -and ($hasPackageJson -or $hasPython)) {
-        $example = $envExampleTemplate -replace "{APP_NAME}", $_.Name
-        $example | Out-File -FilePath $envExamplePath -Encoding utf8
-        Write-Host "   📝 $($_.Name)/.env.example" -ForegroundColor Gray
+    if ((-not (Test-Path $envExamplePath)) -and ($hasPackageJson -or $hasRequirements -or $hasBackend)) {
+        $envContent = $envTemplate -replace "{APP_NAME}", $app.Name
+        $envContent | Out-File -FilePath $envExamplePath -Encoding utf8
+        Write-Host "   [NEW] $($app.Name)/.env.example" -ForegroundColor Gray
         $envCreatedCount++
     }
 }
 
-Write-Host "   ✅ $envCreatedCount .env.example générés" -ForegroundColor Green
+Write-Host "   [OK] $envCreatedCount .env.example generes" -ForegroundColor Green
 
 # ============================================================================
-# 4. SCAN PROMPTS AGENTS À EXTERNALISER
+# RESUME
 # ============================================================================
-Write-Host "`n[4/4] Scan prompts agents inline..." -ForegroundColor Yellow
-
-$agentsPath = "agents"
-$promptPatterns = @(
-    'system_prompt\s*=\s*["""]',
-    'SYSTEM_PROMPT\s*=\s*["""]',
-    'prompt\s*=\s*f?["""][^"""]{100,}',
-    'instructions\s*=\s*["""]'
-)
-
-$inlinePrompts = @()
-
-Get-ChildItem -Path $agentsPath -Filter "*.py" -Recurse | ForEach-Object {
-    $content = Get-Content $_.FullName -Raw
-    foreach ($pattern in $promptPatterns) {
-        if ($content -match $pattern) {
-            $inlinePrompts += $_.FullName
-            break
-        }
-    }
-}
-
-if ($inlinePrompts.Count -gt 0) {
-    Write-Host "   ⚠️  $($inlinePrompts.Count) fichiers avec prompts inline:" -ForegroundColor Yellow
-    $inlinePrompts | Select-Object -First 10 | ForEach-Object {
-        $relativePath = $_ -replace [regex]::Escape($ROOT), ""
-        Write-Host "      • $relativePath" -ForegroundColor Gray
-    }
-    
-    Write-Host "`n   📝 RECOMMANDATION: Externaliser vers agents/prompts/*.md" -ForegroundColor Cyan
-} else {
-    Write-Host "   ✅ Pas de prompts inline critiques détectés" -ForegroundColor Green
-}
-
-# ============================================================================
-# RÉSUMÉ
-# ============================================================================
-Write-Host "`n========================================" -ForegroundColor Cyan
-Write-Host "✅ MIGRATION P2 TERMINÉE" -ForegroundColor Green
+Write-Host ""
+Write-Host "========================================" -ForegroundColor Cyan
+Write-Host "[OK] MIGRATION P2 TERMINEE" -ForegroundColor Green
 Write-Host "========================================" -ForegroundColor Cyan
 
-Write-Host "`n📋 Actions effectuées:" -ForegroundColor White
-Write-Host "   • $generatedCount README.md générés" -ForegroundColor Gray
-Write-Host "   • $envCreatedCount .env.example générés" -ForegroundColor Gray
-Write-Host "   • $($inlinePrompts.Count) fichiers avec prompts inline identifiés" -ForegroundColor Gray
+Write-Host ""
+Write-Host "Actions effectuees:" -ForegroundColor White
+Write-Host "   - $generatedCount README.md generes" -ForegroundColor Gray
+Write-Host "   - $envCreatedCount .env.example generes" -ForegroundColor Gray
+Write-Host "   - $($appsWithReadme.Count) apps avaient deja un README" -ForegroundColor Gray
 
-Write-Host "`n⚠️  ACTIONS MANUELLES REQUISES:" -ForegroundColor Yellow
-Write-Host "   1. Personnaliser chaque README généré avec description réelle" -ForegroundColor White
-Write-Host "   2. Adapter .env.example aux besoins spécifiques de chaque app" -ForegroundColor White
-Write-Host "   3. Externaliser prompts agents vers fichiers .md" -ForegroundColor White
+Write-Host ""
+Write-Host "[!] ACTIONS MANUELLES:" -ForegroundColor Yellow
+Write-Host "   1. Commit: git add -A && git commit -m 'docs(P2): generate README and .env.example for all apps'" -ForegroundColor White
+Write-Host "   2. Personnaliser chaque README avec descriptions specifiques" -ForegroundColor White
+Write-Host "   3. Verifier/adapter les .env.example" -ForegroundColor White
 
-Write-Host "`n🔗 Prochaine étape: Voir docs/AUDIT.md pour P3 (tests & refactoring)" -ForegroundColor Cyan
+Write-Host ""
+Write-Host "[OK] MIGRATION P0-P1-P2 COMPLETE!" -ForegroundColor Green
+Write-Host "     Voir docs/AUDIT.md et docs/MIGRATION_CHECKLIST.md" -ForegroundColor Cyan
