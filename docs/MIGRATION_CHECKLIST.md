@@ -14,12 +14,12 @@ Réduire la dette technique identifiée dans [docs/AUDIT.md](./AUDIT.md) selon l
 
 ## 📊 PROGRESSION GLOBALE
 
-| Phase | Status | Progression | Date limite |
-|-------|--------|-------------|-------------|
-| P0 - Critique | ⏳ En cours | ░░░░░░░░░░ 0% | 22 déc 2024 |
-| P1 - Réorganisation | 🔜 Planifié | ░░░░░░░░░░ 0% | 29 déc 2024 |
-| P2 - Documentation | 🔜 Planifié | ░░░░░░░░░░ 0% | 05 jan 2025 |
-| P3 - Tests & Refacto | 🔜 Planifié | ░░░░░░░░░░ 0% | 19 jan 2025 |
+| Phase | Status | Progression | Date |
+|-------|--------|-------------|------|
+| P0 - Critique | ✅ Terminé | ██████████ 100% | 20 déc 2024 |
+| P1 - Réorganisation | ✅ Terminé | ██████████ 100% | 20 déc 2024 |
+| P2 - Documentation | ✅ Terminé | ██████████ 100% | 20 déc 2024 |
+| P3 - Tests & Refacto | 🔜 Planifié | ░░░░░░░░░░ 0% | Jan 2025 |
 
 ---
 
