@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
+import { Header, Footer, ChatHelp, SettingsPanel } from "@/components/layout";
+import ClientProviders from "./providers";
 
 export const metadata: Metadata = {
   title: "IA Factory Video Studio",
@@ -14,19 +16,31 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="fr" dir="ltr">
-      <body className="antialiased">
-        <Toaster
-          position="top-right"
-          toastOptions={{
-            style: {
-              background: "#12121a",
-              color: "#f4f4f5",
-              border: "1px solid #2a2a3a",
-            },
-          }}
+    <html lang="fr" dir="ltr" suppressHydrationWarning>
+      <head>
+        <link
+          href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Sora:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet"
         />
-        {children}
+      </head>
+      <body className="antialiased">
+        <ClientProviders>
+          <Toaster
+            position="top-right"
+            toastOptions={{
+              style: {
+                background: "#12121a",
+                color: "#f4f4f5",
+                border: "1px solid #2a2a3a",
+              },
+            }}
+          />
+          <Header />
+          <main className="min-h-screen">{children}</main>
+          <Footer />
+          <ChatHelp />
+          <SettingsPanel />
+        </ClientProviders>
       </body>
     </html>
   );

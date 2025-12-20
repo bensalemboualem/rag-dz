@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import { Locale } from "./i18n";
 
 interface User {
   id: string;
@@ -85,3 +86,92 @@ export const useGenerationStore = create<GenerationState>((set) => ({
   removeTask: (id) =>
     set((state) => ({ tasks: state.tasks.filter((t) => t.id !== id) })),
 }));
+
+// Theme store
+interface ThemeStore {
+  theme: "dark" | "light";
+  setTheme: (theme: "dark" | "light") => void;
+  toggleTheme: () => void;
+}
+
+export const useThemeStore = create<ThemeStore>()(
+  persist(
+    (set) => ({
+      theme: "dark",
+      setTheme: (theme) => set({ theme }),
+      toggleTheme: () => set((state) => ({ theme: state.theme === "dark" ? "light" : "dark" })),
+    }),
+    { name: "iaf-theme" }
+  )
+);
+
+// Locale store
+interface LocaleStore {
+  locale: Locale;
+  setLocale: (locale: Locale) => void;
+}
+
+export const useLocaleStore = create<LocaleStore>()(
+  persist(
+    (set) => ({
+      locale: "fr",
+      setLocale: (locale) => set({ locale }),
+    }),
+    { name: "iaf-locale" }
+  )
+);
+
+// Settings panel store
+interface SettingsStore {
+  isOpen: boolean;
+  open: () => void;
+  close: () => void;
+  toggle: () => void;
+}
+
+export const useSettingsStore = create<SettingsStore>((set) => ({
+  isOpen: false,
+  open: () => set({ isOpen: true }),
+  close: () => set({ isOpen: false }),
+  toggle: () => set((state) => ({ isOpen: !state.isOpen })),
+}));
+
+// Chat help store
+interface ChatStore {
+  isOpen: boolean;
+  messages: { role: "user" | "assistant"; content: string }[];
+  open: () => void;
+  close: () => void;
+  toggle: () => void;
+  addMessage: (role: "user" | "assistant", content: string) => void;
+  clearMessages: () => void;
+}
+
+export const useChatStore = create<ChatStore>((set) => ({
+  isOpen: false,
+  messages: [],
+  open: () => set({ isOpen: true }),
+  close: () => set({ isOpen: false }),
+  toggle: () => set((state) => ({ isOpen: !state.isOpen })),
+  addMessage: (role, content) =>
+    set((state) => ({ messages: [...state.messages, { role, content }] })),
+  clearMessages: () => set({ messages: [] }),
+}));
+
+// Sidebar store
+interface SidebarStore {
+  isCollapsed: boolean;
+  toggle: () => void;
+  setCollapsed: (collapsed: boolean) => void;
+}
+
+export const useSidebarStore = create<SidebarStore>()(
+  persist(
+    (set) => ({
+      isCollapsed: false,
+      toggle: () => set((state) => ({ isCollapsed: !state.isCollapsed })),
+      setCollapsed: (collapsed) => set({ isCollapsed: collapsed }),
+    }),
+    { name: "iaf-sidebar" }
+  )
+);

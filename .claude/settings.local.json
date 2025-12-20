@@ -162,7 +162,10 @@
       "Bash(copy \"d:\\\\IAFactory\\\\rag-dz\\\\apps\\\\landing\\\\assets\\\\images\\\\lala-fatma.png\" \"d:\\\\IAFactory\\\\rag-dz\\\\frontend\\\\ia-factory-ui\\\\public\\\\assets\\\\images\\\\lala-fatma.png\")",
       "Bash(copy:*)",
       "Bash(timeout /t 10)",
-      "Bash(tasklist /FI \"WINDOWTITLE eq *vite*\" /FO LIST)"
+      "Bash(tasklist /FI \"WINDOWTITLE eq *vite*\" /FO LIST)",
+      "Bash(docker-compose logs:*)",
+      "Bash(docker-compose down:*)",
+      "Bash(Start-Sleep -Seconds 10)"
     ],
     "deny": [],
     "ask": []

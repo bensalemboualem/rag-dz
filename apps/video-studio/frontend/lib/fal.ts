@@ -65,12 +65,12 @@ export async function generateImageToVideo(
   input: ImageToVideoInput,
   onProgress?: (progress: number) => void
 ): Promise<VideoOutput> {
-  const result = await fal.subscribe(MODELS["kling-i2v"], {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const result = await fal.subscribe(MODELS["kling-i2v"] as any, {
     input: {
       prompt: input.prompt || "",
       image_url: input.image_url,
       duration: input.duration || "5",
-      aspect_ratio: input.aspect_ratio || "16:9",
     },
     logs: true,
     onQueueUpdate: (update) => {

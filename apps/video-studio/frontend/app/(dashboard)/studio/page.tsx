@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { Sparkles, Upload, Play, Loader2, Download, RefreshCw } from "lucide-react";
 import { useDropzone } from "react-dropzone";
 import toast from "react-hot-toast";
+import { generateTextToVideo, generateImageToVideo, uploadImage } from "@/lib/fal";
 
 type GenerationMode = "text-to-video" | "image-to-video";
 
@@ -24,11 +25,14 @@ export default function StudioPage() {
     progress: 0,
   });
 
+  const [uploadedFile, setUploadedFile] = useState<File | null>(null);
+
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: { "image/*": [".png", ".jpg", ".jpeg", ".webp"] },
     maxFiles: 1,
     onDrop: (files) => {
       if (files[0]) {
+        setUploadedFile(files[0]);
         const reader = new FileReader();
         reader.onload = () => {
           setUploadedImage(reader.result as string);
@@ -50,34 +54,42 @@ export default function StudioPage() {
 
     setGeneration({ status: "generating", progress: 0 });
 
-    // Simulate generation progress
-    const interval = setInterval(() => {
-      setGeneration((prev) => {
-        if (prev.progress >= 95) {
-          clearInterval(interval);
-          return prev;
-        }
-        return { ...prev, progress: prev.progress + Math.random() * 10 };
-      });
-    }, 500);
-
     try {
-      // TODO: Call actual API
-      await new Promise((resolve) => setTimeout(resolve, 5000));
-      clearInterval(interval);
+      let result;
+      
+      if (mode === "text-to-video") {
+        result = await generateTextToVideo(
+          { prompt, duration: "5", aspect_ratio: "16:9" },
+          "kling-1.6",
+          (progress) => setGeneration((prev) => ({ ...prev, progress }))
+        );
+      } else {
+        // Upload image first
+        if (!uploadedFile) {
+          throw new Error("No image file");
+        }
+        toast.loading("Upload de l'image...");
+        const imageUrl = await uploadImage(uploadedFile);
+        toast.dismiss();
+        
+        result = await generateImageToVideo(
+          { prompt, image_url: imageUrl, duration: "5" },
+          (progress) => setGeneration((prev) => ({ ...prev, progress }))
+        );
+      }
       
       setGeneration({
         status: "completed",
         progress: 100,
-        videoUrl: "https://example.com/generated-video.mp4",
+        videoUrl: result.video.url,
       });
       toast.success("Vidéo générée avec succès!");
     } catch (error) {
-      clearInterval(interval);
+      console.error("Generation error:", error);
       setGeneration({
         status: "error",
         progress: 0,
-        error: "Erreur lors de la génération",
+        error: error instanceof Error ? error.message : "Erreur lors de la génération",
       });
       toast.error("Erreur lors de la génération");
     }
