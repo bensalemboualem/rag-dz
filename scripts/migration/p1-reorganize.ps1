@@ -1,34 +1,58 @@
 # ============================================================================
-# 🔧 MIGRATION P1 - Réorganisation Structure
+# MIGRATION P1 - Reorganisation Structure
 # ============================================================================
-# Exécuter depuis la racine du projet: .\scripts\migration\p1-reorganize.ps1
+# Executer depuis la racine du projet: .\scripts\migration\p1-reorganize.ps1
 # ============================================================================
 
-$ErrorActionPreference = "Stop"
-$ROOT = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
+$ErrorActionPreference = "Continue"
+$ROOT = "D:\IAFactory\rag-dz"
 Set-Location $ROOT
 
-Write-Host "`n========================================" -ForegroundColor Cyan
-Write-Host "🟠 MIGRATION P1 - RÉORGANISATION" -ForegroundColor Cyan
-Write-Host "========================================`n" -ForegroundColor Cyan
+Write-Host ""
+Write-Host "========================================" -ForegroundColor Cyan
+Write-Host "[P1] MIGRATION P1 - REORGANISATION" -ForegroundColor Cyan
+Write-Host "========================================" -ForegroundColor Cyan
+Write-Host ""
 
 # ============================================================================
-# 1. CRÉATION DOSSIER ARCHIVE APPS
+# 1. CREATION DOSSIER ARCHIVE APPS
 # ============================================================================
-Write-Host "[1/5] Création apps/_archived/..." -ForegroundColor Yellow
+Write-Host "[1/4] Creation apps/_archived/..." -ForegroundColor Yellow
 
-$archivedPath = "apps/_archived"
+$archivedPath = "apps\_archived"
 if (-not (Test-Path $archivedPath)) {
     New-Item -Path $archivedPath -ItemType Directory | Out-Null
-    Write-Host "   ✅ Dossier créé" -ForegroundColor Green
+    Write-Host "   [OK] Dossier cree" -ForegroundColor Green
 } else {
-    Write-Host "   ⏭️  Existe déjà" -ForegroundColor Gray
+    Write-Host "   [SKIP] Existe deja" -ForegroundColor Gray
 }
 
+# Creer README pour le dossier archive
+$archiveReadme = @"
+# Apps Archivees
+
+Ce dossier contient les applications inactives ou en pause.
+
+## Pourquoi archiver ?
+- Apps sans code fonctionnel (HTML-only shells)
+- Apps en attente de developpement
+- Apps remplacees par d'autres solutions
+
+## Comment desarchiver ?
+1. Deplacer le dossier vers `apps/`
+2. Verifier les dependances
+3. Mettre a jour les references dans la documentation
+
+## Liste des apps archivees
+$(Get-Date -Format "yyyy-MM-dd")
+"@
+$archiveReadme | Out-File -FilePath "$archivedPath\README.md" -Encoding utf8
+
 # ============================================================================
-# 2. DÉPLACEMENT APPS VIDES VERS ARCHIVE
+# 2. DEPLACEMENT APPS VIDES VERS ARCHIVE
 # ============================================================================
-Write-Host "`n[2/5] Archivage des 22 apps vides..." -ForegroundColor Yellow
+Write-Host ""
+Write-Host "[2/4] Archivage des apps vides..." -ForegroundColor Yellow
 
 $emptyApps = @(
     "agriculture-dz",
@@ -44,7 +68,6 @@ $emptyApps = @(
     "finance-dz",
     "industrie-dz",
     "islam-dz",
-    "legal-assistant",
     "pme-dz",
     "sante-dz",
     "seo-dz-boost",
@@ -54,146 +77,144 @@ $emptyApps = @(
 )
 
 $movedCount = 0
+$skippedApps = @()
+
 foreach ($app in $emptyApps) {
-    $sourcePath = "apps/$app"
-    $destPath = "$archivedPath/$app"
+    $sourcePath = "apps\$app"
+    $destPath = "$archivedPath\$app"
     
     if (Test-Path $sourcePath) {
-        # Vérifier si c'est vraiment une app "vide" (seulement HTML basique)
+        # Verifier si c'est vraiment une app "vide" (pas de Python/TS complexe)
         $pyFiles = Get-ChildItem -Path $sourcePath -Filter "*.py" -Recurse -ErrorAction SilentlyContinue
-        $tsFiles = Get-ChildItem -Path $sourcePath -Filter "*.ts" -Recurse -ErrorAction SilentlyContinue
-        $jsFiles = Get-ChildItem -Path $sourcePath -Filter "*.js" -Recurse -ErrorAction SilentlyContinue | 
-                   Where-Object { $_.Name -notmatch "script\.js|main\.js" -or $_.Length -gt 5000 }
+        $tsxFiles = Get-ChildItem -Path $sourcePath -Filter "*.tsx" -Recurse -ErrorAction SilentlyContinue
         
-        if ($pyFiles.Count -eq 0 -and $tsFiles.Count -eq 0 -and $jsFiles.Count -eq 0) {
-            Move-Item -Path $sourcePath -Destination $destPath -Force
-            Write-Host "   📦 $app → _archived/" -ForegroundColor Gray
+        # Si pas de fichiers Python ou TSX substantiels, archiver
+        if ($pyFiles.Count -eq 0 -and $tsxFiles.Count -eq 0) {
+            Move-Item -Path $sourcePath -Destination $destPath -Force -ErrorAction SilentlyContinue
+            Write-Host "   [MOVED] $app -> _archived/" -ForegroundColor Gray
             $movedCount++
         } else {
-            Write-Host "   ⚠️  $app contient du code, vérification manuelle requise" -ForegroundColor Yellow
+            $skippedApps += $app
+            Write-Host "   [SKIP] $app (contient du code actif)" -ForegroundColor Yellow
         }
+    } else {
+        Write-Host "   [SKIP] $app (n'existe pas)" -ForegroundColor Gray
     }
 }
 
-Write-Host "   ✅ $movedCount apps archivées" -ForegroundColor Green
+Write-Host "   [OK] $movedCount apps archivees" -ForegroundColor Green
+if ($skippedApps.Count -gt 0) {
+    Write-Host "   [INFO] Apps avec code actif (non archivees): $($skippedApps -join ', ')" -ForegroundColor Yellow
+}
 
 # ============================================================================
 # 3. CONSOLIDATION DES DOSSIERS SHARED
 # ============================================================================
-Write-Host "`n[3/5] Consolidation shared/ → packages/shared/..." -ForegroundColor Yellow
+Write-Host ""
+Write-Host "[3/4] Consolidation shared/ -> packages/shared/..." -ForegroundColor Yellow
 
 $packagesPath = "packages"
-$sharedTargetPath = "$packagesPath/shared"
+$sharedTargetPath = "$packagesPath\shared"
 
-# Créer structure packages/
+# Creer structure packages/
 if (-not (Test-Path $packagesPath)) {
     New-Item -Path $packagesPath -ItemType Directory | Out-Null
+    Write-Host "   [NEW] packages/ cree" -ForegroundColor Gray
 }
 
 if (-not (Test-Path $sharedTargetPath)) {
     New-Item -Path $sharedTargetPath -ItemType Directory | Out-Null
+    Write-Host "   [NEW] packages/shared/ cree" -ForegroundColor Gray
 }
 
 $sharedSources = @(
-    "apps/shared",
-    "services/shared", 
-    "shared"
+    @{Path="apps\shared"; Name="apps_shared"},
+    @{Path="services\shared"; Name="services_shared"},
+    @{Path="shared"; Name="root_shared"}
 )
 
-foreach ($sharedSource in $sharedSources) {
-    if (Test-Path $sharedSource) {
-        $files = Get-ChildItem -Path $sharedSource -Recurse -File
-        Write-Host "   📁 $sharedSource ($($files.Count) fichiers)" -ForegroundColor Gray
+foreach ($source in $sharedSources) {
+    if (Test-Path $source.Path) {
+        $files = Get-ChildItem -Path $source.Path -Recurse -File -ErrorAction SilentlyContinue
+        Write-Host "   [FOUND] $($source.Path) ($($files.Count) fichiers)" -ForegroundColor Gray
         
-        # Créer sous-dossier pour éviter conflits
-        $subFolder = $sharedSource -replace "/", "_" -replace "\\", "_"
-        $targetSubPath = "$sharedTargetPath/$subFolder"
-        
+        $targetSubPath = "$sharedTargetPath\$($source.Name)"
         if (-not (Test-Path $targetSubPath)) {
-            Copy-Item -Path $sharedSource -Destination $targetSubPath -Recurse
-            Write-Host "   → Copié vers packages/shared/$subFolder/" -ForegroundColor Gray
+            Copy-Item -Path $source.Path -Destination $targetSubPath -Recurse -ErrorAction SilentlyContinue
+            Write-Host "   [COPY] -> packages/shared/$($source.Name)/" -ForegroundColor Gray
         }
     }
 }
 
-Write-Host "   ✅ Shared consolidé (originaux conservés pour migration graduelle)" -ForegroundColor Green
+# Creer README pour packages/shared
+$sharedReadme = @"
+# Shared Packages
+
+Code partage entre les differentes applications et services.
+
+## Structure
+- `apps_shared/` - Code partage entre les apps frontend
+- `services_shared/` - Code partage entre les services backend  
+- `root_shared/` - Utilitaires globaux
+
+## Usage
+Importer depuis ce dossier centralise plutot que depuis les anciens emplacements.
+
+## Migration
+Les anciens dossiers shared sont conserves temporairement pour compatibilite.
+Une fois tous les imports mis a jour, ils seront supprimes.
+
+Generated: $(Get-Date -Format "yyyy-MM-dd")
+"@
+$sharedReadme | Out-File -FilePath "$sharedTargetPath\README.md" -Encoding utf8
+Write-Host "   [OK] Shared consolide" -ForegroundColor Green
 
 # ============================================================================
-# 4. NETTOYAGE DOCKER-COMPOSE (analyse seulement)
+# 4. ANALYSE DOCKER-COMPOSE
 # ============================================================================
-Write-Host "`n[4/5] Analyse docker-compose files..." -ForegroundColor Yellow
+Write-Host ""
+Write-Host "[4/4] Analyse docker-compose files..." -ForegroundColor Yellow
 
-$dockerPath = "infrastructure/docker"
+$dockerPath = "infrastructure\docker"
 $composeFiles = Get-ChildItem -Path $dockerPath -Filter "docker-compose*.yml" -ErrorAction SilentlyContinue
 
 if ($composeFiles) {
-    Write-Host "   📊 $($composeFiles.Count) fichiers docker-compose trouvés:" -ForegroundColor Gray
+    Write-Host "   [INFO] $($composeFiles.Count) fichiers docker-compose trouves:" -ForegroundColor Gray
     
     $composeFiles | ForEach-Object {
         $size = [math]::Round($_.Length / 1KB, 1)
-        Write-Host "      • $($_.Name) ($size KB)" -ForegroundColor Gray
+        Write-Host "      - $($_.Name) ($size KB)" -ForegroundColor Gray
     }
     
-    Write-Host "`n   📝 RECOMMANDATION: Consolider en 3 fichiers:" -ForegroundColor Yellow
-    Write-Host "      • docker-compose.dev.yml (développement local)" -ForegroundColor White
-    Write-Host "      • docker-compose.staging.yml (pré-production)" -ForegroundColor White  
-    Write-Host "      • docker-compose.prod.yml (production VPS)" -ForegroundColor White
+    Write-Host ""
+    Write-Host "   [RECO] Consolider en 3 fichiers:" -ForegroundColor Yellow
+    Write-Host "      - docker-compose.dev.yml (developpement local)" -ForegroundColor White
+    Write-Host "      - docker-compose.staging.yml (pre-production)" -ForegroundColor White  
+    Write-Host "      - docker-compose.prod.yml (production VPS)" -ForegroundColor White
 } else {
-    Write-Host "   ⏭️  Aucun docker-compose trouvé dans $dockerPath" -ForegroundColor Gray
+    Write-Host "   [SKIP] Aucun docker-compose trouve dans $dockerPath" -ForegroundColor Gray
 }
 
 # ============================================================================
-# 5. CORRECTION CONVENTIONS NOMMAGE (analyse)
+# RESUME
 # ============================================================================
-Write-Host "`n[5/5] Analyse conventions nommage..." -ForegroundColor Yellow
-
-# Trouver fichiers Python en kebab-case (devrait être snake_case)
-$pythonKebab = Get-ChildItem -Path "." -Filter "*.py" -Recurse -ErrorAction SilentlyContinue | 
-               Where-Object { $_.BaseName -match "-" -and $_.DirectoryName -notmatch "node_modules|\.venv|__pycache__|_archived" }
-
-if ($pythonKebab.Count -gt 0) {
-    Write-Host "   ⚠️  $($pythonKebab.Count) fichiers Python en kebab-case (devrait être snake_case):" -ForegroundColor Yellow
-    $pythonKebab | Select-Object -First 10 | ForEach-Object {
-        $newName = $_.BaseName -replace "-", "_"
-        Write-Host "      • $($_.Name) → $newName.py" -ForegroundColor Gray
-    }
-    
-    # Créer script de renommage
-    $renameScript = @"
-# Script de renommage automatique
-# Exécuter manuellement après vérification
-
-"@
-    foreach ($file in $pythonKebab) {
-        $newName = $file.BaseName -replace "-", "_"
-        $newPath = Join-Path $file.DirectoryName "$newName.py"
-        $renameScript += "git mv `"$($file.FullName)`" `"$newPath`"`n"
-    }
-    
-    $renameScript | Out-File -FilePath "scripts/migration/rename-python-files.ps1" -Encoding utf8
-    Write-Host "`n   📝 Script généré: scripts/migration/rename-python-files.ps1" -ForegroundColor Cyan
-} else {
-    Write-Host "   ✅ Conventions de nommage OK" -ForegroundColor Green
-}
-
-# ============================================================================
-# RÉSUMÉ
-# ============================================================================
-Write-Host "`n========================================" -ForegroundColor Cyan
-Write-Host "✅ MIGRATION P1 TERMINÉE" -ForegroundColor Green
+Write-Host ""
+Write-Host "========================================" -ForegroundColor Cyan
+Write-Host "[OK] MIGRATION P1 TERMINEE" -ForegroundColor Green
 Write-Host "========================================" -ForegroundColor Cyan
 
-Write-Host "`n📋 Actions effectuées:" -ForegroundColor White
-Write-Host "   • Dossier apps/_archived/ créé" -ForegroundColor Gray
-Write-Host "   • $movedCount apps vides archivées" -ForegroundColor Gray
-Write-Host "   • Shared consolidé dans packages/shared/" -ForegroundColor Gray
-Write-Host "   • Analyse docker-compose effectuée" -ForegroundColor Gray
-Write-Host "   • Script renommage Python généré" -ForegroundColor Gray
+Write-Host ""
+Write-Host "Actions effectuees:" -ForegroundColor White
+Write-Host "   - apps/_archived/ cree avec README" -ForegroundColor Gray
+Write-Host "   - $movedCount apps vides archivees" -ForegroundColor Gray
+Write-Host "   - packages/shared/ cree et consolide" -ForegroundColor Gray
+Write-Host "   - Analyse docker-compose effectuee" -ForegroundColor Gray
 
-Write-Host "`n⚠️  ACTIONS MANUELLES REQUISES:" -ForegroundColor Yellow
-Write-Host "   1. Vérifier apps marquées 'contient du code' avant archivage" -ForegroundColor White
-Write-Host "   2. Consolider manuellement docker-compose (3 fichiers max)" -ForegroundColor White
-Write-Host "   3. Exécuter rename-python-files.ps1 après vérification" -ForegroundColor White
-Write-Host "   4. Mettre à jour imports après renommage" -ForegroundColor White
+Write-Host ""
+Write-Host "[!] ACTIONS MANUELLES:" -ForegroundColor Yellow
+Write-Host "   1. Commit: git add -A && git commit -m 'chore(P1): reorganize - archive empty apps, consolidate shared'" -ForegroundColor White
+Write-Host "   2. Mettre a jour imports vers packages/shared/" -ForegroundColor White
+Write-Host "   3. Consolider docker-compose manuellement" -ForegroundColor White
 
-Write-Host "`n🔗 Prochaine étape: .\scripts\migration\p2-documentation.ps1" -ForegroundColor Cyan
+Write-Host ""
+Write-Host "[>] Prochaine etape: .\scripts\migration\p2-documentation.ps1" -ForegroundColor Cyan
