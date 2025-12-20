@@ -4,7 +4,9 @@ from contextlib import asynccontextmanager
 import structlog
 
 from app.core.config import settings
-from app.api.routes import video, audio, templates, credits, auth
+from app.api.routes import video, audio, templates, credits, auth, pipeline
+from app.api.routes import scripts, storyboard, production, distribution
+from app.api.routes import agents
 
 
 # Configure structured logging
@@ -53,6 +55,14 @@ app.include_router(video.router, prefix=f"{settings.API_V1_PREFIX}/video", tags=
 app.include_router(audio.router, prefix=f"{settings.API_V1_PREFIX}/audio", tags=["audio"])
 app.include_router(templates.router, prefix=f"{settings.API_V1_PREFIX}/templates", tags=["templates"])
 app.include_router(credits.router, prefix=f"{settings.API_V1_PREFIX}/credits", tags=["credits"])
+app.include_router(pipeline.router, prefix=f"{settings.API_V1_PREFIX}/pipeline", tags=["pipeline"])
+
+# Agents & Production Routes
+app.include_router(agents.router, prefix=f"{settings.API_V1_PREFIX}/agents", tags=["agents"])
+app.include_router(scripts.router, prefix=f"{settings.API_V1_PREFIX}/scripts", tags=["scripts"])
+app.include_router(storyboard.router, prefix=f"{settings.API_V1_PREFIX}/storyboard", tags=["storyboard"])
+app.include_router(production.router, prefix=f"{settings.API_V1_PREFIX}/production", tags=["production"])
+app.include_router(distribution.router, prefix=f"{settings.API_V1_PREFIX}/distribution", tags=["distribution"])
 
 
 @app.get("/")

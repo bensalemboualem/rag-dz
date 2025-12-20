@@ -9,7 +9,6 @@ import {
   Sun,
   Moon,
   Globe,
-  Settings,
   ChevronDown,
   Video,
   Scissors,
@@ -18,13 +17,12 @@ import {
   CreditCard,
   LogIn,
 } from "lucide-react";
-import { useThemeStore, useLocaleStore, useSettingsStore } from "@/lib/store";
+import { useThemeStore, useLocaleStore } from "@/lib/store";
 import { t, locales, localeNames, localeFlags, Locale } from "@/lib/i18n";
 
 export default function Header() {
   const { theme, toggleTheme } = useThemeStore();
   const { locale, setLocale } = useLocaleStore();
-  const { toggle: toggleSettings } = useSettingsStore();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [langMenuOpen, setLangMenuOpen] = useState(false);
 
@@ -142,18 +140,6 @@ export default function Header() {
               ) : (
                 <Moon className="w-5 h-5" />
               )}
-            </button>
-
-            {/* Settings */}
-            <button
-              onClick={toggleSettings}
-              className={`p-2.5 rounded-lg transition-all ${
-                theme === "dark"
-                  ? "text-gray-300 hover:text-white hover:bg-white/5"
-                  : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
-              }`}
-            >
-              <Settings className="w-5 h-5" />
             </button>
 
             {/* CTA Button */}

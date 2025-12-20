@@ -106,3 +106,22 @@ templates/**/*.psd
 templates/**/*.sketch
 templates/**/*.xd
 templates/**/*.fig
+
+# === P0 Migration Additions (Dec 2024) ===
+# Node modules (NEVER commit)
+**/node_modules/
+
+# Environment files with secrets
+**/.env
+**/.env.local
+**/.env.*.local
+
+# Python cache
+**/__pycache__/
+**/*.pyc
+**/.venv/
+
+# Build outputs
+**/dist/
+**/build/
+**/.next/

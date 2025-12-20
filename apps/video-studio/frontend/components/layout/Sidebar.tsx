@@ -14,6 +14,7 @@ import {
   HelpCircle,
   ChevronLeft,
   ChevronRight,
+  Rocket,
 } from "lucide-react";
 import { useThemeStore, useLocaleStore, useSidebarStore, useChatStore } from "@/lib/store";
 import { t } from "@/lib/i18n";
@@ -28,6 +29,7 @@ export default function Sidebar() {
   const navItems = [
     { href: "/", icon: Home, label: t("nav.home", locale) },
     { href: "/studio", icon: Video, label: t("nav.studio", locale) },
+    { href: "/pipeline", icon: Rocket, label: locale === 'ar' ? 'خط الإنتاج' : locale === 'en' ? 'Pipeline' : 'Pipeline' },
     { href: "/editor", icon: Scissors, label: t("nav.editor", locale) },
     { href: "/templates", icon: LayoutTemplate, label: t("nav.templates", locale) },
     { href: "/projects", icon: FolderOpen, label: t("nav.projects", locale) },

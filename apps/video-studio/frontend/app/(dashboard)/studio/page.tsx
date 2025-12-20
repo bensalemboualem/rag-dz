@@ -7,6 +7,8 @@ import { useDropzone } from "react-dropzone";
 import toast from "react-hot-toast";
 import ModelSelector from "@/components/studio/model-selector";
 import { DEFAULT_VIDEO_MODEL, getModelById } from "@/lib/providers";
+import { useLocaleStore, useThemeStore } from "@/lib/store";
+import { t, isRTL } from "@/lib/i18n";
 
 type GenerationMode = "text-to-video" | "image-to-video";
 
@@ -28,6 +30,9 @@ export default function StudioPage() {
   });
 
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
+  const { locale } = useLocaleStore();
+  const { theme } = useThemeStore();
+  const rtl = isRTL(locale);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: { "image/*": [".png", ".jpg", ".jpeg", ".webp"] },
@@ -105,29 +110,33 @@ export default function StudioPage() {
   };
 
   return (
-    <div className="p-8">
+    <div className={`p-8 ${theme === 'dark' ? 'bg-[#0a0a0f]' : 'bg-gray-50'}`} dir={rtl ? 'rtl' : 'ltr'}>
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="font-heading text-3xl font-bold mb-2">Studio de Création</h1>
-          <p className="text-text-muted">
-            Générez des vidéos IA à partir de texte ou d'images
+          <h1 className={`text-3xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+            {t("studio.title", locale)}
+          </h1>
+          <p className={theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}>
+            {t("studio.description", locale)}
           </p>
         </div>
 
         {/* Mode selector */}
         <div className="flex gap-4 mb-8">
           {[
-            { id: "text-to-video", label: "Text-to-Video", icon: Sparkles },
-            { id: "image-to-video", label: "Image-to-Video", icon: Upload },
+            { id: "text-to-video", label: t("features.text2video.title", locale), icon: Sparkles },
+            { id: "image-to-video", label: t("features.img2video.title", locale), icon: Upload },
           ].map((m) => (
             <button
               key={m.id}
               onClick={() => setMode(m.id as GenerationMode)}
               className={`flex items-center gap-2 px-6 py-3 rounded-xl font-medium transition-all ${
                 mode === m.id
-                  ? "bg-primary text-white"
-                  : "bg-surface border border-border hover:border-primary/50"
+                  ? "bg-gradient-to-r from-cyan-500 to-fuchsia-500 text-white shadow-lg shadow-cyan-500/25"
+                  : theme === 'dark'
+                    ? "bg-[#12121a] border border-[#2a2a35] text-gray-300 hover:border-cyan-400/50"
+                    : "bg-white border border-gray-200 text-gray-700 hover:border-cyan-500/50"
               }`}
             >
               <m.icon className="w-5 h-5" />
@@ -138,8 +147,8 @@ export default function StudioPage() {
 
         {/* Model Selector */}
         <div className="mb-8">
-          <label className="block text-sm font-medium mb-2">
-            Modèle IA
+          <label className={`block text-sm font-medium mb-2 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
+            {locale === 'ar' ? 'نموذج الذكاء الاصطناعي' : locale === 'en' ? 'AI Model' : 'Modèle IA'}
           </label>
           <ModelSelector
             type={mode}

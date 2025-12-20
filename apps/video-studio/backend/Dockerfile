@@ -2,11 +2,15 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-# Install system dependencies
+# Install system dependencies including FFmpeg for video assembly
 RUN apt-get update && apt-get install -y \
     gcc \
     libpq-dev \
+    ffmpeg \
     && rm -rf /var/lib/apt/lists/*
+
+# Create output directories
+RUN mkdir -p /tmp/video-studio/output
 
 # Install Python dependencies
 COPY requirements.txt .

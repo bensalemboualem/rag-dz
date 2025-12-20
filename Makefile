@@ -245,3 +245,61 @@ grafana-open: ## Ouvre Grafana
 
 prometheus-open: ## Ouvre Prometheus
 	@xdg-open http://localhost:9090 2>/dev/null || open http://localhost:9090 2>/dev/null || echo "http://localhost:9090"
+
+# ========================================
+# 🔧 MIGRATION & AUDIT (décembre 2024)
+# ========================================
+
+audit: ## Affiche le rapport d'audit
+	@echo "$(GREEN)📊 Rapport d'audit disponible:$(NC)"
+	@echo "  $(YELLOW)docs/AUDIT.md$(NC)"
+	@cat docs/AUDIT.md | head -100
+
+migrate-p0: ## 🔴 Execute migration P0 (CRITIQUE - sécurité)
+	@echo "$(RED)🔴 MIGRATION P0 - Actions critiques$(NC)"
+	@echo "Actions: suppression rag-compat, node_modules, .env exposés"
+	@echo ""
+	@if [ -f scripts/migration/p0-critical.ps1 ]; then \
+		powershell -ExecutionPolicy Bypass -File scripts/migration/p0-critical.ps1; \
+	else \
+		echo "Script non trouvé. Exécuter manuellement:"; \
+		echo "  rm -rf services/backend/rag-compat/"; \
+		echo "  git rm -r --cached apps/video-studio/frontend/node_modules/"; \
+		echo "  git rm --cached apps/interview/.env.local"; \
+	fi
+
+migrate-p1: ## 🟠 Execute migration P1 (réorganisation)
+	@echo "$(YELLOW)🟠 MIGRATION P1 - Réorganisation$(NC)"
+	@echo "Actions: archivage apps vides, consolidation shared/"
+	@powershell -ExecutionPolicy Bypass -File scripts/migration/p1-reorganize.ps1
+
+migrate-p2: ## 🟡 Execute migration P2 (documentation)
+	@echo "$(BLUE)🟡 MIGRATION P2 - Documentation$(NC)"
+	@echo "Actions: génération README, .env.example"
+	@powershell -ExecutionPolicy Bypass -File scripts/migration/p2-documentation.ps1
+
+migrate-all: migrate-p0 migrate-p1 migrate-p2 ## Execute toutes les migrations (P0 → P2)
+	@echo "$(GREEN)✅ Toutes les migrations exécutées$(NC)"
+	@echo "N'oubliez pas: git add -A && git commit -m 'chore: complete P0-P2 migration'"
+
+migrate-status: ## Affiche le statut de migration
+	@echo "$(GREEN)📋 STATUT MIGRATION$(NC)"
+	@echo ""
+	@echo "P0 - Critique:"
+	@if [ -d "services/backend/rag-compat" ]; then echo "  $(RED)❌ rag-compat existe encore$(NC)"; else echo "  $(GREEN)✅ rag-compat supprimé$(NC)"; fi
+	@if [ -d "apps/video-studio/frontend/node_modules" ]; then echo "  $(RED)❌ node_modules commité$(NC)"; else echo "  $(GREEN)✅ node_modules OK$(NC)"; fi
+	@if [ -f "apps/interview/.env.local" ]; then echo "  $(RED)❌ .env.local exposé$(NC)"; else echo "  $(GREEN)✅ secrets protégés$(NC)"; fi
+	@echo ""
+	@echo "P1 - Réorganisation:"
+	@if [ -d "apps/_archived" ]; then echo "  $(GREEN)✅ apps/_archived créé$(NC)"; else echo "  $(YELLOW)⏳ apps/_archived à créer$(NC)"; fi
+	@if [ -d "packages/shared" ]; then echo "  $(GREEN)✅ packages/shared créé$(NC)"; else echo "  $(YELLOW)⏳ shared à consolider$(NC)"; fi
+	@echo ""
+	@echo "P2 - Documentation:"
+	@echo "  README: $$(find apps -maxdepth 2 -name 'README.md' | wc -l) fichiers"
+	@echo "  .env.example: $$(find apps -maxdepth 2 -name '.env.example' | wc -l) fichiers"
+
+clean-git-cache: ## Nettoie le cache git (après suppression fichiers)
+	@echo "$(YELLOW)Nettoyage cache git...$(NC)"
+	git rm -r --cached . 2>/dev/null || true
+	git add .
+	@echo "$(GREEN)✅ Cache nettoyé. Faire 'git status' pour vérifier$(NC)"
